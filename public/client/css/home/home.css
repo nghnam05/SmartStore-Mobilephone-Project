@@ -13,8 +13,12 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
+.product-name {
+  color: #1b1b1b !important;
+}
+
 .product-name:hover {
-  color: #2563eb;
+  color: #032c9f !important;
 }
 .card-image {
   width: 80%;
