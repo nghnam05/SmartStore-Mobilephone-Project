@@ -1,0 +1,41 @@
+.cart-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #6f42c1;
+  font-family: "Open Sans";
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cart-title::before {
+  content: "🛒";
+  font-size: 1.8rem;
+}
+
+.sumary-text {
+  color: #f9a826;
+  font-weight: bold !important;
+}
+
+.text-total {
+  color: red;
+}
+
+.pay-btn {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pay-btn:hover {
+  background-color: #17a2b8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}

@@ -1,0 +1,12 @@
+.img-thumbnail {
+  max-width: 200px !important;
+  max-height: 200px !important;
+}
+
+.text-area {
+  height: 70px !important;
+  text-align: start !important;
+}
+.detail-box {
+  width: 70% !important;
+}

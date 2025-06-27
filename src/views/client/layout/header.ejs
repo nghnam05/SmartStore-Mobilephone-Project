@@ -1,0 +1,196 @@
+<div class="container-fluid fixed-top">
+  <div class="container-fluid topbar d-none d-lg-block">
+    <div class="d-flex justify-content-between">
+      <div class="top-info">
+        <small class="me-3"
+          ><i class="fas fa-map-marker-alt me-2 text-white"></i>
+          <a href="#" class="text-white"
+            >1St, Ho Xuan Huong, Da Lat, Lam Dong</a
+          ></small
+        >
+        <small class="me-3"
+          ><i class="fas fa-envelope me-2 text-white"></i
+          ><a href="#" class="text-white">smartzone@example.com</a></small
+        >
+      </div>
+      <div class="top-link pe-2">
+        <a href="#" class="text-white"
+          ><small class="text-white mx-2">Privacy Policy</small>/</a
+        >
+        <a href="#" class="text-white"
+          ><small class="text-white mx-2">Terms of Use</small></a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="container px-0">
+    <nav class="navbar navbar-light bg-white navbar-expand-xl px-2">
+      <a href="/" class="navbar-brand text-decoration-none">
+        <h1 class="m-0 fw-bold brand-title">
+          <span class="brand-s">S</span>mart <span class="brand-z">S</span>tore
+        </h1>
+      </a>
+      <button
+        class="navbar-toggler py-2 px-3"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <span class="fa fa-bars text-dark"></span>
+      </button>
+      <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+        <div class="navbar-nav mx-auto">
+          <div class="d-flex align-items-center gap-4 mx-auto">
+            <!-- Ô tìm kiếm -->
+
+            <div
+              class="position-relative"
+              style="width: 320px; z-index: 100 !important"
+            >
+              <div class="input-group rounded-pill overflow-hidden border">
+                <span class="input-group-text bg-white border-0">
+                  <i class="bi bi-search text-dark"></i>
+                </span>
+
+                <input
+                  type="text"
+                  id="search-input"
+                  class="form-control border-0"
+                  placeholder="Find product here..."
+                  autocomplete="off"
+                />
+              </div>
+
+              <div
+                id="suggestions"
+                class="list-group position-absolute w-100 z-3 shadow-sm"
+                style="top: 110%; left: 0"
+              ></div>
+            </div>
+
+            <!-- Nav links -->
+
+            <div class="navbar-nav d-flex flex-row gap-3">
+              <a href="/" class="nav-item nav-link fw-semibold">Home</a>
+
+              <a href="/product" class="nav-item nav-link fw-semibold"
+                >Products</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="d-flex gap-2 m-3 me-0">
+          <a href="/cart" class="position-relative me-4 my-auto text-dark">
+            <i class="fa fa-shopping-bag fa-2x"></i>
+            <% if (user) { %>
+            <span
+              class="position-absolute bg-danger rounded-circle d-flex align-items-center justify-content-center text-white px-1"
+              style="
+                top: -5px;
+                left: 15px;
+                height: 20px;
+                min-width: 20px;
+                font-size: 12px;
+              "
+            >
+              <%= typeof sumCart !== 'undefined' ? sumCart : 0 %>
+            </span>
+            <% } %>
+          </a>
+
+          <% if (user) { %>
+          <div class="dropdown my-auto">
+            <a
+              href="#"
+              class="nav-link dropdown-toggle d-flex align-items-center gap-2"
+              id="dropdownMenuLink"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <% if (user.avatar) { %>
+              <img
+                src="/images/<%= user.avatar %>"
+                alt="Avatar"
+                class="rounded-circle object-fit-cover"
+                width="40"
+                height="40"
+              />
+              <% } else { %>
+              <img
+                src="https://i.pinimg.com/736x/19/91/af/1991affb724349809140e04e6ab233d3.jpg"
+                alt="Default Avatar"
+                class="rounded-circle object-fit-cover"
+                width="40"
+                height="40"
+              />
+              <% } %>
+              <span class="fw-semibold text-dark d-none d-md-inline"
+                ><%=user.fullname%></span
+              >
+            </a>
+
+            <ul
+              class="dropdown-menu dropdown-menu-end shadow-lg p-3"
+              aria-labelledby="dropdownMenuLink"
+              style="min-width: 280px"
+            >
+              <li class="text-center">
+                <% if (user.avatar) { %>
+                <img
+                  src="/images/<%= user.avatar %>"
+                  alt="Avatar"
+                  class="rounded-circle object-fit-cover"
+                  width="40"
+                  height="40"
+                />
+                <% } else { %>
+                <img
+                  src="https://i.pinimg.com/736x/19/91/af/1991affb724349809140e04e6ab233d3.jpg"
+                  alt="Default Avatar"
+                  class="rounded-circle object-fit-cover"
+                  width="80"
+                  height="80"
+                />
+                <% } %>
+                <h6 class="mb-0 fw-bold mt-4"><%=user.fullname%></h6>
+              </li>
+
+              <li><hr class="dropdown-divider" /></li>
+
+              <li>
+                <a
+                  class="dropdown-item d-flex align-items-center gap-2"
+                  href="#"
+                >
+                  <i class="bi bi-person-circle"></i> Quản lý tài khoản
+                </a>
+              </li>
+
+              <li class="border-top">
+                <a
+                  class="dropdown-item d-flex align-items-center gap-2"
+                  href="/order-history"
+                >
+                  <i class="bi bi-clock-history"></i> Lịch sử mua hàng
+                </a>
+              </li>
+
+              <li><hr class="dropdown-divider" /></li>
+
+              <li>
+                <a class="dropdown-item" href="/logout">
+                  <i class="bi bi-box-arrow-right"></i> Log out</a
+                >
+              </li>
+            </ul>
+          </div>
+          <% } else { %>
+          <a href="/login" class="my-auto">
+            <i class="fas fa-user fa-2x text-dark"></i>
+          </a>
+          <% } %>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

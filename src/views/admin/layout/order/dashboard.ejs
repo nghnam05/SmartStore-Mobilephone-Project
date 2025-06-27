@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <title>Order - SmartStore</title>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.pinimg.com/736x/61/0c/bd/610cbd83032444da98b38a47a1ee9fb1.jpg"
+    />
+    <link href="/admin/css/styles.css" rel="stylesheet" />
+    <link href="/admin/css/dashboard/dashboard.css" rel="stylesheet" />
+    <script
+      src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+
+    <!-- ✅ Bootstrap Icons (nếu dùng bi bi-*) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- ✅ FontAwesome -->
+    <script
+      src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- ✅ Custom styles -->
+    <link href="/admin/css/styles.css" rel="stylesheet" />
+
+    <!-- ✅ Favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.pinimg.com/736x/61/0c/bd/610cbd83032444da98b38a47a1ee9fb1.jpg"
+    />
+  </head>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+  <body class="sb-nav-fixed">
+    <%- include('../header.ejs'); -%>
+    <div id="layoutSidenav">
+      <%- include('../sidenav.ejs'); -%>
+      <div id="layoutSidenav_content">
+        <main>
+          <div class="container-fluid px-4">
+            <h1 class="mt-4">Manage Order</h1>
+            <hr />
+            <ol class="breadcrumb mb-4">
+              <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+              <li class="breadcrumb-item active">Order</li>
+            </ol>
+
+            <div>
+              <table
+                class="table table-hover table-bordered align-middle text-center"
+              >
+                <thead class="table-dark">
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Payment Method</th>
+                    <th scope="col">Payment Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% orders.forEach((item) => { %>
+                  <tr>
+                    <th scope="row"><%= item.id %></th>
+                    <td><%= item.user.fullname %></td>
+                    <td><%= item.totalPrice %></td>
+                    <td><%= item.status %></td>
+                    <td><%= item.paymentMethod %></td>
+                    <td><%= item.paymentStatus %></td>
+                    <td>
+                      <div class="d-flex justify-content-center gap-2">
+                        <form action="/admin/order/<%= item.id %>" method="get">
+                          <button
+                            type="submit"
+                            class="btn btn-warning text-white"
+                          >
+                            <i class="bi bi-eye"></i> View
+                          </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+        <%- include("../footer.ejs"); -%>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/admin/js/scripts.js"></script>
+  </body>
+</html>

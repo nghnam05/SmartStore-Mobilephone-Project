@@ -1,0 +1,4 @@
+nền tảng có UI sẵn  tido chat app : https://www.tidio.com/panel/inbox/conversations/unassigned/37c4192609d4451e8a148676c9a4b811
+npx ts-node -r tsconfig-paths/register src/config/seed.ts
+npx prisma generate
+npx prisma migrate dev --name update

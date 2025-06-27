@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int     @id @default(autoincrement())
+  username    String? @unique @db.VarChar(255)
+  password    String? @db.VarChar(255)
+  fullname    String? @db.VarChar(255)
+  address     String? @db.VarChar(255)
+  phone       String? @db.VarChar(255)
+  accountType String? @db.VarChar(50)
+  avatar      String? @db.VarChar(255)
+  roleID      Int
+  cart        Cart?
+  orders      Order?
+  role        Role    @relation(fields: [roleID], references: [id])
+
+  @@index([roleID], map: "users_roleID_fkey")
+  @@map("users")
+}
+
+model Role {
+  id          Int    @id @default(autoincrement())
+  name        String @unique @db.VarChar(100)
+  description String @db.VarChar(255)
+  users       User[]
+
+  @@map("roles")
+}
+
+model Order {
+  id              Int           @id @default(autoincrement())
+  totalPrice      Int
+  paymentMethod   String
+  paymentRef      String?
+  paymentStatus   String
+  receiverAddress String        @db.VarChar(255)
+  status          String        @default("pending")
+  userId          Int           @unique
+  receiverName    String        @db.VarChar(255)
+  receiverPhone   String        @db.VarChar(255)
+  orderDetails    OrderDetail[]
+  user            User          @relation(fields: [userId], references: [id])
+
+  @@map("orders")
+}
+
+model OrderDetail {
+  id        Int     @id @default(autoincrement())
+  price     Int
+  quantity  Int
+  orderId   Int
+  productId Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId], map: "order_detail_orderId_fkey")
+  @@index([productId], map: "order_detail_productId_fkey")
+  @@map("order_detail")
+}
+
+model Product {
+  id           Int           @id @default(autoincrement())
+  name         String        @db.VarChar(255)
+  price        Int
+  image        String?       @db.MediumText
+  detailDesc   String        @db.VarChar(255)
+  shortDesc    String        @db.VarChar(255)
+  quantity     Int
+  sold         Int?          @default(0)
+  factory      String        @db.VarChar(255)
+  target       String        @db.VarChar(255)
+  CartDetail   CartDetail[]
+  orderDetails OrderDetail[]
+
+  @@map("products")
+}
+
+model Cart {
+  id          Int          @id @default(autoincrement())
+  sum         Int
+  userId      Int          @unique
+  cartDetails CartDetail[]
+  user        User         @relation(fields: [userId], references: [id])
+
+  @@map("carts")
+}
+
+model CartDetail {
+  id        Int     @id @default(autoincrement())
+  price     Int
+  quantity  Int
+  cartId    Int
+  productId Int
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([cartId], map: "cart_detail_cartId_fkey")
+  @@index([productId], map: "cart_detail_productId_fkey")
+  @@map("cart_detail")
+}
+
+model session {
+  id        String   @id
+  sid       String   @unique(map: "Session_sid_key")
+  data      String   @db.MediumText
+  expiresAt DateTime
+}
