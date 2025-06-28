@@ -1,4 +1,48 @@
 nền tảng có UI sẵn  tido chat app : https://www.tidio.com/panel/inbox/conversations/unassigned/37c4192609d4451e8a148676c9a4b811
-npx ts-node -r tsconfig-paths/register src/config/seed.ts
+
+
+===================================== Khi thay doi du lieu trong file schemas.pisma======================================
+
 npx prisma generate
+
 npx prisma migrate dev --name update
+
+
+======================================Khi can chay file seed.ts ===========================================================
+
+npx ts-node -r tsconfig-paths/register src/config/seed.ts
+
+===================================== Export  database trong SQL truoc khi push len Git =====================================
+
+& "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqldump.exe" -u root -p userdashboard > database\backup.sql
+
+#import dữ liệu nếu bị mất :  mysql -u root -p userdashboard < database/backup.sql
+
+#push len git nhu binh thuong 
+
+======================================CACH CHAY SAU KHI CLONE ==========================================
+
+#git clone :  <url repo> 
+
+# cd <folder>
+
+# thay tk va mk vo : DATABASE_URL=mysql://<DB_USER>:<DB_PASSWORD>@<DB_HOST>:<DB_PORT>/<DB_NAME>
+
+#thay mk vo file database.ts
+
+#mysql -u root -p roi dien mk 
+
+#CREATE DATABASE userdashboard;
+
+#EXIT;
+
+
+---- mo Git bash tren terminal   : 
+# mysql -u root -p userdashboard < database/backup.sql
+
+#npm install
+
+#npx prisma generate
+
+#npm run dev 
+
