@@ -73,7 +73,7 @@
             <div class="navbar-nav d-flex flex-row gap-3">
               <a href="/" class="nav-item nav-link fw-semibold">Home</a>
 
-              <a href="/product" class="nav-item nav-link fw-semibold"
+              <a href="/all-product" class="nav-item nav-link fw-semibold"
                 >Products</a
               >
             </div>
@@ -158,30 +158,13 @@
               <li><hr class="dropdown-divider" /></li>
 
               <li>
-                <a
-                  class="dropdown-item d-flex align-items-center gap-2"
-                  href="#"
-                >
-                  <i class="bi bi-person-circle"></i> Quản lý tài khoản
+                <a class="dropdown-item d-flex align-items-center gap-2 text-danger fw-semibold" href="/logout">
+                  <i class="bi bi-person-circle fs-5"></i>
+                  <span>Log out your account</span>
+                  <i class="bi bi-box-arrow-right fs-5 ms-auto"></i>
                 </a>
               </li>
-
-              <li class="border-top">
-                <a
-                  class="dropdown-item d-flex align-items-center gap-2"
-                  href="/order-history"
-                >
-                  <i class="bi bi-clock-history"></i> Lịch sử mua hàng
-                </a>
-              </li>
-
-              <li><hr class="dropdown-divider" /></li>
-
-              <li>
-                <a class="dropdown-item" href="/logout">
-                  <i class="bi bi-box-arrow-right"></i> Log out</a
-                >
-              </li>
+              
             </ul>
           </div>
           <% } else { %>

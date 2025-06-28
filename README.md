@@ -35,9 +35,12 @@ npx ts-node -r tsconfig-paths/register src/config/seed.ts
 
 ## ♻️ Khôi phục dữ liệu (khi mất hoặc clone về):
 
-```bash
+````bash
 mysql -u root -p userdashboard < database/backup.sql
-```
+OR
+"/c/Program Files/MySQL/MySQL Server 8.0/bin/mysql.exe" -u root -p userdashboard < database/backup.sql
+
+
 
 > Nhập mật khẩu MySQL khi được yêu cầu.
 
@@ -50,7 +53,7 @@ mysql -u root -p userdashboard < database/backup.sql
 ```bash
 git clone https://github.com/<your-username>/<your-repo>.git
 cd <your-repo-folder>
-```
+````
 
 ### 2️⃣ Cập nhật file `.env`:
 

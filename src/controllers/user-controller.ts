@@ -1,5 +1,5 @@
 import { User } from "./../../node_modules/.prisma/client/index.d";
-import { Request, Response } from "express";
+import { query, Request, Response } from "express";
 import getConnect from "../config/database";
 
 import {
@@ -49,6 +49,75 @@ const getHomePage = async (req: Request, res: Response) => {
     totalPages,
     sumCart,
     user,
+  });
+};
+const getAllProductPage = async (req: Request, res: Response) => {
+  const user = req.user as { id: number } | undefined;
+
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = 8;
+  const offset = (page - 1) * limit;
+
+  const factory = req.query.factory;
+  const price = req.query.price as string;
+  const sortQuery = req.query.sort as string;
+
+  const where: any = {};
+  if (factory) {
+    if (Array.isArray(factory)) {
+      where.factory = { in: factory };
+    } else {
+      where.factory = factory;
+    }
+  }
+
+  if (price && price !== "all") {
+    const [min, max] = price.split("-").map(Number);
+    where.price = {
+      gte: min,
+      lte: max,
+    };
+  }
+
+  let orderBy: any = { id: "asc" };
+  if (sortQuery === "asc") {
+    orderBy = { price: "asc" };
+  } else if (sortQuery === "desc") {
+    orderBy = { price: "desc" };
+  }
+
+  const [products, total] = await Promise.all([
+    prisma.product.findMany({
+      where,
+      skip: offset,
+      take: limit,
+      orderBy,
+    }),
+    prisma.product.count({ where }),
+  ]);
+  const totalPages = Math.ceil(total / limit);
+
+  let sumCart = 0;
+  if (user) {
+    const cart = await prisma.cart.findFirst({
+      where: { userId: user.id },
+      include: { cartDetails: true },
+    });
+
+    sumCart =
+      cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
+  }
+  const hasFilter = !!(req.query.factory || req.query.price || req.query.sort);
+
+  return res.render("client/product/all-product.ejs", {
+    products,
+    page,
+    limit,
+    totalPages,
+    sumCart,
+    user,
+    hasFilter,
+    query: req.query,
   });
 };
 
@@ -126,4 +195,5 @@ export {
   handleDelete,
   handleViewUser,
   handleUpdate,
+  getAllProductPage,
 };

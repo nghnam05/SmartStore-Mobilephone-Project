@@ -1,9 +1,11 @@
+import { ACCOUNT_TYPE } from './../config/constant';
 import express, { Express, Request, Response, RequestHandler } from "express";
 import passport from "passport";
 
 // Controller imports
 import {
   createUser,
+  getAllProductPage,
   getHomePage,
   handleCreateUser,
   handleDelete,
@@ -78,7 +80,7 @@ const webRoutes = (app: Express) => {
   router.get("/product/:id", getProductDetailPage);
   router.post("/add-product-to-card/:id", checkAuth, PostAddProductToCart);
   router.post("/delete-product-in-cart/:id", postDeleteProductInCart);
-
+  router.get("/all-product",getAllProductPage)
   // Search
   router.get("/search/suggest", suggestProducts as RequestHandler);
 
