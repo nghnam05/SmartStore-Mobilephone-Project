@@ -61,6 +61,7 @@
     <link href="/client/css/product/cart.css" rel="stylesheet" />
     <link href="/client/css/home/home.css" rel="stylesheet" />
     <link href="/client/css/layout/layout.css" rel="stylesheet" />
+    <link href="/client/css/product/all-product.css" rel="stylesheet" />
   </head>
   <body>
     <!-- JS -->
@@ -75,9 +76,7 @@
       </nav>
       <hr />
 
-        <div class="row d-flex justify-content-between">
-          <!-- Sidebar Filter -->
-      
+        <div class="row d-flex justify-content-between">  
             <div class="col-lg-2 mb-4" style="border-right: 1px solid #eee;">
                 <form method="GET" action="/all-product">
               <!-- Factory Filter -->
@@ -92,8 +91,6 @@
                   </div>
                 <% }) %>
               </div>
-          
-              <!-- Price Filter -->
               <div class="mb-4">
                 <h5>Price Range</h5>
                 <% const prices = [
@@ -112,9 +109,9 @@
                 <% }) %>
                 </div>
           
-              <button type="submit" class="btn w-50 mx-auto text-white" style="background-color: dodgerblue;">
-                <i class="bi bi-funnel-fill"></i> Filter
-              </button>
+                <button type="submit" class="btn w-100 text-white rounded-pill btn-filter d-flex justify-content-center align-items-center gap-3">
+                  <i class="bi bi-sliders"></i> Filter
+                </button>
             </form>
             </div>
           

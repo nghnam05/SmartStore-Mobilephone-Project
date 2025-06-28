@@ -1,0 +1,44 @@
+.support-container {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.06);
+}
+
+.support-title {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #000;
+}
+
+.section-title {
+  font-weight: 600;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+}
+
+.custom-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.custom-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.custom-list i {
+  font-size: 1.1rem;
+  margin-right: 10px;
+  margin-top: 3px;
+  color: #0d6efd;
+  flex-shrink: 0;
+}
+
+.thank-dec {
+  height: 1px;
+  margin-top: 40px;
+  background: linear-gradient(to right, #0d6efd, transparent);
+}

@@ -14,14 +14,14 @@ const getDashboard = async (req: Request, res: Response) => {
 
 const getAdminUserPage = async (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string) || 1;
-  const limit = 5; 
+  const limit = 5;
   const offset = (page - 1) * limit;
 
   const [users, total] = await Promise.all([
     prisma.user.findMany({
       skip: offset,
       take: limit,
-      orderBy: { id: "asc" }, 
+      orderBy: { id: "asc" },
     }),
     prisma.user.count(),
   ]);
@@ -36,65 +36,4 @@ const getAdminUserPage = async (req: Request, res: Response) => {
   });
 };
 
-
-const getOrderPage = async (req: Request, res: Response) => {
-  const orders = await getOrderAdmin();
-  const users = await getAllUsers();
-  return res.render("admin/layout/order/dashboard.ejs", {
-    orders,
-    users,
-  });
-};
-
-const getOrderDetailPage = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const orderDetails = await getOrderDetailAdmin(+id);
-  return res.render("admin/layout/order/view-order.ejs", {
-    orderDetails,
-  });
-};
-
-const getHistoryPage = async (req: Request, res: Response) => {
-  const user = req.user as any;
-
-  if (!user?.id) return res.redirect("/login");
-
-  const orders = await getOrderHistory(user.id);
-
-  return res.render("client/product/order-history", {
-    orders,
-  });
-};
-
-const getProductPage = async (req: Request, res: Response) => {
-  const page = parseInt(req.query.page as string) || 1;
-  const limit = 5; 
-  const offset = (page - 1) * limit;
-
-  const [products, total] = await Promise.all([
-    prisma.product.findMany({
-      skip: offset,
-      take: limit,
-      orderBy: { id: "asc" }, // có thể đổi thành name, price,...
-    }),
-    prisma.product.count(),
-  ]);
-
-  const totalPages = Math.ceil(total / limit);
-
-  return res.render("admin/layout/product/product.ejs", {
-    products,
-    page,
-    limit,
-    totalPages,
-  });
-};
-
-export {
-  getDashboard,
-  getAdminUserPage,
-  getOrderPage,
-  getProductPage,
-  getOrderDetailPage,
-  getHistoryPage,
-};
+export { getDashboard, getAdminUserPage };

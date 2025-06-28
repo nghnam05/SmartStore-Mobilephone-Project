@@ -14,6 +14,8 @@ import {
   getProductInCart,
   handlePlaceOrder,
 } from "../../services/client/item-service";
+import { getOrderAdmin, getOrderDetailAdmin } from "src/services/admin/order-service";
+import { getAllUsers } from "src/services/admin/user-service";
 
 const getAdminProductPage = async (req: Request, res: Response) => {
   return res.render("admin/layout/product/create-product.ejs");
@@ -43,6 +45,41 @@ const deleteProduct = async (req: Request, res: Response) => {
   return res.redirect("/admin/product");
 };
 
+
+
+
+
+
+
+const getProductPage = async (req: Request, res: Response) => {
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = 5; 
+  const offset = (page - 1) * limit;
+
+  const [products, total] = await Promise.all([
+    prisma.product.findMany({
+      skip: offset,
+      take: limit,
+      orderBy: { id: "asc" },
+    }),
+    prisma.product.count(),
+  ]);
+
+  const totalPages = Math.ceil(total / limit);
+
+  return res.render("admin/layout/product/product.ejs", {
+    products,
+    page,
+    limit,
+    totalPages,
+  });
+};
+
+
+
+
+
+
 const getViewProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
   const product = await getProductByID(+id);
@@ -65,18 +102,7 @@ const getViewProduct = async (req: Request, res: Response) => {
   });
 };
 
-const postDeleteProductInCart = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const user = req.user as { id: number };
 
-  if (!user) return res.redirect("/login");
-
-  const cartDetailsId = parseInt(id);
-
-  await deleteProductInCart(cartDetailsId, user.id);
-
-  return res.redirect("/cart");
-};
 
 const postUpdateProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -126,77 +152,24 @@ const PostAddProductToCart = async (req: Request, res: Response) => {
   }
 };
 
-const getCartPage = async (req: Request, res: Response) => {
-  const user = req.user as { id: number };
-  // console.log("👤 Current user:", req.user);
-  if (!req.user) return res.redirect("/login");
-  const cart = await prisma.cart.findUnique({
-    where: { userId: user.id },
-    select: { sum: true },
-  });
 
-  const cartDetails = await getProductInCart(user.id);
-  // if (cartDetails.length === 0) {
-  //   console.log("🛒 Giỏ hàng trống");
-  // } else {
-  //   console.log("🛒 Có sản phẩm trong giỏ hàng");
-  // }
-  const totalPrice = cartDetails.reduce((total, item) => {
-    return total + item.product.price * item.quantity;
-  }, 0);
-  const sumCart = cartDetails.reduce((acc, item) => acc + item.quantity, 0);
-  return res.render("client/product/cart", {
-    user,
-    cartDetails,
-    sum: cart?.sum ?? 0,
-    totalPrice,
-    sumCart,
+const getOrderPage = async (req: Request, res: Response) => {
+  const orders = await getOrderAdmin();
+  const users = await getAllUsers();
+  return res.render("admin/layout/order/dashboard.ejs", {
+    orders,
+    users,
   });
 };
 
-const getCheckOutPage = async (req: Request, res: Response) => {
-  const user = req.user as { id: number };
-  // console.log("👤 Current user:", req.user);
-  if (!req.user) return res.redirect("/login");
-  const cart = await prisma.cart.findUnique({
-    where: { userId: user.id },
-    select: { sum: true },
-  });
-  const cartDetails = await getProductInCart(user.id);
-  const totalPrice = cartDetails.reduce((total, item) => {
-    return total + item.product.price * item.quantity;
-  }, 0);
-  const sumCart = cartDetails.reduce((acc, item) => acc + item.quantity, 0);
-  return res.render("client/product/checkout", {
-    user,
-    cartDetails,
-    sum: cart?.sum ?? 0,
-    totalPrice,
-    sumCart,
+const getOrderDetailPage = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const orderDetails = await getOrderDetailAdmin(+id);
+  return res.render("admin/layout/order/view-order.ejs", {
+    orderDetails,
   });
 };
 
-const postPlaceOrder = async (req: Request, res: Response) => {
-  const user = req.user as { id: number };
-  if (!req.user) return res.redirect("/login");
-  const { receiverName, receiverPhone, receiverAddress, totalPrice } = req.body;
-  console.log(req.body);
-  await handlePlaceOrder(
-    user.id,
-    receiverName,
-    receiverPhone,
-    receiverAddress,
-    +totalPrice
-  );
-  res.render("client/product/thanks.ejs");
-};
-
-const getThankyouPage = async (req: Request, res: Response) => {
-  const user = req.user as { id: number };
-  // console.log("👤 Current user:", req.user);
-  if (!req.user) return res.redirect("/login");
-  res.render("client/product/thanks");
-};
 
 export {
   getAdminProductPage,
@@ -206,9 +179,7 @@ export {
   postUpdateProduct,
   getProductDetailPage,
   PostAddProductToCart,
-  getCartPage,
-  postDeleteProductInCart,
-  getCheckOutPage,
-  postPlaceOrder,
-  getThankyouPage,
+  getProductPage,
+  getOrderDetailPage,
+  getOrderPage
 };

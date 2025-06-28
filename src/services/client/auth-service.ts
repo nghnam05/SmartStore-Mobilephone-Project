@@ -4,6 +4,7 @@ import {
 } from "../../services/admin/user-service";
 import { prisma } from "../../config/client";
 import { ACCOUNT_TYPE } from "../../config/constant";
+import { Request, Response } from "express";
 
 const registerNewUSer = async (
   fullname: string,
@@ -100,4 +101,27 @@ const handleLogin = async (username: string, password: string, done: any) => {
   }
 };
 
-export { registerNewUSer, handleLogin, getRoleUserByID };
+const getShippingPage = (req: Request, res: Response) => {
+  return res.render("client/support/freeShip.ejs");
+};
+const getSecurityPaymentPage = (req: Request, res: Response) => {
+  return res.render("client/support/security.ejs");
+};
+
+const getReturnPage = (req: Request, res: Response) => {
+  return res.render("client/support/return.ejs");
+};
+
+const getSupportPage = (req: Request, res: Response) => {
+  return res.render("client/support/supporting.ejs");
+};
+
+export {
+  registerNewUSer,
+  handleLogin,
+  getRoleUserByID,
+  getShippingPage,
+  getSecurityPaymentPage,
+  getReturnPage,
+  getSupportPage,
+};
