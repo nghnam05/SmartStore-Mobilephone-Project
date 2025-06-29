@@ -51,7 +51,12 @@ import {
 } from "../middleware/auth";
 import { suggestProducts } from "../controllers/client/search";
 import fileUploadMiddleware from "../middleware/multer";
-import { getReturnPage, getSecurityPaymentPage, getShippingPage, getSupportPage } from "src/services/client/auth-service";
+import {
+  getReturnPage,
+  getSecurityPaymentPage,
+  getShippingPage,
+  getSupportPage,
+} from "../services/client/auth-service";
 
 const router = express.Router();
 
@@ -68,10 +73,10 @@ const webRoutes = (app: Express) => {
   router.post("/delete-product-in-cart/:id", postDeleteProductInCart);
   router.get("/all-product", getAllProductPage);
   router.get("/search/suggest", suggestProducts as RequestHandler);
-  router.get("/shipping" , getShippingPage)
-  router.get("/security-payment" , getSecurityPaymentPage)
-  router.get("/return-product" , getReturnPage)
-  router.get("/supporting" , getSupportPage)
+  router.get("/shipping", getShippingPage);
+  router.get("/security-payment", getSecurityPaymentPage);
+  router.get("/return-product", getReturnPage);
+  router.get("/supporting", getSupportPage);
 
   // Login/Register/Logout - Prevent access if already logged in
   router.get("/login", isLogin, getLoginPage);
@@ -87,7 +92,6 @@ const webRoutes = (app: Express) => {
   router.post("/register", isLogin, postRegister);
   router.get("/logout", postLogout);
 
-  
   //All  Admin routes
   router.get("/admin/order", checkAuth, isAdmin, getOrderPage);
   router.get("/admin/order/:id", checkAuth, isAdmin, getOrderDetailPage);
