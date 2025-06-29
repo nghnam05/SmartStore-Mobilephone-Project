@@ -14,8 +14,11 @@ import {
   getProductInCart,
   handlePlaceOrder,
 } from "../../services/client/item-service";
-import { getOrderAdmin, getOrderDetailAdmin } from "src/services/admin/order-service";
-import { getAllUsers } from "src/services/admin/user-service";
+import {
+  getOrderAdmin,
+  getOrderDetailAdmin,
+} from "../../services/admin/order-service";
+import { getAllUsers } from "../../services/admin/user-service";
 
 const getAdminProductPage = async (req: Request, res: Response) => {
   return res.render("admin/layout/product/create-product.ejs");
@@ -39,21 +42,14 @@ const postAdminProduct = async (req: Request, res: Response) => {
 };
 
 const deleteProduct = async (req: Request, res: Response) => {
-  
   const { id } = req.params;
   await handleDeleteProduct(+id);
   return res.redirect("/admin/product");
 };
 
-
-
-
-
-
-
 const getProductPage = async (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string) || 1;
-  const limit = 5; 
+  const limit = 5;
   const offset = (page - 1) * limit;
 
   const [products, total] = await Promise.all([
@@ -74,11 +70,6 @@ const getProductPage = async (req: Request, res: Response) => {
     totalPages,
   });
 };
-
-
-
-
-
 
 const getViewProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -101,8 +92,6 @@ const getViewProduct = async (req: Request, res: Response) => {
     targetOptions,
   });
 };
-
-
 
 const postUpdateProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -152,7 +141,6 @@ const PostAddProductToCart = async (req: Request, res: Response) => {
   }
 };
 
-
 const getOrderPage = async (req: Request, res: Response) => {
   const orders = await getOrderAdmin();
   const users = await getAllUsers();
@@ -170,7 +158,6 @@ const getOrderDetailPage = async (req: Request, res: Response) => {
   });
 };
 
-
 export {
   getAdminProductPage,
   postAdminProduct,
@@ -181,5 +168,5 @@ export {
   PostAddProductToCart,
   getProductPage,
   getOrderDetailPage,
-  getOrderPage
+  getOrderPage,
 };

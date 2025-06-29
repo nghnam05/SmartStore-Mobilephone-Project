@@ -4,8 +4,8 @@ import { getAllUsers } from "../../services/admin/user-service";
 import {
   getOrderAdmin,
   getOrderDetailAdmin,
-} from "src/services/admin/order-service";
-import { getOrderHistory } from "src/services/client/item-service";
+} from "../../services/admin/order-service";
+import { getOrderHistory } from "../../services/client/item-service";
 import { prisma } from "../../config/client";
 
 const getDashboard = async (req: Request, res: Response) => {

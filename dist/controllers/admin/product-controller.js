@@ -13,8 +13,8 @@ exports.getOrderPage = exports.getOrderDetailPage = exports.getProductPage = exp
 const client_1 = require("../../config/client");
 const product_service_1 = require("../../services/admin/product-service");
 const item_service_1 = require("../../services/client/item-service");
-const order_service_1 = require("src/services/admin/order-service");
-const user_service_1 = require("src/services/admin/user-service");
+const order_service_1 = require("../../services/admin/order-service");
+const user_service_1 = require("../../services/admin/user-service");
 const getAdminProductPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.render("admin/layout/product/create-product.ejs");
 });

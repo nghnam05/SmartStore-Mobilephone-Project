@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCheckOutPage = exports.getCartPage = exports.getThankyouPage = exports.postPlaceOrder = exports.postDeleteProductInCart = exports.getAllProductPage = exports.getProductsPage = void 0;
-const client_1 = require("config/client");
-const item_service_1 = require("src/services/client/item-service");
+const client_1 = require("../../config/client");
+const item_service_1 = require("../../services/client/item-service");
 const getProductsPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.render("client/layout/product/detail.ejs");
 });

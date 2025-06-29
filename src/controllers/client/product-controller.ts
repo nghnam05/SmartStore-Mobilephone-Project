@@ -4,7 +4,7 @@ import {
   deleteProductInCart,
   getProductInCart,
   handlePlaceOrder,
-} from "src/services/client/item-service";
+} from "../../services/client/item-service";
 
 const getProductsPage = async (req: Request, res: Response) => {
   return res.render("client/layout/product/detail.ejs");
