@@ -13,15 +13,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const promise_1 = __importDefault(require("mysql2/promise"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const getConnect = () => __awaiter(void 0, void 0, void 0, function* () {
-    const connection = yield promise_1.default.createConnection({
-        port: 3306,
-        host: "localhost",
-        user: "root",
-        password: "123456",
-        database: "userdashboard",
-    });
+    const connection = yield promise_1.default.createConnection(process.env.DATABASE_URL);
     return connection;
+    // const connection = await mysql.createConnection({
+    //   port: 3306,
+    //   host: "localhost",
+    //   user: "root",
+    //   password: "123456",
+    //   database: "userdashboard",
+    // });
+    // return connection;
 });
 exports.default = getConnect;
 //# sourceMappingURL=database.js.map
