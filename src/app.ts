@@ -71,4 +71,6 @@ app.use((req, res) => {
   res.status(404).render("admin/status/404");
 });
 
-app.listen(PORT, () => {});
+app.listen(PORT, () => {
+  console.log(`✅ Server is running on port ${PORT}`);
+});
