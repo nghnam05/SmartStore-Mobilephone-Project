@@ -1,10 +1,10 @@
 {
   "main": "dist/app.js",
   "scripts": {
-    "dev": "nodemon",
-    "build": "tsc",
-    "start": "node dist/app.js"
-  },
+  "build": "tsc && node copy-ejs.js",
+  "dev": "ts-node src/app.ts",
+  "start": "node dist/app.js"
+},
   "nodemonConfig": {
     "watch": [
       "src"
@@ -47,3 +47,6 @@
     "typescript": "5.7.3"
   }
 }
+
+
+

@@ -139,3 +139,19 @@ npm run dev
 ```
 
 ---
+
+
+
+
+
+
+
+
+
+
+
+  // "scripts": {
+  //   "dev": "nodemon",
+  //   "build": "tsc",
+  //   "start": "node dist/app.js"
+  // },
