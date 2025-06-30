@@ -11,6 +11,7 @@
 }
 .product-name {
   color: #1b1b1b !important;
+  font-family: "DM Sans", sans-serif !important;
 }
 
 .product-name:hover {
@@ -51,6 +52,7 @@
 }
 .badge {
   width: fit-content;
+  font-family: "DM Sans", sans-serif !important;
 }
 .btn-custom {
   background-color: #163362;
@@ -70,12 +72,14 @@
   background-color: #e53935;
 }
 
-.factory-brach {
-  background-color: #0dcaf0;
+.all-btn {
+  font-family: "DM Sans", sans-serif !important;
 }
+
 .buy-btn {
   background-color: #007bff;
   transition: all 0.4s ease;
+  font-family: "DM Sans", sans-serif !important;
 }
 .buy-btn:hover {
   background-color: #000;
@@ -99,6 +103,13 @@
   color: #0a58ca;
 }
 
+.section-title {
+  font-family: "DM Sans", sans-serif !important;
+}
+
+.section-title > i {
+  color: #007bff !important;
+}
 .pagination .active .page-link {
   background-color: #0d6efd;
   border-color: #0d6efd;
