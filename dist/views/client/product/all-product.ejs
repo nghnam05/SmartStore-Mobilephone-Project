@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+    <title>All Product - SmartStore</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.pinimg.com/736x/89/f1/d6/89f1d65fe8b8bf81eb8ddbb417537d17.jpg"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Glide.js CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/css/glide.core.min.css"
+    />
+
+    <!-- Glide.js JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/glide.min.js"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icon Font Stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="/client/lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
+    <link
+      href="/client/lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/client/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Template Stylesheet -->
+    <link href="/client/css/style.css" rel="stylesheet" />
+    <link href="/client/css/product/cart.css" rel="stylesheet" />
+    <link href="/client/css/home/home.css" rel="stylesheet" />
+    <link href="/client/css/layout/layout.css" rel="stylesheet" />
+    <link href="/client/css/product/all-product.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <%- include('../layout/header') %>
+    <div class="container py-3" style="margin-top: 10%">
+      <nav aria-label="breadcrumb ">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/all-product">All Products</a></li>
+        </ol>
+      </nav>
+      <hr />
+
+        <div class="row d-flex justify-content-between">  
+            <div class="col-lg-2 mb-4" style="border-right: 1px solid #eee;">
+                <form method="GET" action="/all-product">
+              <!-- Factory Filter -->
+              <div class="mb-4">
+                <h5>Factory</h5>
+                <% const factorys = ['APPLE', 'XIAOMI', 'SAMSUNG', 'OPPO']; %>
+                <% factorys.forEach(b => { %>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="factory" value="<%= b %>"
+                      <%= (Array.isArray(query.factory) && query.factory.includes(b)) || query.factory === b ? 'checked' : '' %> />
+                    <label class="form-check-label"><%= b %></label>
+                  </div>
+                <% }) %>
+              </div>
+              <div class="mb-4">
+                <h5>Price Range</h5>
+                <% const prices = [
+                  { label: 'All', value: 'all' },
+                  { label: 'Under 10 million', value: '0-10000000' },
+                  { label: '10 - 15 million', value: '10000000-15000000' },
+                  { label: '15 - 20 million', value: '15000000-20000000' },
+                  { label: 'Over 20 million', value: '20000000-999999999' }
+                ]; %>
+                <% prices.forEach(p => { %>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="price" value="<%= p.value %>"
+                      <%= query.price === p.value ? 'checked' : '' %> />
+                    <label class="form-check-label"><%= p.label %></label>
+                  </div>
+                <% }) %>
+                </div>
+          
+                <button type="submit" class="btn w-100 text-white rounded-pill btn-filter d-flex justify-content-center align-items-center gap-3">
+                  <i class="bi bi-sliders"></i> Filter
+                </button>
+            </form>
+            </div>
+          
+      
+          <!-- Products Grid -->
+          <div class="col-lg-9">
+            <% 
+            const hasFilter = query.factory || query.price || (query.sort && query.sort !== 'none');
+            const selectedBrands = Array.isArray(query.factory) ? query.factory : (query.factory ? [query.factory] : []);
+          %>
+          
+          <h2 class="fs-4 fw-bold text-uppercase text-dark mb-5">
+            <% if (!hasFilter) { %>
+              All Products
+            <% } else { %>
+              Results for 
+              <% if (selectedBrands.length > 0) { %>
+                "<%= selectedBrands.join(', ') %>"
+              <% } else { %>
+                your filters
+              <% } %>
+            <% } %>
+          </h2>
+            <div class="tab-content">
+              <div id="tab-1" class="tab-pane fade show active">
+                <div class="row g-4">
+                    <% if (products.length === 0 && hasFilter) { %>
+                        <div class="col-12">
+                            <div class="alert alert-warning text-center d-flex align-items-center justify-content-center gap-2 py-3 rounded-3 shadow-sm">
+                                <i class="bi bi-emoji-frown fs-4 text-warning"></i>
+                                <span class="fw-semibold fs-5">No products matched your filter criteria.</span>
+                              </div>
+                        </div>
+                        <% } else { %>
+                  <% products.forEach((product) => { %>
+                    <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                      <div class="card product-card shadow-sm border-0 rounded-4 overflow-hidden py-2 px-3 position-relative">
+                        <div class="card-image position-relative mx-auto">
+                          <img
+                            src="/images/product/<%= product.image %>"
+                            class="card-img-top object-fit-contain"
+                            style="height: 180px; object-fit: contain"
+                            alt="product-image"
+                          />
+                        </div>
+                        <div class="card-body text-start d-flex flex-column gap-2 px-2 py-2">
+                          <a class="product-name fw-bold fs-6 text-decoration-none text-dark" href="/product/<%= product.id %>">
+                            <%= product.name %>
+                          </a>
+                          <p class="card-text text-muted small mb-1"><%= product.detailDesc %></p>
+                          <div class="d-flex justify-content-start">
+                            <span class="badge rounded-pill shadow-sm d-flex align-items-center gap-1 px-2 py-1 small flash-sale">
+                              <i class="bi bi-lightning-charge-fill"></i> Flash Sale 10%
+                            </span>
+                          </div>
+                          <div class="mt-2">
+                            <% const discountPrice = product.price - 1000000; %>
+                            <div class="d-flex align-items-center justify-content-center gap-4">
+                              <div class="d-flex align-items-center gap-3">
+                                <span class="fw-bold price-text d-inline-block">Price :</span>
+                                <h6 class="text-danger fw-bold fs-6 mb-0">
+                                  <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(discountPrice) %>
+                                </h6>
+                              </div>
+                            </div>
+                          </div>
+                          <form
+                            method="post"
+                            class="d-flex justify-content-center mt-3"
+                            action="/add-product-to-card/<%= product.id %>"
+                          >
+                            <button type="submit" class="btn btn-sm text-white rounded-pill px-3 py-1" style="background-color: dodgerblue;">
+                              <i class="fa fa-shopping-bag me-2"></i> Add to cart
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  <% }) %>
+                  <% } %>
+                </div>
+      
+                <!-- Pagination -->
+                <nav aria-label="Page navigation">
+                  <ul class="pagination justify-content-end mt-4">
+                    <li class="page-item <%= page <= 1 ? 'disabled' : '' %>">
+                      <a class="page-link" href="?page=<%= page - 1 %>">&laquo;</a>
+                    </li>
+                    <% for (let i = 1; i <= totalPages; i++) { %>
+                      <li class="page-item <%= i === page ? 'active' : '' %>">
+                        <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                      </li>
+                    <% } %>
+                    <li class="page-item <%= page >= totalPages ? 'disabled' : '' %>">
+                      <a class="page-link" href="?page=<%= page + 1 %>">&raquo;</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      
+        </div>
+
+        
+
+          <!-- back to top  -->
+          <a href="#" class="btn border-3 rounded-circle back-to-top"
+            ><i class="fa fa-arrow-up"></i
+          ></a>
+          <a href="#" class="btn border-3 rounded-circle back-to-top"
+            ><i class="fa fa-arrow-up"></i
+          ></a>
+          <%- include('../layout/footer') %>
+
+          <!-- JavaScript Libraries -->
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+          <script src="/client/lib/easing/easing.min.js"></script>
+          <script src="/client/lib/waypoints/waypoints.min.js"></script>
+          <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
+          <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+          <!-- Template Javascript -->
+          <script src="/client/js/cart/cart.js"></script>
+          <!-- <script src="/client/js/main.js"></script> -->
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+          <script
+            src="//code.tidio.co/jessuvetqgbmlfbbicxo08yqsjeeprfb.js"
+            async
+          ></script>
+        </body>
+      </html>
+    </div>
+
+    <!-- back to top  -->
+    <a href="#" class="btn border-3 rounded-circle back-to-top"
+      ><i class="fa fa-arrow-up"></i
+    ></a>
+    <a href="#" class="btn border-3 rounded-circle back-to-top"
+      ><i class="fa fa-arrow-up"></i
+    ></a>
+    <%- include('../layout/footer') %>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/client/lib/easing/easing.min.js"></script>
+    <script src="/client/lib/waypoints/waypoints.min.js"></script>
+    <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- Template Javascript -->
+    <script src="/client/js/cart/cart.js"></script>
+    <!-- <script src="/client/js/main.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="//code.tidio.co/jessuvetqgbmlfbbicxo08yqsjeeprfb.js"
+      async
+    ></script>
+  </body>
+</html>

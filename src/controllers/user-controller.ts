@@ -41,7 +41,7 @@ const getHomePage = async (req: Request, res: Response) => {
     sumCart =
       cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
   }
-
+  console.log("✅ PRODUCTS:", products.length, products);
   return res.render("client/home/home.ejs", {
     products,
     page,
