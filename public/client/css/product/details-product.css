@@ -46,3 +46,8 @@
 .buy-btn:hover {
   background-color: #000;
 }
+
+.description-box {
+  max-height: 100px;
+  overflow-y: auto;
+}

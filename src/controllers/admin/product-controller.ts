@@ -1,5 +1,5 @@
 import { prisma } from "../../config/client";
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import {
   addProductToCart,
   createProduct,
@@ -20,153 +20,138 @@ import {
 } from "../../services/admin/order-service";
 import { getAllUsers } from "../../services/admin/user-service";
 
-const getAdminProductPage = async (req: Request, res: Response) => {
-  return res.render("admin/layout/product/create-product.ejs");
-};
-const postAdminProduct = async (req: Request, res: Response) => {
-  const { name, price, detailDesc, shortDesc, quantity, factory, target } =
-    req.body;
-  const image = req?.file?.filename ?? null;
-  await createProduct(
-    name,
-    +price,
-    detailDesc,
-    shortDesc,
-    +quantity,
-    factory,
-    target,
-    image
-  );
+// const getAdminProductPage = async (req: Request, res: Response) => {
+//   return res.render("admin/layout/product/create-product.ejs");
+// };
 
-  return res.redirect("/admin/product");
-};
+// const postAdminProduct = async (req: Request, res: Response) => {
+//   try {
+//     const {
+//       name,
+//       price,
+//       detailDesc,
+//       shortDesc,
+//       quantity,
+//       factory,
+//       target,
+//       ram,
+//       storage,
+//       os,
+//       status,
+//       screen,
+//       battery,
+//       camera,
+//       rating,
+//     } = req.body;
 
-const deleteProduct = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  await handleDeleteProduct(+id);
-  return res.redirect("/admin/product");
-};
+//     const image = req.file?.filename || "";
 
-const getProductPage = async (req: Request, res: Response) => {
-  const page = parseInt(req.query.page as string) || 1;
-  const limit = 5;
-  const offset = (page - 1) * limit;
+//     await createProduct(
+//       name,
+//       parseFloat(price),
+//       detailDesc,
+//       shortDesc,
+//       parseInt(quantity),
+//       factory,
+//       target,
+//       image,
+//       ram,
+//       storage,
+//       os,
+//       status,
+//       screen,
+//       battery,
+//       camera,
+//       parseFloat(rating)
+//     );
 
-  const [products, total] = await Promise.all([
-    prisma.product.findMany({
-      skip: offset,
-      take: limit,
-      orderBy: { id: "asc" },
-    }),
-    prisma.product.count(),
-  ]);
+//     return res.redirect("/admin/product");
+//   } catch (error) {
+//     console.error("Error creating product:", error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// };
 
-  const totalPages = Math.ceil(total / limit);
+// const deleteProduct = async (req: Request, res: Response) => {
+//   const { id } = req.params;
+//   await handleDeleteProduct(+id);
+//   return res.redirect("/admin/product");
+// };
 
-  return res.render("admin/layout/product/product.ejs", {
-    products,
-    page,
-    limit,
-    totalPages,
-  });
-};
+// const getProductPage = async (req: Request, res: Response) => {
+//   const page = parseInt(req.query.page as string) || 1;
+//   const limit = 5;
+//   const offset = (page - 1) * limit;
 
-const getViewProduct = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const product = await getProductByID(+id);
-  const factoryOptions = [
-    { name: "Apple", value: "APPLE" },
-    { name: "Samsung", value: "SAMSUNG" },
-    { name: "Oppo", value: "OPPO" },
-    { name: "XIAOMI", value: "Xiaomi" },
-  ];
+//   const [products, total] = await Promise.all([
+//     prisma.product.findMany({
+//       skip: offset,
+//       take: limit,
+//       orderBy: { id: "asc" },
+//     }),
+//     prisma.product.count(),
+//   ]);
 
-  const targetOptions = [
-    { name: "Gaming", value: "Gaming" },
-    { name: "Mỏng nhẹ", value: "Thin & Light" },
-    { name: "Hot trend", value: "HOT" },
-  ];
-  return res.render("admin/layout/product/view-product.ejs", {
-    product,
-    factoryOptions,
-    targetOptions,
-  });
-};
+//   const totalPages = Math.ceil(total / limit);
 
-const postUpdateProduct = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { name, price, detailDesc, shortDesc, quantity, factory, target } =
-    req.body;
-  const oldProduct = await getProductByID(+id);
-  const image = req?.file?.filename || oldProduct?.image;
-  await updateProductById(
-    +id,
-    name,
-    +price,
-    detailDesc,
-    shortDesc,
-    +quantity,
-    factory,
-    target,
-    image
-  );
-  return res.redirect("/admin/product");
-};
+//   return res.render("admin/layout/product/product.ejs", {
+//     products,
+//     page,
+//     limit,
+//     totalPages,
+//   });
+// };
 
-const getProductDetailPage = async (req: Request, res: Response) => {
-  const productId = parseInt(req.params.id);
-  try {
-    const product = await getProductByID(productId);
-    if (!product) {
-      return res.status(404).render("error/404");
-    }
-    const products = await getProduct();
-    res.render("client/product/detail", { product, products });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server error");
-  }
-};
+// const getViewProduct = async (req: Request, res: Response) => {
+//   const { id } = req.params;
+//   const product = await getProductByID(+id);
 
-const PostAddProductToCart = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const user = req.user;
-  const cartItemCount = await getCartItemCount(req.user);
-  // res.render("home", { cartItemCount });
-  if (user) {
-    await addProductToCart(1, +id, user);
-    res.redirect("/");
-  } else {
-    res.redirect("/login");
-  }
-};
+//   const factoryOptions = [
+//     { name: "Apple", value: "APPLE" },
+//     { name: "Samsung", value: "SAMSUNG" },
+//     { name: "Oppo", value: "OPPO" },
+//     { name: "Xiaomi", value: "XIAOMI" },
+//     { name: "Realme", value: "REALME" },
+//     { name: "Vivo", value: "VIVO" },
+//   ];
 
-const getOrderPage = async (req: Request, res: Response) => {
-  const orders = await getOrderAdmin();
-  const users = await getAllUsers();
-  return res.render("admin/layout/order/dashboard.ejs", {
-    orders,
-    users,
-  });
-};
+//   const targetOptions = [
+//     { name: "Gaming", value: "Gaming" },
+//     { name: "Thin & Light", value: "Thin & Light" },
+//     { name: "HOT", value: "HOT" },
+//   ];
 
-const getOrderDetailPage = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const orderDetails = await getOrderDetailAdmin(+id);
-  return res.render("admin/layout/order/view-order.ejs", {
-    orderDetails,
-  });
-};
+//   const osOptions = ["iOS", "Android", "HarmonyOS"];
+//   const statusOptions = ["Còn hàng", "Hết hàng", "Ngừng kinh doanh"];
+//   const ramOptions = ["4GB", "6GB", "8GB", "12GB"];
+//   const storageOptions = ["64GB", "128GB", "256GB", "512GB"];
+//   const screenOptions = ["6.1 inch", "6.5 inch", "6.7 inch", "7.0 inch"];
+//   const batteryOptions = ["3500mAh", "4000mAh", "4500mAh", "5000mAh"];
+//   const cameraOptions = ["12MP", "48MP", "64MP", "108MP"];
+
+//   return res.render("admin/layout/product/view-product.ejs", {
+//     product,
+//     factoryOptions,
+//     targetOptions,
+//     osOptions,
+//     statusOptions,
+//     ramOptions,
+//     storageOptions,
+//     screenOptions,
+//     batteryOptions,
+//     cameraOptions,
+//   });
+// };
+
+
+
 
 export {
-  getAdminProductPage,
-  postAdminProduct,
-  deleteProduct,
-  getViewProduct,
-  postUpdateProduct,
+
   getProductDetailPage,
   PostAddProductToCart,
-  getProductPage,
-  getOrderDetailPage,
-  getOrderPage,
+  postReview,
+  showEditReview,
+  updateReview,
+  deleteReview,
 };

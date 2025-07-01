@@ -2,7 +2,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { getRoleUserByID, handleLogin } from "../services/client/auth-service";
 import { prisma } from "../config/client";
-import { getCartItemCount } from "../services/client/item-service";
+import { getCartItemCount } from "../services/client/product-service";
 
 const configPassportLocal = () => {
   passport.use(

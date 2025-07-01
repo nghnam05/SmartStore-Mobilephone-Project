@@ -54,43 +54,27 @@
                     >
                       View Products Details
                     </h3>
-                    <form action="/admin/update-product/<%= product.id %>" method="post">
+                    <!-- form -->
+                    <form action="/admin/update-product/<%= product.id %>" method="post" enctype="multipart/form-data">
+                      <input type="hidden" name="id" value="<%= product.id %>" />
+                    
                       <!-- Name -->
                       <div class="form-floating mb-4">
-                        <input type="hidden" name="id" value="<%= product.id %>" />
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="name"
-                          name="name"
-                          value="<%= product.name %>"
-                        />
+                        <input type="text" class="form-control" id="name" name="name" value="<%= product.name %>" required />
                         <label for="name">Name</label>
                       </div>
                     
-                      <!-- Price & Quantity trên cùng 1 hàng -->
+                      <!-- Price & Quantity -->
                       <div class="row mb-4">
                         <div class="col-md-6">
                           <div class="form-floating">
-                            <input
-                              type="number"
-                              class="form-control"
-                              id="price"
-                              name="price"
-                              value="<%= product.price %>"
-                            />
+                            <input type="number" class="form-control" id="price" name="price" value="<%= product.price %>" required />
                             <label for="price">Price ($)</label>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-floating">
-                            <input
-                              type="number"
-                              class="form-control"
-                              id="quantity"
-                              name="quantity"
-                              value="<%= product.quantity %>"
-                            />
+                            <input type="number" class="form-control" id="quantity" name="quantity" value="<%= product.quantity %>" required />
                             <label for="quantity">Quantity</label>
                           </div>
                         </div>
@@ -98,31 +82,20 @@
                     
                       <!-- Short Description -->
                       <div class="form-floating mb-4">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="shortDesc"
-                          name="shortDesc"
-                          value="<%= product.shortDesc %>"
-                        />
+                        <input type="text" class="form-control" id="shortDesc" name="shortDesc" value="<%= product.shortDesc %>" required />
                         <label for="shortDesc">Short Description</label>
                       </div>
                     
                       <!-- Detail Description -->
                       <div class="form-floating mb-4">
-                        <textarea
-                          class="form-control"
-                          id="detailDesc"
-                          name="detailDesc"
-                          style="height: 100px"
-                        ><%= product.detailDesc %></textarea>
+                        <textarea class="form-control" id="detailDesc" name="detailDesc" style="height: 100px" required><%= product.detailDesc %></textarea>
                         <label for="detailDesc">Detail Description</label>
                       </div>
                     
                       <!-- Factory Select -->
                       <div class="form-floating mb-4">
                         <select name="factory" class="form-select">
-                          <% factoryOptions.forEach((factory, index) => { %>
+                          <% factoryOptions.forEach(factory => { %>
                             <option value="<%= factory.value %>" <%= factory.value === product.factory ? 'selected' : '' %>>
                               <%= factory.name %>
                             </option>
@@ -134,36 +107,79 @@
                       <!-- Target Select -->
                       <div class="form-floating mb-4">
                         <select name="target" class="form-select">
-                          <% targetOptions.forEach((target, index) => { %>
+                          <% targetOptions.forEach(target => { %>
                             <option value="<%= target.value %>" <%= target.value === product.target ? 'selected' : '' %>>
                               <%= target.name %>
                             </option>
                           <% }) %>
                         </select>
-                        
                         <label for="target">Target</label>
                       </div>
                     
-                      <!-- Image Preview -->
-                      <div class="mb-4">
-                        <label class="form-label">Image Preview:</label><br />
-                        <img
-                          src="/images/product/<%= product.image %>"
-                          alt="Product Image"
-                          class="img-thumbnail"
-                          style="max-width: 200px; height : 200px"
-                        />
+                      <!-- Extra Info -->
+                      <div class="row mb-4">
+                        <div class="col-md-6">
+                          <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="ram" value="<%= product.ram %>" required />
+                            <label>RAM</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="storage" value="<%= product.storage %>" required />
+                            <label>Storage</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="os" value="<%= product.os %>" required />
+                            <label>Operating System</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="status" value="<%= product.status %>" required />
+                            <label>Status</label>
+                          </div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                          <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="screen" value="<%= product.screen %>" required />
+                            <label>Screen</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="battery" value="<%= product.battery %>" required />
+                            <label>Battery</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="camera" value="<%= product.camera %>" required />
+                            <label>Camera</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <input type="number" step="0.1" class="form-control" name="rating" value="<%= product.rating %>" min="0" max="5" />
+                            <label>Rating</label>
+                          </div>
+                        </div>
                       </div>
-                      <!-- Button Actions -->
+                    
+                      <!-- Current Image -->
+                      <div class="mb-4">
+                        <label class="form-label">Current Image:</label><br />
+                        <img src="/images/product/<%= product.image %>" alt="Product Image" class="img-thumbnail" style="max-width: 200px; height: 200px" />
+                      </div>
+                    
+                      <!-- Upload New Image -->
+                      <div class="mb-4">
+                        <label for="image" class="form-label fw-semibold">Change Image</label>
+                        <input type="file" class="form-control" name="image" accept="image/*" />
+                      </div>
+                    
+                      <!-- Buttons -->
                       <div class="d-flex justify-content-center gap-4">
                         <a href="/admin/product" class="btn btn-outline-secondary px-4">
-                          <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+                          <i class="bi bi-arrow-left me-1"></i> Back
                         </a>
                         <button type="submit" class="btn btn-primary px-4">
-                          <i class="bi bi-save me-1"></i> Update Product
+                          <i class="bi bi-save me-1"></i> Save Changes
                         </button>
                       </div>
                     </form>
+                    
                     
                     
                   </div>

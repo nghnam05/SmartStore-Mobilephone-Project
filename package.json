@@ -1,10 +1,10 @@
 {
   "main": "dist/app.js",
   "scripts": {
-  "build": "tsc && node copy-ejs.js",
-  "dev": "ts-node src/app.ts",
-  "start": "node dist/app.js"
-},
+    "build": "tsc && node copy-ejs.js",
+    "dev": "ts-node src/app.ts",
+    "start": "node dist/app.js"
+  },
   "nodemonConfig": {
     "watch": [
       "src"
@@ -24,6 +24,7 @@
     "ejs": "3.1.10",
     "express": "5.0.1",
     "express-session": "1.18.1",
+    "method-override": "^3.0.0",
     "multer": "1.4.5-lts.1",
     "mysql2": "3.12.0",
     "passport": "0.7.0",
@@ -40,13 +41,10 @@
     "@types/node": "22.10.7",
     "@types/passport": "1.0.17",
     "@types/passport-local": "1.0.38",
-    "nodemon": "3.1.9",
+    "nodemon": "^3.1.9",
     "prisma": "6.3.0",
-    "ts-node": "10.9.2",
+    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "5.7.3"
+    "typescript": "^5.7.3"
   }
 }
-
-
-

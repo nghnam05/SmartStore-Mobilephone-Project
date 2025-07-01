@@ -8,18 +8,19 @@ datasource db {
 }
 
 model User {
-  id          Int     @id @default(autoincrement())
-  username    String? @unique @db.VarChar(255)
-  password    String? @db.VarChar(255)
-  fullname    String? @db.VarChar(255)
-  address     String? @db.VarChar(255)
-  phone       String? @db.VarChar(255)
-  accountType String? @db.VarChar(50)
-  avatar      String? @db.VarChar(255)
+  id          Int      @id @default(autoincrement())
+  username    String?  @unique @db.VarChar(255)
+  password    String?  @db.VarChar(255)
+  fullname    String?  @db.VarChar(255)
+  address     String?  @db.VarChar(255)
+  phone       String?  @db.VarChar(255)
+  accountType String?  @db.VarChar(50)
+  avatar      String?  @db.VarChar(255)
   roleID      Int
   cart        Cart?
   orders      Order?
-  role        Role    @relation(fields: [roleID], references: [id])
+  role        Role     @relation(fields: [roleID], references: [id])
+  Review      Review[]
 
   @@index([roleID], map: "users_roleID_fkey")
   @@map("users")
@@ -66,18 +67,29 @@ model OrderDetail {
 }
 
 model Product {
-  id           Int           @id @default(autoincrement())
-  name         String        @db.VarChar(255)
-  price        Int
-  image        String?       @db.MediumText
-  detailDesc   String        @db.VarChar(255)
-  shortDesc    String        @db.VarChar(255)
-  quantity     Int
-  sold         Int?          @default(0)
-  factory      String        @db.VarChar(255)
-  target       String        @db.VarChar(255)
+  id         Int     @id @default(autoincrement())
+  name       String  @db.Text
+  price      Int
+  image      String? @db.MediumText
+  detailDesc String  @db.Text
+  shortDesc  String  @db.Text
+  quantity   Int
+  sold       Int?    @default(0)
+  factory    String  @db.Text
+  target     String  @db.Text
+
+  ram     String  @db.VarChar(100)
+  storage String  @db.VarChar(100)
+  os      String  @db.VarChar(100)
+  status  String  @default("In stock") @db.VarChar(100)
+  rating  Float?  @default(0.0)
+  screen  String? @db.VarChar(100)
+  battery String? @db.VarChar(100)
+  camera  String? @db.VarChar(100)
+
   CartDetail   CartDetail[]
   orderDetails OrderDetail[]
+  Review       Review[]
 
   @@map("products")
 }
@@ -111,4 +123,17 @@ model session {
   sid       String   @unique(map: "Session_sid_key")
   data      String   @db.MediumText
   expiresAt DateTime
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.Text
+  rating    Int // số sao từ 1 đến 5
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+
+  @@map("reviews")
 }

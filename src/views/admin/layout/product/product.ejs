@@ -57,52 +57,44 @@
             <h2 class="mb-4">Table Product</h2>
 
             <div class="table-responsive">
-              <table
-                class="table table-hover table-bordered align-middle text-center w-100"
-              >
+              <table class="table table-hover table-bordered align-middle text-center w-100">
                 <thead class="table-dark">
                   <tr>
                     <th scope="col">STT</th>
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
                     <th scope="col">Factory</th>
+                    <th scope="col">Target</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <% products.forEach((product) => { %>
-                  <tr>
-                    <th scope="row"><%= product.id %></th>
-                    <td><%= product.name %></td>
-                    <td><%= product.price %></td>
-                    <td><%= product.factory %></td>
-                    <td>
-                      <div
-                        class="d-flex justify-content-center gap-2 flex-wrap"
-                      >
-                        <form
-                          action="/admin/view-product/<%= product.id %>"
-                          method="get"
-                        >
-                          <button
-                            type="submit"
-                            class="btn btn-warning btn-sm text-white"
-                          >
-                            <i class="bi bi-eye"></i> View
-                          </button>
-                        </form>
-                        <form
-                          action="/admin/delete-product/<%= product.id %>"
-                          method="post"
-                          onsubmit="return confirm('Bạn có chắc muốn xóa người dùng này?')"
-                        >
-                          <button type="submit" class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash3"></i> Delete
-                          </button>
-                        </form>
-                      </div>
-                    </td>
-                  </tr>
+                  <% products.forEach((product, index) => { %>
+                    <tr>
+                      <th scope="row"><%= index + 1 %></th>
+                      <td><%= product.name %></td>
+                      <td><%= product.price %></td>
+                      <td><%= product.factory %></td>
+                      <td><%= product.target %></td>
+                      <td><%= product.quantity %></td>
+                      <td><%= product.status %></td>
+                      <td>
+                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+                          <form action="/admin/view-product/<%= product.id %>" method="get">
+                            <button type="submit" class="btn btn-warning btn-sm text-white">
+                              <i class="bi bi-eye"></i> View
+                            </button>
+                          </form>
+                          <form action="/admin/delete-product/<%= product.id %>" method="post" onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
+                            <button type="submit" class="btn btn-danger btn-sm">
+                              <i class="bi bi-trash3"></i> Delete
+                            </button>
+                          </form>
+                        </div>
+                      </td>
+                    </tr>
                   <% }) %>
                 </tbody>
               </table>

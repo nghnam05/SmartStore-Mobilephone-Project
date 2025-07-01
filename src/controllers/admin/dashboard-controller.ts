@@ -5,7 +5,7 @@ import {
   getOrderAdmin,
   getOrderDetailAdmin,
 } from "../../services/admin/order-service";
-import { getOrderHistory } from "../../services/client/item-service";
+import { getOrderHistory } from "../../services/client/product-service";
 import { prisma } from "../../config/client";
 
 const getDashboard = async (req: Request, res: Response) => {

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+    <title>Products Deatils Viewers</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.pinimg.com/736x/89/f1/d6/89f1d65fe8b8bf81eb8ddbb417537d17.jpg"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Glide.js CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/css/glide.core.min.css"
+    />
+
+    <!-- Glide.js JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/glide.min.js"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icon Font Stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="/client/lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
+    <link
+      href="/client/lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/client/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Template Stylesheet -->
+    <link href="/client/css/style.css" rel="stylesheet" />
+    <link href="/client/css/product/details-product.css" rel="stylesheet" />
+    <link href="/client/css/layout/layout.css" rel="stylesheet" />
+
+  </head>
+  <body>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <%- include('../layout/header') %>
+
+
+    <div class="container py-5 " style="margin-top: 8%;"  >
+      <div class="row justify-content-center">
+        <div class="col-md-7 bg-white shadow rounded-4 p-5">
+          <h4 class="text-primary mb-4">
+            <i class="bi bi-pencil-square me-2"></i> Edit Your Review
+          </h4>
+          <form method="POST" action="/product/<%= product.id %>/review/<%= review.id %>">
+            <!-- Rating -->
+            <div class="mb-4">
+              <label class="form-label fw-semibold text-dark">Rating</label>
+              <select name="rating" class="form-select border border-primary-subtle rounded-3" required>
+                <% for (let i = 1; i <= 5; i++) { %>
+                  <option value="<%= i %>" <%= i === review.rating ? 'selected' : '' %>>
+                    <%= i %> Star<%= i > 1 ? 's' : '' %>
+                  </option>
+                <% } %>
+              </select>
+            </div>
+    
+            <!-- Content -->
+            <div class="mb-4">
+              <label class="form-label fw-semibold text-dark">Your Review</label>
+              <textarea name="content" rows="4" class="form-control border border-secondary-subtle rounded-3 shadow-sm" placeholder="Update your experience..." required><%= review.content %></textarea>
+            </div>
+    
+            <!-- Buttons -->
+            <div class="d-flex justify-content-between align-items-center">
+              <a href="/product/<%= product.id %>" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="bi bi-arrow-left-circle me-1"></i> Back
+              </a>
+              <button type="submit" class="btn btn-success rounded-pill px-4">
+                <i class="bi bi-save me-1"></i> Update Review
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+  <!-- back to top  -->
+  <a href="#" class="btn border-3 rounded-circle back-to-top"
+  ><i class="fa fa-arrow-up"></i
+></a>
+<a href="#" class="btn border-3 rounded-circle back-to-top"
+  ><i class="fa fa-arrow-up"></i
+></a>
+<%- include('../layout/footer') %>
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/client/lib/easing/easing.min.js"></script>
+<script src="/client/lib/waypoints/waypoints.min.js"></script>
+<script src="/client/lib/lightbox/js/lightbox.min.js"></script>
+<script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<!-- Template Javascript -->
+<script src="/client/js/main.js"></script>
+<script src="/client/js/detailproduct/details-products.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+  src="//code.tidio.co/jessuvetqgbmlfbbicxo08yqsjeeprfb.js"
+  async
+></script>
+</body>
+</html>

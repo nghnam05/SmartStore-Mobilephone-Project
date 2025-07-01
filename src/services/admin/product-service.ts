@@ -1,5 +1,7 @@
 import { prisma } from "../../config/client";
 
+//  Create Product
+
 const createProduct = async (
   name: string,
   price: number,
@@ -8,7 +10,15 @@ const createProduct = async (
   quantity: number,
   factory: string,
   target: string,
-  image: string
+  image: string,
+  ram: string,
+  storage: string,
+  os: string,
+  status: string,
+  screen: string,
+  battery: string,
+  camera: string,
+  rating: number
 ) => {
   await prisma.product.create({
     data: {
@@ -20,35 +30,36 @@ const createProduct = async (
       factory,
       target,
       image,
+      ram,
+      storage,
+      os,
+      status,
+      screen,
+      battery,
+      camera,
+      rating,
     },
   });
 };
+
+
+//  Get All Products
+
 const getProductList = async () => {
   return prisma.product.findMany();
 };
-const handleDeleteProduct = async (id: number) => {
-  const product = await prisma.product.findUnique({
-    where: { id },
-  });
 
-  if (!product) {
-    console.log(`❌ Product with ID ${id} not found.`);
-    return;
-  }
 
-  await prisma.cartDetail.deleteMany({ where: { productId: id } });
-  await prisma.orderDetail.deleteMany({ where: { productId: id } });
-
-  await prisma.product.delete({ where: { id } });
-
-  console.log(`✅ Deleted product ID ${id}`);
-};
+//  Get Product by ID
 
 const getProductByID = async (id: number) => {
-  return await prisma.product.findUnique({
+  return prisma.product.findUnique({
     where: { id },
   });
 };
+
+
+// Update Product
 
 const updateProductById = async (
   id: number,
@@ -59,7 +70,15 @@ const updateProductById = async (
   quantity: number,
   factory: string,
   target: string,
-  image?: string | null
+  image: string,
+  ram: string,
+  storage: string,
+  os: string,
+  status: string,
+  screen: string,
+  battery: string,
+  camera: string,
+  rating: number
 ) => {
   await prisma.product.update({
     where: { id },
@@ -72,9 +91,40 @@ const updateProductById = async (
       factory,
       target,
       image,
+      ram,
+      storage,
+      os,
+      status,
+      screen,
+      battery,
+      camera,
+      rating,
     },
   });
 };
+
+
+// ❌ Delete Product
+
+const handleDeleteProduct = async (id: number) => {
+  const product = await prisma.product.findUnique({ where: { id } });
+
+  if (!product) {
+    console.log(`❌ Product with ID ${id} not found.`);
+    return;
+  }
+
+  // Xoá dữ liệu liên quan
+  await prisma.cartDetail.deleteMany({ where: { productId: id } });
+  await prisma.orderDetail.deleteMany({ where: { productId: id } });
+
+  await prisma.product.delete({ where: { id } });
+
+  console.log(`✅ Deleted product ID ${id}`);
+};
+
+
+//  Add Product to Cart
 const addProductToCart = async (
   quantity: number,
   productId: number,
@@ -82,16 +132,18 @@ const addProductToCart = async (
 ) => {
   const userId = (user as { id: number }).id;
 
+  const product = await prisma.product.findUnique({ where: { id: productId } });
+  if (!product) throw new Error("Product not found");
+
+  // ❗Kiểm tra tồn kho
+  if (product.quantity < quantity) {
+    throw new Error("Not enough stock");
+  }
+
   const cart = await prisma.cart.findUnique({
     where: { userId },
     include: { cartDetails: true },
   });
-
-  const product = await prisma.product.findUnique({
-    where: { id: productId },
-  });
-
-  if (!product) throw new Error("Product not found");
 
   if (cart) {
     const existingDetail = cart.cartDetails.find(
@@ -101,7 +153,9 @@ const addProductToCart = async (
     if (existingDetail) {
       await prisma.cartDetail.update({
         where: { id: existingDetail.id },
-        data: { quantity: existingDetail.quantity + quantity },
+        data: {
+          quantity: existingDetail.quantity + quantity,
+        },
       });
     } else {
       await prisma.cartDetail.create({
@@ -113,15 +167,18 @@ const addProductToCart = async (
         },
       });
     }
+
     await prisma.cart.update({
       where: { userId },
-      data: { sum: cart.sum + quantity * product.price },
+      data: {
+        sum: cart.sum + quantity * product.price,
+      },
     });
   } else {
     await prisma.cart.create({
       data: {
         userId,
-        sum: quantity,
+        sum: quantity * product.price,
         cartDetails: {
           create: [
             {
@@ -134,13 +191,24 @@ const addProductToCart = async (
       },
     });
   }
+
+  // 🔄 Cập nhật lại tồn kho sản phẩm
+  await prisma.product.update({
+    where: { id: productId },
+    data: {
+      quantity: product.quantity - quantity,
+    },
+  });
 };
+
+
+//  Export Functions
 
 export {
   createProduct,
   getProductList,
-  handleDeleteProduct,
   getProductByID,
   updateProductById,
+  handleDeleteProduct,
   addProductToCart,
 };

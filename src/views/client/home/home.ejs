@@ -16,14 +16,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Glide.js CSS -->
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/css/glide.core.min.css"
-    />
-
-    <!-- Glide.js JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/glide.min.js"></script>
-
-    <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
       rel="stylesheet"
     />
@@ -111,61 +103,120 @@
                       <div
                         class="card product-card h-100 shadow-sm border-0 rounded-4 overflow-hidden pt-2 position-relative"
                       >
-                        <!-- product image-->
-
-                        <div class="card-image position-relative">
+                        <!-- Product Image -->
+                        <div
+                          class="card-image position-relative text-center px-2 py-3"
+                        >
                           <img
                             src="/images/product/<%= product.image %>"
                             class="card-img-top object-fit-contain"
+                            style="height: 180px; object-fit: contain"
                             alt="product-image"
                           />
                         </div>
 
-                        <!-- Nội dung sản phẩm -->
+                        <!-- Product Content -->
                         <div
-                          class="card-body text-start d-flex flex-column gap-1"
+                          class="card-body text-start d-flex flex-column gap-2 px-3 pb-3"
                         >
+                          <!-- Name -->
                           <a
-                            class="product-name fw-bold fs-5"
+                            class="product-name fw-semibold fs-5 text-dark text-decoration-none"
                             href="/product/<%= product.id %>"
                           >
                             <%= product.name %>
                           </a>
-                          <p class="card-text small text-muted">
-                            <%= product.detailDesc %>
+
+                          <!-- Mô tả ngắn -->
+                          <p
+                            class="card-text text-muted small mb-1"
+                            style="height: 40px; overflow: hidden"
+                          >
+                            <%= product.shortDesc || product.detailDesc %>
                           </p>
-                          <div class="d-flex justify-content-start gap-3">
+
+                          <!-- Extra Info: RAM, Storage, Factory -->
+                          <div
+                            class="d-flex flex-wrap gap-2 small text-secondary justify-content-between"
+                          >
                             <span
-                              class="badge rounded-pill shadow-sm d-flex align-items-center gap-1 px-2 py-1 small flash-sale"
+                              ><i class="bi bi-cpu me-1"></i>RAM: <%=
+                              product.ram %></span
+                            >
+                            <span
+                              ><i class="bi bi-hdd me-1"></i>Storage: <%=
+                              product.storage %></span
+                            >
+                          </div>
+
+                          <!-- Flash Sale badge -->
+                          <div>
+                            <span
+                              class="badge bg-warning text-dark rounded-pill px-2 py-1 small d-inline-flex align-items-center gap-1"
                             >
                               <i class="bi bi-lightning-charge-fill"></i> Flash
                               Sale 10%
                             </span>
                           </div>
-                          <!-- Giá sản phẩm -->
+
+                          <!-- Giá -->
+                          <% const discountPrice = Math.floor(product.price *
+                          0.9); %>
                           <div class="mt-2">
-                            <% const discountPrice = product.price - 1000000; %>
                             <div
-                              class="d-flex align-items-center justify-content-center gap-4"
+                              class="d-flex justify-content-between align-items-center"
                             >
                               <div>
-                                <span class="fw-bold price-text">Price : </span>
-                                <del class="text-muted small mb-0 sale-price">
-                                  <%= product.price.toLocaleString() %> ₫
+                                <span class="text-muted small d-block"
+                                  >Old Price</span
+                                >
+                                <del class="text-muted small">
+                                  <%= new Intl.NumberFormat('vi-VN', { style:
+                                  'currency', currency: 'VND'
+                                  }).format(product.price) %>
                                 </del>
                               </div>
-                              <!-- Giá sau giảm -->
-                              <div class="">
-                                <h6 class="text-danger fw-bold">
+                              <div>
+                                <span class="text-muted small d-block"
+                                  >Now</span
+                                >
+                                <span class="text-danger fw-bold">
                                   <%= new Intl.NumberFormat('vi-VN', { style:
-                                  'currency' , currency: 'VND'
+                                  'currency', currency: 'VND'
                                   }).format(discountPrice) %>
-                                </h6>
+                                </span>
                               </div>
                             </div>
                           </div>
+                          <div class="mt-2 d-flex justify-content-between">
+                            <!-- Rating -->
+                            <% if (product.rating) { %>
+                            <div
+                              class="mt-1 small text-warning d-flex align-items-center gap-1"
+                            >
+                              <i class="bi bi-star-fill"></i> Đánh giá <%=
+                              product.rating %>/5
+                            </div>
+                            <% } %>
 
-                          <!-- Nút mua -->
+                            <!-- Tình trạng -->
+                            <div class="mt-1 small">
+                              <% if (product.quantity > 0) { %>
+                              <span class="text-success"
+                                ><i class="bi bi-check-circle me-1"></i>In
+                                stock: <%= product.quantity %></span
+                              >
+                              <% } else { %>
+                              <span class="text-danger"
+                                ><i class="bi bi-x-circle me-1"></i>Out of
+                                stock</span
+                              >
+                              <% } %>
+                            </div>
+                          </div>
+
+                          <!-- Nút Add to cart -->
+                          <% if (product.quantity > 0) { %>
                           <form
                             method="post"
                             class="d-flex justify-content-center mt-3"
@@ -173,26 +224,16 @@
                           >
                             <button
                               type="submit"
-                              class="mx-auto btn rounded-pill px-3 buy-btn text-white"
+                              class="btn rounded-pill px-3 buy-btn text-white"
                             >
-                              <i class="fa fa-shopping-bag me-2"></i>
-                              Add to Cart
+                              <i class="fa fa-shopping-bag me-2"></i> Add to
+                              Cart
                             </button>
                           </form>
-
-                          <!-- <div class="d-flex justify-content-center mt-3">
-                            <a
-                              href="#"
-                              class="btn d-inline-flex align-items-center gap-2 px-4 py-1 rounded-lg shadow-sm text-white buy-btn"
-                            >
-                            <i class="bi bi-cart-plus-fill"></i>
-                              <span class="fw-normal">Add to Cart</span>
-                            </a>
-                          </div> -->
+                          <% } %>
                         </div>
                       </div>
                     </div>
-
                     <% }) %>
                   </div>
                 </div>

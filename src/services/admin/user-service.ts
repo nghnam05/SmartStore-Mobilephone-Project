@@ -1,12 +1,9 @@
-// import { hashPasswords } from 'src/services/user-service';
-// import { Query } from "./../../node_modules/mysql2/typings/mysql/index.d";
-// import { Prisma } from "@prisma/client";
-// import getConnect from "../config/database";
+
 import { prisma } from "../../config/client";
 import { ACCOUNT_TYPE } from "../../config/constant";
 
 import bcrypt from "bcrypt";
-const saltRounds = 10; //do phuc tap cua thuat toan
+const saltRounds = 10; 
 
 const hashPasswords = async (plaintext: string) => {
   return await bcrypt.hash(plaintext, saltRounds);
@@ -59,26 +56,12 @@ const handleCreateNewUser = async (
 const getAllUsers = async () => {
   const users = await prisma.user.findMany();
   return users;
-  // const connection = await getConnect();
-  // try {
-  //   const [results, fields] = await connection.execute("SELECT * FROM `user`");
-  //   return results;
-  // } catch (err) {
-  //   console.error("Error selecting users:", err);
-  //   throw err;
-  // }
+
 };
 const getAllRoles = async () => {
   const roles = await prisma.role.findMany();
   return roles;
-  // const connection = await getConnect();
-  // try {
-  //   const [results, fields] = await connection.execute("SELECT * FROM `user`");
-  //   return results;
-  // } catch (err) {
-  //   console.error("Error selecting users:", err);
-  //   throw err;
-  // }
+
 };
 const handleDeleteUser = async (
   targetUserId: string,
