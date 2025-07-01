@@ -103,7 +103,7 @@
                       <div
                         class="card product-card h-100 shadow-sm border-0 rounded-4 overflow-hidden pt-2 position-relative"
                       >
-                        <!-- Product Image -->
+                        <!-- Hình ảnh sản phẩm -->
                         <div
                           class="card-image position-relative text-center px-2 py-3"
                         >
@@ -111,76 +111,99 @@
                             src="/images/product/<%= product.image %>"
                             class="card-img-top object-fit-contain"
                             style="height: 180px; object-fit: contain"
-                            alt="product-image"
+                            alt="Ảnh sản phẩm <%= product.name %>"
                           />
                         </div>
 
-                        <!-- Product Content -->
+                        <!-- Nội dung sản phẩm -->
                         <div
                           class="card-body text-start d-flex flex-column gap-2 px-3 pb-3"
                         >
-                          <!-- Name -->
+                          <!-- Tên sản phẩm -->
                           <a
-                            class="product-name fw-semibold fs-5 text-dark text-decoration-none"
+                            class="product-name fw-bold fs-5 text-dark text-decoration-none"
                             href="/product/<%= product.id %>"
+                            title="Xem chi tiết <%= product.name %>"
                           >
                             <%= product.name %>
                           </a>
 
                           <!-- Mô tả ngắn -->
                           <p
-                            class="card-text text-muted small mb-1"
+                            class="card-text mb-2 text-dark"
                             style="height: 40px; overflow: hidden"
                           >
                             <%= product.shortDesc || product.detailDesc %>
                           </p>
 
-                          <!-- Extra Info: RAM, Storage, Factory -->
+                          <!-- Thông tin phụ: RAM, bộ nhớ -->
                           <div
-                            class="d-flex flex-wrap gap-2 small text-secondary justify-content-between"
+                            class="d-flex flex-wrap gap-2 small justify-content-between"
                           >
-                            <span
-                              ><i class="bi bi-cpu me-1"></i>RAM: <%=
-                              product.ram %></span
-                            >
-                            <span
-                              ><i class="bi bi-hdd me-1"></i>Storage: <%=
-                              product.storage %></span
-                            >
+                            <span class="text-dark">
+                              <i class="bi bi-cpu me-1"></i>RAM: <%= product.ram
+                              %>
+                            </span>
+                            <span class="text-dark">
+                              <i class="bi bi-hdd me-1"></i>Bộ nhớ: <%=
+                              product.storage %>
+                            </span>
                           </div>
 
-                          <!-- Flash Sale badge -->
+                          <!-- Flash Sale -->
                           <div>
                             <span
                               class="badge bg-warning text-dark rounded-pill px-2 py-1 small d-inline-flex align-items-center gap-1"
                             >
-                              <i class="bi bi-lightning-charge-fill"></i> Flash
-                              Sale 10%
+                              <i class="bi bi-lightning-charge-fill"></i> Giảm
+                              giá 10%
                             </span>
                           </div>
 
-                          <!-- Giá -->
+                          <!-- Giá sản phẩm -->
                           <% const discountPrice = Math.floor(product.price *
                           0.9); %>
+
+                          <!-- Hiển thị giá -->
                           <div class="mt-2">
                             <div
                               class="d-flex justify-content-between align-items-center"
                             >
+                              <!-- Giá gốc -->
                               <div>
-                                <span class="text-muted small d-block"
-                                  >Old Price</span
+                                <span
+                                  class="text-dark small d-block fw-bold"
+                                  style="font-family: 'Roboto', sans-serif"
+                                  >Giá gốc</span
                                 >
-                                <del class="text-muted small">
+                                <del
+                                  class="text-muted small"
+                                  style="
+                                    font-size: 14px;
+                                    font-family: 'Roboto', sans-serif;
+                                  "
+                                >
                                   <%= new Intl.NumberFormat('vi-VN', { style:
                                   'currency', currency: 'VND'
                                   }).format(product.price) %>
                                 </del>
                               </div>
+
+                              <!-- Giá khuyến mãi -->
                               <div>
-                                <span class="text-muted small d-block"
-                                  >Now</span
+                                <span
+                                  class="text-dark small d-block fw-bold"
+                                  style="font-family: 'Roboto', sans-serif"
+                                  >Giá khuyến mãi</span
                                 >
-                                <span class="text-danger fw-bold">
+                                <span
+                                  class="fw-bold"
+                                  style="
+                                    color: #e63946;
+                                    font-size: 16px;
+                                    font-family: 'Roboto', sans-serif;
+                                  "
+                                >
                                   <%= new Intl.NumberFormat('vi-VN', { style:
                                   'currency', currency: 'VND'
                                   }).format(discountPrice) %>
@@ -188,34 +211,50 @@
                               </div>
                             </div>
                           </div>
-                          <div class="mt-2 d-flex justify-content-between">
-                            <!-- Rating -->
+
+                          <!-- Đánh giá & tình trạng -->
+                          <div
+                            class="mt-2 d-flex justify-content-between align-items-center"
+                          >
+                            <!-- Đánh giá -->
                             <% if (product.rating) { %>
                             <div
-                              class="mt-1 small text-warning d-flex align-items-center gap-1"
+                              class="small d-flex align-items-center gap-1"
+                              style="
+                                color: #fbbf24;
+                                font-family: 'Roboto', sans-serif;
+                              "
                             >
-                              <i class="bi bi-star-fill"></i> Đánh giá <%=
+                              <i class="bi bi-star-fill"></i>
+                              <span class="text-dark">Đánh giá</span> <%=
                               product.rating %>/5
                             </div>
                             <% } %>
 
                             <!-- Tình trạng -->
-                            <div class="mt-1 small">
-                              <% if (product.quantity > 0) { %>
-                              <span class="text-success"
-                                ><i class="bi bi-check-circle me-1"></i>In
-                                stock: <%= product.quantity %></span
-                              >
+                            <div
+                              class="small fw-semibold"
+                              style="font-family: 'Roboto', sans-serif"
+                            >
+                              <% if (product.quantity > 2) { %>
+                              <span class="text-success">
+                                <i class="bi bi-check-circle me-1"></i>Còn hàng:
+                                <%= product.quantity %>
+                              </span>
+                              <% } else if (product.quantity > 0) { %>
+                              <span class="text-warning">
+                                <i class="bi bi-exclamation-circle me-1"></i>Sắp
+                                hết hàng
+                              </span>
                               <% } else { %>
-                              <span class="text-danger"
-                                ><i class="bi bi-x-circle me-1"></i>Out of
-                                stock</span
-                              >
+                              <span class="text-danger">
+                                <i class="bi bi-x-circle me-1"></i>Hết hàng
+                              </span>
                               <% } %>
                             </div>
                           </div>
 
-                          <!-- Nút Add to cart -->
+                          <!-- Nút Thêm vào giỏ -->
                           <% if (product.quantity > 0) { %>
                           <form
                             method="post"
@@ -226,14 +265,15 @@
                               type="submit"
                               class="btn rounded-pill px-3 buy-btn text-white"
                             >
-                              <i class="fa fa-shopping-bag me-2"></i> Add to
-                              Cart
+                              <i class="fa fa-shopping-bag me-2"></i> Thêm vào
+                              giỏ
                             </button>
                           </form>
                           <% } %>
                         </div>
                       </div>
                     </div>
+
                     <% }) %>
                   </div>
                 </div>

@@ -130,16 +130,17 @@
 
 .text-heading-1,
 .text-heading-2 {
-  font-family: "DM Sans", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
 }
 
 .text-heading-1 {
   color: #111827;
-  font-size: 50px;
+  font-size: 47px;
 }
 .text-heading-2 {
   color: #1e3a8a;
-  font-size: 40px;
+  font-size: 35px;
+  font-weight: 500;
 }
 .carousel-inner {
   max-width: 750px;
@@ -174,7 +175,6 @@
 .page-header {
   position: relative;
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url(../img/cart-page-header-img.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -185,7 +185,7 @@
 }
 /*** featurs Start ***/
 .featurs-item {
-  background: #f3f4f6; /* Gray-100 */
+  background: #f3f4f6;
   border-radius: 12px;
   padding: 24px;
   transition: all 0.3s ease;
@@ -225,15 +225,14 @@
 }
 
 .featurs-content p {
-  color: #6b7280; /* Gray-500 */
+  color: #6b7280;
   font-size: 14px;
   margin-top: 4px;
 }
 
-/*** Footer Start ***/
 .footer {
   background-color: #0f766e;
-  color: #9ca3af; /* Gray-400 */
+  color: #9ca3af;
   font-family: "Poppins", sans-serif;
   font-size: 15px;
 }
@@ -246,9 +245,15 @@
   text-decoration: none;
 }
 
-.footer a.btn-link:hover {
-  color: #fff;
-  transform: translateX(4px);
+.footer-item a:hover {
+  color: #fff !important;
+  transform: translateY(2px);
+  transition: all 0.3s ease;
+}
+
+.footer-item img {
+  max-width: 100%;
+  height: auto;
 }
 
 .footer h4 {

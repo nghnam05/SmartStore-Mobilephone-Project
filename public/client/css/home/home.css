@@ -35,13 +35,16 @@
 }
 .card-text {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight: 500;
-  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-family: "Roboto", "Segoe UI", "Helvetica Neue", sans-serif;
+  line-height: 1.5;
+  font-size: 14px;
 }
+
 .card-sell {
   top: 3%;
   left: 10px;
@@ -52,7 +55,7 @@
 }
 .badge {
   width: fit-content;
-  font-family: "DM Sans", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
 }
 .btn-custom {
   background-color: #163362;
@@ -73,13 +76,13 @@
 }
 
 .all-btn {
-  font-family: "DM Sans", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
 }
 
 .buy-btn {
   background-color: #007bff;
   transition: all 0.4s ease;
-  font-family: "DM Sans", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
 }
 .buy-btn:hover {
   background-color: #000;

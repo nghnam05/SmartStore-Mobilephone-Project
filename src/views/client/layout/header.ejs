@@ -1,35 +1,55 @@
 <div class="container-fluid fixed-top">
   <div class="container-fluid topbar d-none d-lg-block">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between px-2">
       <div class="top-info">
         <small class="me-3"
           ><i class="fas fa-map-marker-alt me-2 text-white"></i>
           <a href="#" class="text-white"
-            >1St, Ho Xuan Huong, Da Lat, Lam Dong</a
+            >1St, Hồ Xuân Hương, Đà Lạt, Lâm Đồng</a
           ></small
         >
         <small class="me-3"
           ><i class="fas fa-envelope me-2 text-white"></i
-          ><a href="#" class="text-white">smartzone@example.com</a></small
+          ><a href="#" class="text-white">daivietmobile@gmail.com.vn</a></small
         >
       </div>
       <div class="top-link pe-2">
-        <a href="#" class="text-white"
-          ><small class="text-white mx-2">Privacy Policy</small>/</a
+        <a
+          href="#"
+          class="text-white text-decoration-none"
+          title="Chính sách bảo mật"
         >
-        <a href="#" class="text-white"
-          ><small class="text-white mx-2">Terms of Use</small></a
+          <small class="text-white mx-2">Chính sách bảo mật</small>
+        </a>
+        <span class="text-white">/</span>
+        <a
+          href="#"
+          class="text-white text-decoration-none"
+          title="Điều khoản sử dụng"
         >
+          <small class="text-white mx-2">Điều khoản sử dụng</small>
+        </a>
       </div>
     </div>
   </div>
   <div class="container px-0">
-    <nav class="navbar navbar-light bg-white navbar-expand-xl px-2">
-      <a href="/" class="navbar-brand text-decoration-none">
-        <h1 class="m-0 fw-bold brand-title">
-          <span class="brand-s">S</span>mart <span class="brand-z">S</span>tore
+    <nav
+      class="navbar navbar-light bg-white navbar-expand-xl px-2"
+      role="navigation"
+    >
+      <a
+        href="/"
+        class="navbar-brand text-decoration-none"
+        title="Trang chủ Đại Việt Mobile"
+      >
+        <h1 class="m-0 fw-bold text-uppercase fs-2" style="font-family: Inter;" >
+          <span class="text-primary-emphasis" style="color: #e63946"
+            >Đại Việt</span
+          >
+          <span class="" style="color: #1d3557">Mobile</span>
         </h1>
       </a>
+
       <button
         class="navbar-toggler py-2 px-3"
         type="button"
@@ -38,29 +58,25 @@
       >
         <span class="fa fa-bars text-dark"></span>
       </button>
+
       <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
         <div class="navbar-nav mx-auto">
           <div class="d-flex align-items-center gap-4 mx-auto">
-            <!-- Ô tìm kiếm -->
-
-            <div
-              class="position-relative"
-              style="width: 320px; z-index: 100 !important"
-            >
+            <!-- Tìm kiếm sản phẩm -->
+            <div class="position-relative" style="width: 320px; z-index: 100">
               <div class="input-group rounded-pill overflow-hidden border">
                 <span class="input-group-text bg-white border-0">
                   <i class="bi bi-search text-dark"></i>
                 </span>
-
                 <input
                   type="text"
                   id="search-input"
                   class="form-control border-0"
-                  placeholder="Find product here..."
+                  placeholder="Tìm sản phẩm..."
+                  aria-label="Tìm sản phẩm"
                   autocomplete="off"
                 />
               </div>
-
               <div
                 id="suggestions"
                 class="list-group position-absolute w-100 z-3 shadow-sm"
@@ -68,19 +84,31 @@
               ></div>
             </div>
 
-            <!-- Nav links -->
-
+            <!-- Menu chính -->
             <div class="navbar-nav d-flex flex-row gap-3">
-              <a href="/" class="nav-item nav-link fw-semibold">Home</a>
-
-              <a href="/all-product" class="nav-item nav-link fw-semibold"
-                >Products</a
+              <a
+                href="/"
+                class="nav-item nav-link fw-semibold"
+                title="Trang chủ"
+                >Trang chủ</a
+              >
+              <a
+                href="/all-product"
+                class="nav-item nav-link fw-semibold"
+                title="Sản phẩm"
+                >Sản phẩm</a
               >
             </div>
           </div>
         </div>
+
+        <!-- Giỏ hàng & tài khoản -->
         <div class="d-flex gap-2 m-3 me-0">
-          <a href="/cart" class="position-relative me-4 my-auto text-dark">
+          <a
+            href="/cart"
+            class="position-relative me-4 my-auto text-dark"
+            title="Giỏ hàng"
+          >
             <i class="fa fa-shopping-bag fa-2x"></i>
             <% if (user) { %>
             <span
@@ -99,18 +127,21 @@
           </a>
 
           <% if (user) { %>
+          <!-- Dropdown Tài khoản -->
           <div class="dropdown my-auto">
             <a
               href="#"
               class="nav-link dropdown-toggle d-flex align-items-center gap-2"
-              id="dropdownMenuLink"
+              id="dropdownUserMenu"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              title="Tài khoản cá nhân"
+              aria-label="Mở menu tài khoản"
             >
               <% if (user.avatar) { %>
               <img
                 src="/images/<%= user.avatar %>"
-                alt="Avatar"
+                alt="Ảnh đại diện của <%= user.fullname %>"
                 class="rounded-circle object-fit-cover"
                 width="40"
                 height="40"
@@ -118,79 +149,99 @@
               <% } else { %>
               <img
                 src="https://i.pinimg.com/736x/19/91/af/1991affb724349809140e04e6ab233d3.jpg"
-                alt="Default Avatar"
+                alt="Ảnh đại diện mặc định"
                 class="rounded-circle object-fit-cover"
                 width="40"
                 height="40"
               />
               <% } %>
-              <span class="fw-semibold text-dark d-none d-md-inline"
-                ><%=user.fullname%></span
-              >
+              <span class="fw-semibold text-dark d-none d-md-inline">
+                <%= user.fullname %>
+              </span>
             </a>
 
             <ul
-              class="dropdown-menu dropdown-menu-end shadow-lg p-3"
-              aria-labelledby="dropdownMenuLink"
+              class="dropdown-menu dropdown-menu-end shadow-lg p-3 border-0"
+              aria-labelledby="dropdownUserMenu"
               style="min-width: 280px"
             >
+              <!-- Avatar lớn trong dropdown -->
               <li class="text-center">
                 <% if (user.avatar) { %>
                 <img
                   src="/images/<%= user.avatar %>"
-                  alt="Avatar"
+                  alt="Ảnh đại diện của <%= user.fullname %>"
                   class="rounded-circle object-fit-cover"
-                  width="40"
-                  height="40"
+                  width="80"
+                  height="80"
                 />
                 <% } else { %>
                 <img
                   src="https://i.pinimg.com/736x/19/91/af/1991affb724349809140e04e6ab233d3.jpg"
-                  alt="Default Avatar"
+                  alt="Ảnh đại diện mặc định"
                   class="rounded-circle object-fit-cover"
                   width="80"
                   height="80"
                 />
                 <% } %>
-                <h6 class="mb-0 fw-bold mt-4"><%=user.fullname%></h6>
+                <h6 class="mb-0 fw-bold mt-3"><%= user.fullname %></h6>
               </li>
 
               <li><hr class="dropdown-divider" /></li>
+
+              <!-- Các liên kết tài khoản -->
               <li>
-                <a class="dropdown-item d-flex align-items-center gap-2" href="/edit-profile">
-                  <i class="bi bi-person-lines-fill fs-5 text-primary"></i>
+                <a
+                  class="dropdown-item d-flex align-items-center gap-2"
+                  href="/edit-profile"
+                >
+                  <i class="bi bi-person-lines-fill fs-5 text-dark"></i>
                   <span>Thông tin cá nhân</span>
-                  <i class="bi bi-chevron-right fs-6 ms-auto text-secondary"></i>
+                  <i class="bi bi-chevron-right fs-6 ms-auto text-success"></i>
                 </a>
               </li>
-              <li>
-                <a class="dropdown-item d-flex align-items-center gap-2" href="/history">
-                  <i class="bi bi-clock-history fs-5 text-primary"></i>
-                  <span>Lịch sử mua hàng</span>
-                  <i class="bi bi-chevron-right fs-6 ms-auto text-secondary"></i>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item d-flex align-items-center gap-2" href="/change-password">
-                  <i class="bi bi-shield-lock fs-5 text-primary"></i>
-                  <span>Đổi mật khẩu</span>
-                  <i class="bi bi-chevron-right fs-6 ms-auto text-secondary"></i>
-                </a>
-              </li>
-              
 
               <li>
-                <a class="dropdown-item d-flex align-items-center gap-2 text-danger fw-semibold" href="/logout">
-                  <i class="bi bi-person-circle fs-5"></i>
-                  <span>Log out your account</span>
-                  <i class="bi bi-box-arrow-right fs-5 ms-auto"></i>
+                <a
+                  class="dropdown-item d-flex align-items-center gap-2"
+                  href="/history"
+                >
+                  <i class="bi bi-clock-history fs-5 text-dark"></i>
+                  <span>Lịch sử mua hàng</span>
+                  <i
+                    class="bi bi-chevron-right fs-6 ms-auto text-success"
+                  ></i>
                 </a>
               </li>
-              
+
+              <li>
+                <a
+                  class="dropdown-item d-flex align-items-center gap-2"
+                  href="/change-password"
+                >
+                  <i class="bi bi-shield-lock fs-5 text-dark"></i>
+                  <span>Đổi mật khẩu</span>
+                  <i
+                    class="bi bi-chevron-right fs-6 ms-auto text-success"
+                  ></i>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  class="dropdown-item d-flex align-items-center gap-2 text-danger fw-semibold"
+                  href="/logout"
+                >
+                  <i class="bi bi-box-arrow-right fs-5"></i>
+                  <span>Đăng xuất</span>
+                  <i class="bi bi-chevron-right fs-6 ms-auto"></i>
+                </a>
+              </li>
             </ul>
           </div>
+
           <% } else { %>
-          <a href="/login" class="my-auto">
+          <a href="/login" class="my-auto" title="Đăng nhập">
             <i class="fas fa-user fa-2x text-dark"></i>
           </a>
           <% } %>

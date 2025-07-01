@@ -150,16 +150,6 @@ storageButtons.forEach((btn) => {
   });
 });
 
-const links = document.querySelectorAll(".nav-link");
-links.forEach((link) => {
-  link.addEventListener("click", (e) => {
-    links.forEach((item) => {
-      item.classList.remove("active");
-    });
-    link.classList.add("active");
-  });
-});
-
 const input = document.getElementById("search-input");
 const suggestions = document.getElementById("suggestions");
 let timeout;
@@ -203,3 +193,25 @@ input.addEventListener("input", () => {
       });
   }, 300);
 });
+
+
+
+//  mo mail o footer khi bam nut send : 
+const openGmail = () => {
+  const userEmail = document.getElementById("userEmail").value.trim();
+  if (!userEmail) {
+    alert("Vui lòng nhập email của bạn trước khi đăng ký!");
+    return;
+  }
+
+  const emailTo = "smartzone@gmail.com"; // email nhận
+  const subject = encodeURIComponent("Yêu cầu nhận thông tin khuyến mãi");
+  const body = encodeURIComponent(
+    `Chào SmartStore,\n\nTôi muốn đăng ký nhận thông tin khuyến mãi. Email của tôi là: ${userEmail}\n\nCảm ơn!`
+  );
+
+  window.open(
+    `https://mail.google.com/mail/?view=cm&fs=1&to=${emailTo}&su=${subject}&body=${body}`,
+    "_blank"
+  );
+};

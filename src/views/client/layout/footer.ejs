@@ -1,82 +1,91 @@
-<footer class="container-fluid text-white-50 footer pt-3 ">
-  <div class="container py-5">
+<footer class="container-fluid text-white-50 footer">
+  <div class="container py-4">
     <div
-      class="pb-4 mb-4"
+      class=" row pb-4 mb-4 "
       style="border-bottom: 1px solid rgba(226, 175, 24, 0.5)"
     >
       <div class="row g-4">
-  <div class="col-lg-3 col-12 text-center text-lg-start mb-3 mb-lg-0">
-    <a href="/">
-      <h1 class="text-white mb-0 fs-3">SmartStore</h1>
-    </a>
-  </div>
+      <div class="col-lg-3 col-12 text-center text-lg-start mb-3 mb-lg-0">
+        <a href="/">
+          <h1 class="text-white mb-0 fs-3" style="font-family: "Roboto";">Đại Việt Mobile</h1>
+        </a>
+      </div>
   <div class="col-lg-6 col-12">
     <div class="position-relative mx-auto subscribe-box w-100">
       <input
         class="form-control email-input"
         type="email"
-        placeholder="Enter your email"
+        placeholder="Nhập email của bạn"
+        id="userEmail"
       />
-      <a href="https://mail.google.com/" class="btn subscribe-btn">Subscribe</a>
+      <button
+        class="btn btn-warning text-white rounded-pill px-4 py-2 subscribe-btn"
+        onclick="openGmail()"
+      >
+        Đăng ký
+      </>
     </div>
   </div>
   <div class="col-lg-3 col-12 d-flex justify-content-center justify-content-lg-end pt-3">
-    <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-twitter"></i></a>
-    <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
-    <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
-    <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+    <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://www.facebook.com"><i class="fab fa-facebook-f"></i></a>
+    <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href="https://www.youtube.com"><i class="fab fa-youtube"></i></a>
+    <a class="btn btn-outline-secondary btn-md-square rounded-circle" href="https://www.linkendin.com"><i class="fab fa-linkedin-in"></i></a>
   </div>
 </div>
 
     </div>
-    <div class="row g-5 infor-shop">
+    <div class="row  infor-shop justify-content-between">
+      <!-- Giới thiệu về cửa hàng -->
       <div class="col-lg-3 col-md-6">
         <div class="footer-item">
-          <h4 class="text-light mb-3">Why People Like us!</h4>
-          <p class="mb-4">
-            typesetting, remaining essentially unchanged. It was popularised in
-            the 1960s with the like Aldus PageMaker including of Lorem Ipsum.
+          <h4 class="text-light mb-4 fw-semibold">🌟 Vì sao khách hàng thích chúng tôi</h4>
+          <p class="text-white-50">
+            Đại Việt Mobile là cửa hàng chuyên cung cấp các dòng điện thoại chính hãng, giá tốt cùng dịch vụ chăm sóc khách hàng tận tâm. Với phương châm "Uy tín tạo nên thương hiệu", chúng tôi cam kết mang đến cho bạn những sản phẩm công nghệ chất lượng cao, bảo hành rõ ràng và trải nghiệm mua sắm hiện đại.
           </p>
-          <a
-            href=""
-            class="btn border-white py-2 px-4 rounded-pill text-white"
-            >Read More</a
-          >
         </div>
       </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="d-flex flex-column text-start footer-item">
-          <h4 class="text-light mb-3">Shop Info</h4>
-          <a class="btn-link" href="">About Us</a>
-          <a class="btn-link" href="">Contact Us</a>
-          <a class="btn-link" href="">Privacy Policy</a>
-          <a class="btn-link" href="">Terms & Condition</a>
-          <a class="btn-link" href="">Return Policy</a>
-          <a class="btn-link" href="">FAQs & Help</a>
+    
+      <!-- Thông tin cửa hàng -->
+      <div class="col-lg-2 col-md-6">
+        <div class="footer-item">
+          <h4 class="text-light mb-4 fw-semibold">🛍️ Thông tin cửa hàng</h4>
+          <ul class="list-unstyled">
+            <li><a class="text-white-50 text-decoration-none d-block mb-2" href="#">Về chúng tôi</a></li>
+            <li><a class="text-white-50 text-decoration-none d-block mb-2" href="#">Liên hệ</a></li>
+            <li><a class="text-white-50 text-decoration-none d-block mb-2" href="#">Chính sách bảo mật</a></li>
+            <li><a class="text-white-50 text-decoration-none d-block mb-2" href="#">Điều khoản dịch vụ</a></li>
+            <li><a class="text-white-50 text-decoration-none d-block mb-2" href="#">Chính sách hoàn trả</a></li>
+            <li><a class="text-white-50 text-decoration-none d-block mb-2" href="#">Câu hỏi thường gặp</a></li>
+          </ul>
         </div>
       </div>
-      <div class="col-lg-3 col-md-6">
-        <div class="d-flex flex-column text-start footer-item">
-          <h4 class="text-light mb-3">Account</h4>
-          <a class="btn-link" href="">My Account</a>
-          <a class="btn-link" href="">Shop details</a>
-          <a class="btn-link" href="">Shopping Cart</a>
-          <a class="btn-link" href="">Wishlist</a>
-          <a class="btn-link" href="">Order History</a>
-          <a class="btn-link" href="">International Orders</a>
-        </div>
-      </div>
+    
+      <!-- Bản đồ vị trí -->
       <div class="col-lg-3 col-md-6">
         <div class="footer-item">
-          <h4 class="text-light mb-3">Contact</h4>
-          <p>Address: 1St, Ho Xuan Huong, Da Lat, Lam Dong</p>
-          <p>Email: smartzone@gmail.com</p>
-          <p>Phone: +84.123.456</p>
-          <p>Payment:</p>
-          <img src="/client/img/payment.png" class="img-fluid" alt="" />
+          <h4 class="text-light mb-4 fw-semibold">📍 Địa chỉ cửa hàng</h4>
+          <div class="ratio ratio-4x3 rounded-3 overflow-hidden shadow-sm">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3903.2937624193105!2d108.4671538748237!3d11.95415158827549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317112f9666392a9%3A0xb1e5885892a37d4c!2zMSBI4buTIFh1w6JuIEjGsMahbmcsIFBoxrDhu51uZyA5LCDEkMOgIEzhuqF0LCBMw6JtIMSQ4buTbmcsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1751368359851!5m2!1svi!2s" 
+              width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Thông tin liên hệ -->
+      <div class="col-lg-3 col-md-6 px-4">
+        <div class="footer-item ">
+          <h4 class="text-light mb-4 fw-semibold">📞 Liên hệ</h4>
+          <p><strong>Địa chỉ:</strong> 1 Hồ Xuân Hương, Đà Lạt, Lâm Đồng</p>
+          <p><strong>Email:</strong> daivietmobile@gmail.com.vn</p>
+          <p><strong>Điện thoại:</strong> +84.123.456</p>
+          <p><strong>Phương thức thanh toán:</strong></p>
+          <img src="/client/img/payment.png" class="img-fluid rounded shadow-sm" alt="Phương thức thanh toán" />
         </div>
       </div>
     </div>
+    
   </div>
-</f>
+</footer>
 <!-- Footer End -->

@@ -11,7 +11,7 @@ const getHomePage = async (req: Request, res: Response) => {
   const user = req.user as { id: number } | undefined;
 
   const page = parseInt(req.query.page as string) || 1;
-  const limit = 4;
+  const limit = 12;
   const offset = (page - 1) * limit;
 
   const [products, total] = await Promise.all([
