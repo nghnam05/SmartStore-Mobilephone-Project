@@ -38,36 +38,34 @@
       <div id="layoutSidenav_content">
         <main class="bg-light">
           <div class="container-fluid px-4">
-            <h1 class="mt-4 mb-4 text-dark">Manage Products</h1>
-
+            <h1 class="mt-4 mb-4 text-dark">Quản lý sản phẩm</h1>
+      
             <div class="d-flex justify-content-end align-items-center mb-4">
-              <a
-                href="/admin/create-product"
-                class="btn btn-primary text-white"
-              >
-                Create new Product <i class="bi bi-plus"></i>
+              <a href="/admin/create-product" class="btn btn-primary text-white">
+                Thêm sản phẩm mới <i class="bi bi-plus"></i>
               </a>
             </div>
+      
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Products</li>
+              <li class="breadcrumb-item"><a href="/admin">Bảng điều khiển</a></li>
+              <li class="breadcrumb-item active">Sản phẩm</li>
             </ol>
-
+      
             <hr />
-            <h2 class="mb-4">Table Product</h2>
-
+            <h2 class="mb-4">Bảng sản phẩm</h2>
+      
             <div class="table-responsive">
               <table class="table table-hover table-bordered align-middle text-center w-100">
                 <thead class="table-dark">
                   <tr>
                     <th scope="col">STT</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Factory</th>
-                    <th scope="col">Target</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Hãng</th>
+                    <th scope="col">Dòng</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -84,12 +82,12 @@
                         <div class="d-flex justify-content-center gap-2 flex-wrap">
                           <form action="/admin/view-product/<%= product.id %>" method="get">
                             <button type="submit" class="btn btn-warning btn-sm text-white">
-                              <i class="bi bi-eye"></i> View
+                              <i class="bi bi-eye"></i> Xem
                             </button>
                           </form>
                           <form action="/admin/delete-product/<%= product.id %>" method="post" onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
                             <button type="submit" class="btn btn-danger btn-sm">
-                              <i class="bi bi-trash3"></i> Delete
+                              <i class="bi bi-trash3"></i> Xóa
                             </button>
                           </form>
                         </div>
@@ -99,34 +97,25 @@
                 </tbody>
               </table>
             </div>
-            <nav aria-label="Page navigation example">
+      
+            <nav aria-label="Điều hướng phân trang">
               <ul class="pagination justify-content-end mt-4">
                 <!-- Previous -->
                 <li class="page-item <%= page <= 1 ? 'disabled' : '' %>">
-                  <a
-                    class="page-link"
-                    href="?page=<%= page - 1 %>"
-                    aria-label="Previous"
-                  >
+                  <a class="page-link" href="?page=<%= page - 1 %>" aria-label="Trang trước">
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
-
+      
                 <% for (let i = 1; i <= totalPages; i++) { %>
                 <li class="page-item <%= i === page ? 'active' : '' %>">
                   <a class="page-link" href="?page=<%= i %>"><%= i %></a>
                 </li>
                 <% } %>
-
+      
                 <!-- Next -->
-                <li
-                  class="page-item <%= page >= totalPages ? 'disabled' : '' %>"
-                >
-                  <a
-                    class="page-link"
-                    href="?page=<%= page + 1 %>"
-                    aria-label="Next"
-                  >
+                <li class="page-item <%= page >= totalPages ? 'disabled' : '' %>">
+                  <a class="page-link" href="?page=<%= page + 1 %>" aria-label="Trang sau">
                     <span aria-hidden="true">&raquo;</span>
                   </a>
                 </li>
@@ -136,6 +125,7 @@
         </main>
         <%- include("../footer.ejs"); -%>
       </div>
+      
     </div>
 
     <script

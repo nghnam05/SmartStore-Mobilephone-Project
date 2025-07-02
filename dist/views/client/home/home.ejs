@@ -74,8 +74,8 @@
             <div class="col-lg-4 text-start">
               <h3 class="section-title d-flex align-items-end gap-2">
                 <i class="bi bi-shop fs-2"></i>
-                <span>Featured Products</span>
-              </h3>
+                <span style="font-family: 'Inter', sans-serif !important;">Các sản phẩm nổi bật</span>
+
             </div>
 
             <div class="col-lg-8 text-end">
@@ -86,7 +86,9 @@
                     href="/all-product"
                   >
                     <i class="fas fa-box-open"></i>
-                    <span class="fw-semibold small all-btn">All Products</span>
+                    <span class="fw-semibold small all-btn"
+                      >Tất cả sản phẩm</span
+                    >
                   </a>
                 </li>
               </ul>
@@ -161,8 +163,7 @@
                           </div>
 
                           <!-- Giá sản phẩm -->
-                          <% const discountPrice = Math.floor(product.price *
-                          0.9); %>
+                          <% const discountPrice = Math.floor(product.price); %>
 
                           <!-- Hiển thị giá -->
                           <div class="mt-2">
@@ -185,7 +186,7 @@
                                 >
                                   <%= new Intl.NumberFormat('vi-VN', { style:
                                   'currency', currency: 'VND'
-                                  }).format(product.price) %>
+                                  }).format(product.price * 1.1) %>
                                 </del>
                               </div>
 

@@ -14,12 +14,12 @@ const product_controller_1 = require("../controllers/client/product-controller")
 const search_1 = require("../controllers/client/search");
 // ==== Controllers - Admin ====
 const dashboard_controller_1 = require("../controllers/admin/dashboard-controller");
+// ==== Info Pages ====
 const auth_service_1 = require("../services/client/auth-service");
 const admin_product_controller_1 = require("../controllers/admin/admin-product-controller");
 const review_controller_1 = require("../controllers/client/review-controller");
 const admin_user_controller_1 = require("../controllers/admin/admin-user-controller");
-// ✅ Import thêm ZaloPay controller
-const zalo_controller_1 = require("../controllers/zalo-controller");
+const payment_controller_1 = require("../controllers/payment-controller");
 const router = express_1.default.Router();
 const webRoutes = (app) => {
     // ==== Home & Redirect ====
@@ -57,6 +57,8 @@ const webRoutes = (app) => {
     router.get("/product/:productId/review/:reviewId/edit", auth_1.checkAuth, review_controller_1.showEditReview);
     router.post("/product/:productId/review/:reviewId", auth_1.checkAuth, review_controller_1.updateReview);
     router.post("/product/:productId/review/:reviewId/delete", auth_1.checkAuth, review_controller_1.deleteReview);
+    // momo
+    router.post("/momo", payment_controller_1.createMomoPaymentController);
     // ==== Info Pages ====
     router.get("/shipping", auth_service_1.getShippingPage);
     router.get("/security-payment", auth_service_1.getSecurityPaymentPage);
@@ -81,14 +83,7 @@ const webRoutes = (app) => {
     // ==== Admin - Orders ====
     router.get("/admin/order", auth_1.checkAuth, auth_1.isAdmin, admin_product_controller_1.getOrderPage);
     router.get("/admin/order/:id", auth_1.checkAuth, auth_1.isAdmin, admin_product_controller_1.getOrderDetailPage);
-    // ✅ ZaloPay Route (gộp từ zalo.route.ts)
-    router.post("/payment/zalo", zalo_controller_1.createOrderZalo);
-    // Test
-    router.get("/test", (req, res) => {
-        console.log("🔥 /test route was hit");
-        res.send("Zalo route working!");
-    });
-    console.log("📌 webRoutes được gọi");
+    // ==== Apply Routes ====
     app.use("/", router);
 };
 exports.default = webRoutes;

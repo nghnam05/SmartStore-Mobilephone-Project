@@ -10,7 +10,6 @@
   };
   spinner(0);
 
-
   $(window).scroll(function () {
     if ($(window).width() < 992) {
       if ($(this).scrollTop() > 55) {
@@ -194,9 +193,7 @@ input.addEventListener("input", () => {
   }, 300);
 });
 
-
-
-//  mo mail o footer khi bam nut send : 
+//  mo mail o footer khi bam nut send :
 const openGmail = () => {
   const userEmail = document.getElementById("userEmail").value.trim();
   if (!userEmail) {
@@ -215,3 +212,4 @@ const openGmail = () => {
     "_blank"
   );
 };
+

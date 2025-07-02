@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>SmartZone-Mobilephone Store</title>
+    <title>Đại Việt Mobile</title>
     <link
       rel="icon"
       type="image/x-icon"
@@ -314,7 +314,60 @@
         </div>
       </div>
     </div>
-    <!-- Fruits Shop End-->
+
+<!-- 🔔 POPUP thông báo -->
+
+
+<!-- Overlay che toàn bộ + chứa popup -->
+<div id="popup-overlay" style="
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+">
+
+  <!-- Popup nội dung bên trong overlay -->
+  <div id="discount-popup" style="
+    border-radius: 24px;
+    text-align: center;
+    width: 800px;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+  ">
+
+    <!-- Nút đóng -->
+    <button id="popup-close" style="
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 40px;
+      font-weight: medium;
+      color: red;
+      cursor: pointer;
+      transition: color 0.3s;
+    " onmouseover="this.style.color='#000'" onmouseout="this.style.color='#888'">&times;</button>
+    <!-- Hình ảnh -->
+    <a href="/all-product">
+      <img src="https://img.freepik.com/premium-psd/new-smartphone-social-media-banner-design-template_47987-25341.jpg?ga=GA1.1.307005494.1749701892&semt=ais_hybrid&w=740"
+      alt="Giảm giá điện thoại"
+      style="
+      width: 100%;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        object-fit: contain;
+    " />
+    </a>
+  </div>
+</div>
 
     <!-- Footer Start -->
     <%- include('../layout/footer') %>
@@ -328,7 +381,17 @@
       src="//code.tidio.co/jessuvetqgbmlfbbicxo08yqsjeeprfb.js"
       async
     ></script>
-
+    <script>
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          document.getElementById("discount-popup").style.display = "block";
+        }, 1000);
+      });
+    
+      document.getElementById("popup-close").addEventListener("click", () => {
+        document.getElementById("popup-overlay").style.display = "none";
+      });
+    </script>
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -39,31 +39,94 @@
     <%- include('../layout/header') %>
 
     <main class="container py-5" style="max-width: 700px; margin-top: 10%">
-      <section class="card shadow rounded-4 border-0 p-4">
-        <h1 class="text-center mb-4 text-primary h3">Đổi mật khẩu </h1>
-
+      <section
+        class="card border-0 rounded-4 p-4 shadow"
+        style="background-color: #f9f9f9"
+      >
+        <h1
+          class="text-center mb-4 h3"
+          style="color: #0d6efd; font-weight: 600"
+        >
+          Đổi mật khẩu
+        </h1>
+    
         <form action="/change-password" method="POST">
-            <div class="mb-3">
-              <label for="oldPassword" class="form-label">Mật khẩu hiện tại</label>
-              <input type="password" class="form-control" name="oldPassword" required />
-            </div>
-          
-            <div class="mb-3">
-              <label for="newPassword" class="form-label">Mật khẩu mới</label>
-              <input type="password" class="form-control" name="newPassword" required />
-            </div>
-          
-            <div class="mb-3">
-              <label for="confirmPassword" class="form-label">Xác nhận mật khẩu mới</label>
-              <input type="password" class="form-control" name="confirmPassword" required />
-            </div>
-          
-            <button type="submit" class="btn btn-warning">Đổi mật khẩu</button>
-          </form>
-          
+          <div class="mb-3">
+            <label
+              for="oldPassword"
+              class="form-label"
+              style="font-weight: 500; color: #333"
+            >
+              Mật khẩu hiện tại
+            </label>
+            <input
+              type="password"
+              class="form-control"
+              name="oldPassword"
+              required
+              style="border-radius: 8px; border: 1px solid #ccc"
+            />
+          </div>
+    
+          <div class="mb-3">
+            <label
+              for="newPassword"
+              class="form-label"
+              style="font-weight: 500; color: #333"
+            >
+              Mật khẩu mới
+            </label>
+            <input
+              type="password"
+              class="form-control"
+              name="newPassword"
+              required
+              style="border-radius: 8px; border: 1px solid #ccc"
+            />
+          </div>
+    
+          <div class="mb-4">
+            <label
+              for="confirmPassword"
+              class="form-label"
+              style="font-weight: 500; color: #333"
+            >
+              Xác nhận mật khẩu mới
+            </label>
+            <input
+              type="password"
+              class="form-control"
+              name="confirmPassword"
+              required
+              style="border-radius: 8px; border: 1px solid #ccc"
+            />
+          </div>
+    
+          <!-- Buttons -->
+          <div class="d-flex justify-content-between align-items-center">
+            <a
+              href="/"
+              class="btn btn-outline-secondary px-4 rounded-pill"
+              style="font-weight: 500"
+            >
+              <i class="bi bi-house-door-fill me-1"></i> Trang chủ
+            </a>
+            <button
+              type="submit"
+              class="btn px-4 rounded-pill"
+              style="
+                background-color: #ffc107;
+                color: #000;
+                font-weight: 600;
+              "
+            >
+              <i class="bi bi-shield-lock-fill me-1"></i> Đổi mật khẩu
+            </button>
+          </div>
+        </form>
       </section>
     </main>
-
+    
     <a href="#" class="btn border-3 rounded-circle back-to-top">
       <i class="fa fa-arrow-up"></i>
     </a>

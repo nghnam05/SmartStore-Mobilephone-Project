@@ -10,13 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAdminUserPage = exports.getDashboard = void 0;
-// import { getProductList } from "../../services/admin/product-service";
-// import { getAllUsers } from "../../services/admin/user-service";
-// import {
-//   getOrderAdmin,
-//   getOrderDetailAdmin,
-// } from "../../services/admin/order-service";
-// import { getOrderHistory } from "../../services/client/product-service";
 const client_1 = require("../../config/client");
 const getDashboard = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.render("admin/layout/dashboard/dashboard.ejs");

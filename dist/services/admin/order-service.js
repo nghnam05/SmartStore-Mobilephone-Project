@@ -13,6 +13,9 @@ exports.getOrderDetailAdmin = exports.getOrderAdmin = void 0;
 const client_1 = require("../../config/client");
 const getOrderAdmin = () => __awaiter(void 0, void 0, void 0, function* () {
     return yield client_1.prisma.order.findMany({
+        where: {
+            status: { not: "CANCELLED" },
+        },
         include: {
             user: true,
         },

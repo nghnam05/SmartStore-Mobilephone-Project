@@ -83,40 +83,12 @@ const getCartPage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const cartDetails = yield (0, product_service_1.getProductInCart)(user.id);
     const totalPrice = cartDetails.reduce((total, item) => total + item.product.price * item.quantity, 0);
     const sumCart = cartDetails.reduce((acc, item) => acc + item.quantity, 0);
-    // 🔁 Tìm hoặc tạo order (tránh bị null)
-    let order = yield client_1.prisma.order.findFirst({
-        where: { userId: user.id, status: "pending" },
-    });
-    if (!order) {
-        order = yield client_1.prisma.order.create({
-            data: {
-                userId: user.id,
-                totalPrice: totalPrice,
-                status: "pending",
-                paymentStatus: "pending",
-                paymentMethod: "vnpay",
-                receiverName: "Tên người nhận mặc định",
-                receiverPhone: "Số điện thoại",
-                receiverAddress: "Địa chỉ mặc định",
-            },
-        });
-        // (Optional) lưu OrderDetail từ cart nếu cần
-        // await prisma.orderDetail.createMany({
-        //   data: cartDetails.map((item) => ({
-        //     orderId: order.id,
-        //     productId: item.product.id,
-        //     quantity: item.quantity,
-        //     price: item.product.price,
-        //   })),
-        // });
-    }
     return res.render("client/product/cart", {
         user,
         cartDetails,
         sum: (_a = cart === null || cart === void 0 ? void 0 : cart.sum) !== null && _a !== void 0 ? _a : 0,
         totalPrice,
         sumCart,
-        order, // ✅ luôn đảm bảo không null
     });
 });
 exports.getCartPage = getCartPage;
@@ -241,7 +213,19 @@ const getEditProfilePage = (req, res) => __awaiter(void 0, void 0, void 0, funct
     const profile = yield client_1.prisma.user.findUnique({
         where: { id: user.id },
     });
-    return res.render("client/user/edit-profile", { user: profile });
+    let sumCart;
+    if (req.query.sumCart) {
+        sumCart = parseInt(req.query.sumCart, 10);
+    }
+    else {
+        const cart = yield client_1.prisma.cart.findFirst({
+            where: { userId: user.id },
+            include: { cartDetails: true },
+        });
+        sumCart =
+            (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
+    }
+    return res.render("client/user/edit-profile", { user: profile, sumCart });
 });
 exports.getEditProfilePage = getEditProfilePage;
 // ========== Cập nhật thông tin ==========
@@ -250,11 +234,9 @@ const postUpdateProfile = (req, res) => __awaiter(void 0, void 0, void 0, functi
     const user = req.user;
     const { fullname, phone, address } = req.body;
     try {
-        // Lấy thông tin người dùng hiện tại (để giữ nguyên avatar cũ nếu không upload)
         const existingUser = yield client_1.prisma.user.findUnique({
             where: { id: user.id },
         });
-        // avatar mới nếu có, ngược lại giữ avatar cũ
         const avatar = ((_a = req.file) === null || _a === void 0 ? void 0 : _a.filename) || (existingUser === null || existingUser === void 0 ? void 0 : existingUser.avatar);
         yield client_1.prisma.user.update({
             where: { id: user.id },
@@ -274,9 +256,41 @@ const postUpdateProfile = (req, res) => __awaiter(void 0, void 0, void 0, functi
 });
 exports.postUpdateProfile = postUpdateProfile;
 // ========== Đổi mật khẩu ==========
-const getChangePasswordPage = (req, res) => {
-    res.render("client/user/changePass"); // đường dẫn đến file .ejs
-};
+const getChangePasswordPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.user;
+    if (!user)
+        return res.redirect("/login");
+    try {
+        const orders = yield client_1.prisma.order.findMany({
+            where: { userId: user.id },
+            include: {
+                orderDetails: {
+                    include: { product: true },
+                },
+            },
+        });
+        const cart = yield client_1.prisma.cart.findFirst({
+            where: { userId: user.id },
+            include: { cartDetails: true },
+        });
+        const sumCart = (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
+        res.render("client/product/order-history", {
+            orders,
+            user,
+            sumCart,
+        });
+    }
+    catch (error) {
+        console.error("❌ getOrderHistory error:", error);
+        res.render("client/user/changePass", {
+            orders: [],
+            user,
+            sumCart: 0,
+            error: "Không thể tải dữ liệu đơn hàng!",
+        });
+    }
+    // res.render("client/user/changePass"); // đường dẫn đến file .ejs
+});
 exports.getChangePasswordPage = getChangePasswordPage;
 const postChangePassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

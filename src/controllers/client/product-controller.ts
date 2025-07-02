@@ -124,7 +124,6 @@ const getCheckOutPage = async (req: Request, res: Response) => {
 const getThankyouPage = async (req: Request, res: Response) => {
   const user = req.user as { id: number };
   if (!user) return res.redirect("/login");
-
   return res.render("client/product/thanks");
 };
 
@@ -168,11 +167,17 @@ const getOrderHistory = async (req: Request, res: Response) => {
 };
 
 // ========== Đặt hàng ==========
-const postPlaceOrder = async (req: Request, res: Response) => {
+const postPlaceOrder = async (req: Request, res: Response): Promise<void> => {
   const user = req.user as { id: number };
   if (!user) return res.redirect("/login");
 
-  const { receiverName, receiverPhone, receiverAddress, totalPrice } = req.body;
+  const {
+    receiverName,
+    receiverPhone,
+    receiverAddress,
+    totalPrice,
+    paymentMethod,
+  } = req.body;
 
   await handlePlaceOrder(
     user.id,
@@ -241,7 +246,7 @@ const getEditProfilePage = async (req: Request, res: Response) => {
 
   const profile = await prisma.user.findUnique({
     where: { id: user.id },
-  }); 
+  });
   let sumCart: number;
   if (req.query.sumCart) {
     sumCart = parseInt(req.query.sumCart as string, 10);
@@ -257,7 +262,6 @@ const getEditProfilePage = async (req: Request, res: Response) => {
 
   return res.render("client/user/edit-profile", { user: profile, sumCart });
 };
-  
 
 // ========== Cập nhật thông tin ==========
 const postUpdateProfile = async (req: Request, res: Response) => {

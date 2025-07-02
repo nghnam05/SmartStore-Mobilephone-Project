@@ -54,7 +54,22 @@ const getProductDetailPage = (req, res) => __awaiter(void 0, void 0, void 0, fun
             return res.status(404).render("error/404");
         }
         const products = yield (0, product_service_1.getProduct)();
-        res.render("client/product/detail", { product, products, user: req.user });
+        const user = req.user;
+        let sumCart = 0;
+        if (user) {
+            const cart = yield client_1.prisma.cart.findFirst({
+                where: { userId: user.id },
+                include: { cartDetails: true },
+            });
+            sumCart =
+                (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((t, item) => t + item.quantity, 0)) || 0;
+        }
+        res.render("client/product/detail", {
+            product,
+            products,
+            user,
+            sumCart,
+        });
     }
     catch (error) {
         console.error(error);
@@ -73,9 +88,15 @@ const showEditReview = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(403).send("Unauthorized");
         return;
     }
+    const cart = yield client_1.prisma.cart.findFirst({
+        where: { userId: user.id },
+        include: { cartDetails: true },
+    });
+    const sumCart = (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
     res.render("client/product/edit-review", {
         review,
         product: review.product,
+        sumCart,
     });
 });
 exports.showEditReview = showEditReview;

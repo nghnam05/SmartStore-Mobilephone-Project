@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOrderById = exports.getSupportPage = exports.getReturnPage = exports.getSecurityPaymentPage = exports.getShippingPage = exports.getRoleUserByID = exports.handleLogin = exports.registerNewUSer = void 0;
+exports.getSupportPage = exports.getReturnPage = exports.getSecurityPaymentPage = exports.getShippingPage = exports.getRoleUserByID = exports.handleLogin = exports.registerNewUSer = void 0;
 const user_service_1 = require("../../services/admin/user-service");
 const client_1 = require("../../config/client");
 const constant_1 = require("../../config/constant");
@@ -74,67 +74,85 @@ const getRoleUserByID = (id) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getRoleUserByID = getRoleUserByID;
 const handleLogin = (username, password, done) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield client_1.prisma.user.findUnique({
-            where: { username },
-        });
+        const user = yield client_1.prisma.user.findUnique({ where: { username } });
         if (!user) {
-            console.log("❌ User not found");
-            return done(null, false, { message: "Incorrect email or password." });
+            console.log("⚠️ Đăng nhập thất bại: Không tìm thấy người dùng");
+            return done(null, false, {
+                message: "Tên đăng nhập hoặc mật khẩu không đúng.",
+            });
         }
         const isMatch = yield (0, user_service_1.comparePassword)(password, user.password);
         if (!isMatch) {
-            console.log("❌ Password mismatch");
-            return done(null, false, { message: "Incorrect email or password." });
+            console.log("⚠️ Đăng nhập thất bại: Mật khẩu không khớp");
+            return done(null, false, {
+                message: "Tên đăng nhập hoặc mật khẩu không đúng.",
+            });
         }
-        console.log("✅ User authenticated:", user.username);
+        // Tùy chọn: kiểm tra trạng thái tài khoản
+        // if (!user.isActive) {
+        console.log("✅ Đăng nhập thành công:", user.username);
         return done(null, user);
     }
     catch (err) {
-        console.error("🚨 Error in handleLogin:", err);
+        console.error("❌ Lỗi trong handleLogin:", err);
         return done(err);
     }
 });
 exports.handleLogin = handleLogin;
-const getShippingPage = (req, res) => {
-    return res.render("client/support/freeShip.ejs");
-};
-exports.getShippingPage = getShippingPage;
-const getSecurityPaymentPage = (req, res) => {
-    return res.render("client/support/security.ejs");
-};
-exports.getSecurityPaymentPage = getSecurityPaymentPage;
-const getReturnPage = (req, res) => {
-    return res.render("client/support/return.ejs");
-};
-exports.getReturnPage = getReturnPage;
-const getSupportPage = (req, res) => {
-    return res.render("client/support/supporting.ejs");
-};
-exports.getSupportPage = getSupportPage;
-const getOrderById = (orderId) => __awaiter(void 0, void 0, void 0, function* () {
-    const order = yield client_1.prisma.order.findUnique({
-        where: { id: orderId },
-        include: {
-            orderDetails: {
-                include: {
-                    product: true,
-                },
-            },
-        },
-    });
-    if (!order) {
-        throw new Error("Không tìm thấy đơn hàng");
+const getShippingPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.user;
+    let sumCart = 0;
+    if (user) {
+        const cart = yield client_1.prisma.cart.findFirst({
+            where: { userId: user.id },
+            include: { cartDetails: true },
+        });
+        sumCart =
+            (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
     }
-    return {
-        totalPrice: order.totalPrice,
-        userId: order.userId,
-        products: order.orderDetails.map((od) => ({
-            id: od.product.id,
-            name: od.product.name,
-            quantity: od.quantity,
-            price: od.product.price,
-        })),
-    };
+    return res.render("client/support/freeShip.ejs", { sumCart });
 });
-exports.getOrderById = getOrderById;
+exports.getShippingPage = getShippingPage;
+const getSecurityPaymentPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.user;
+    let sumCart = 0;
+    if (user) {
+        const cart = yield client_1.prisma.cart.findFirst({
+            where: { userId: user.id },
+            include: { cartDetails: true },
+        });
+        sumCart =
+            (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
+    }
+    return res.render("client/support/security.ejs", { sumCart });
+});
+exports.getSecurityPaymentPage = getSecurityPaymentPage;
+const getReturnPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.user;
+    let sumCart = 0;
+    if (user) {
+        const cart = yield client_1.prisma.cart.findFirst({
+            where: { userId: user.id },
+            include: { cartDetails: true },
+        });
+        sumCart =
+            (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
+    }
+    return res.render("client/support/return.ejs", { sumCart });
+});
+exports.getReturnPage = getReturnPage;
+const getSupportPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = req.user;
+    let sumCart = 0;
+    if (user) {
+        const cart = yield client_1.prisma.cart.findFirst({
+            where: { userId: user.id },
+            include: { cartDetails: true },
+        });
+        sumCart =
+            (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
+    }
+    return res.render("client/support/supporting.ejs", { sumCart });
+});
+exports.getSupportPage = getSupportPage;
 //# sourceMappingURL=auth-service.js.map

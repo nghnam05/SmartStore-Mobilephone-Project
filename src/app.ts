@@ -1,7 +1,6 @@
 import express from "express";
 import methodOverride from "method-override";
 
-
 import "dotenv/config";
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -49,6 +48,8 @@ configPassportLocal();
 app.use(passport.initialize());
 configPassportLocal();
 
+// config routes
+webRoutes(app);
 // config global
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
@@ -58,9 +59,6 @@ app.use((req, res, next) => {
 // seeding data
 getConnect();
 innitData();
-
-// config routes
-webRoutes(app);
 
 app.use(methodOverride("_method"));
 

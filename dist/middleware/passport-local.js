@@ -24,7 +24,6 @@ const configPassportLocal = () => {
         passwordField: "password",
     }, function verify(email, password, done) {
         return __awaiter(this, void 0, void 0, function* () {
-            // console.log(">>>>>> Login info: ", email, password);
             return yield (0, auth_service_1.handleLogin)(email, password, done);
         });
     }));
