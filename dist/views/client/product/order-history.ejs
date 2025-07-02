@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+    <title>Cart Details</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.pinimg.com/736x/89/f1/d6/89f1d65fe8b8bf81eb8ddbb417537d17.jpg"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Glide.js CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/css/glide.core.min.css"
+    />
+
+    <!-- Glide.js JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/glide.min.js"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icon Font Stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="/client/lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
+    <link
+      href="/client/lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/client/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Template Stylesheet -->
+    <link href="/client/css/style.css" rel="stylesheet" />
+    <link href="/client/css/product/cart.css" rel="stylesheet" />
+    <link href="/client/css/layout/layout.css" rel="stylesheet" />
+
+
+  </head>
+  <body>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <%- include('../layout/header') %>
+    
+
+
+    <% if (orders.length > 0) { %>
+      <% orders.forEach((order) => { %>
+        <div class="container-fluid" style="margin-top: 12%;">
+          <h2 class="cart-title ps-5">Lịch sử đơn hàng</h2>
+          <div class="container py-3">
+            <div class="row d-flex justify-content-between">
+              <div class="">
+                <div class="table-responsive">
+                  <table class="table text-center">
+                    <thead>
+                      <tr>
+                        <th>Sản phẩm</th>
+                        <th>Tên</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng</th>
+                        <th>Thao tác</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% if (order.orderDetails && order.orderDetails.length > 0) { %>
+                        <% order.orderDetails.forEach((item) => { %>
+                          <tr>
+                            <td>
+                              <div class="d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; overflow: hidden">
+                                <img
+                                  src="/images/product/<%= item.product.image || 'no-image.jpg' %>"
+                                  class="img-fluid object-fit-contain"
+                                  style="width: 100%; height: 100%; object-fit: contain;"
+                                  alt="<%= item.product.name %>"
+                                />
+                              </div>
+                            </td>
+                            <td><p class="mb-0 mt-4"><%= item.product.name %></p></td>
+                            <td>
+                              <p class="mb-0 mt-4">
+                                <%= item.product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %>
+                              </p>
+                            </td>
+                            <td><p class="mb-0 mt-4"><%= item.quantity %></p></td>
+                            <td>
+                              <p class="mb-0 mt-4">
+                                <%= (item.product.price * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %>
+                              </p>
+                            </td>
+                            <td>
+                              <% if (order.status !== 'CANCELLED') { %>
+                                <form action="/order/cancel/<%= order.id %>" method="POST" onsubmit="return confirm('Bạn có chắc muốn hủy đơn hàng này không?');">
+                                  <button class="btn btn-danger btn-sm mt-4">Hủy đơn</button>
+                                </form>
+                              <% } else { %>
+                                <button class="btn  btn-sm mt-4">Đã hủy đơn</button>
+                              <% } %>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      <% } else { %>
+                        <tr>
+                          <td colspan="6">
+                            <div class="alert alert-warning text-center my-4">
+                              ❌ Không có sản phẩm nào trong đơn hàng này.
+                            </div>
+                          </td>
+                        </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+                <a href="/" class="btn btn-outline-secondary">
+                  <i class="bi bi-arrow-left-circle me-1"></i>Trở về trang chủ
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="alert alert-warning text-center mt-5">
+        Bạn chưa có đơn hàng nào.
+      </div>
+    <% } %>
+    </div>
+
+    <!-- back to top  -->
+    <a href="#" class="btn border-3 rounded-circle back-to-top"
+      ><i class="fa fa-arrow-up"></i
+    ></a>
+    <a href="#" class="btn border-3 rounded-circle back-to-top"
+      ><i class="fa fa-arrow-up"></i
+    ></a>
+    <%- include('../layout/footer') %>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/client/lib/easing/easing.min.js"></script>
+    <script src="/client/lib/waypoints/waypoints.min.js"></script>
+    <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- Template Javascript -->
+    <script src="/client/js/cart/cart.js"></script>
+    <!-- <script src="/client/js/main.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="//code.tidio.co/jessuvetqgbmlfbbicxo08yqsjeeprfb.js"
+      async
+    ></script>
+  </body>
+</html>

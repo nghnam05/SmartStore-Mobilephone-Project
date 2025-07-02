@@ -1,6 +1,7 @@
 import {
   getCartItemCount,
   getProduct,
+  getProductInCart,
 } from "../../services/client/product-service";
 import { prisma } from "../../config/client";
 import { Request, RequestHandler, Response } from "express";
@@ -44,13 +45,29 @@ const getProductDetailPage = async (req: Request, res: Response) => {
         },
       },
     });
+
     if (!product) {
       return res.status(404).render("error/404");
     }
 
     const products = await getProduct();
+    const user = req.user as { id: number } | undefined;
+    let sumCart = 0;
+    if (user) {
+      const cart = await prisma.cart.findFirst({
+        where: { userId: user.id },
+        include: { cartDetails: true },
+      });
+      sumCart =
+        cart?.cartDetails.reduce((t, item) => t + item.quantity, 0) || 0;
+    }
 
-    res.render("client/product/detail", { product, products, user: req.user });
+    res.render("client/product/detail", {
+      product,
+      products,
+      user,
+      sumCart,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
@@ -70,10 +87,18 @@ const showEditReview: RequestHandler = async (req, res) => {
     res.status(403).send("Unauthorized");
     return;
   }
+  const cart = await prisma.cart.findFirst({
+    where: { userId: user.id },
+    include: { cartDetails: true },
+  });
+
+  const sumCart =
+    cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
 
   res.render("client/product/edit-review", {
     review,
     product: review.product,
+    sumCart,
   });
 };
 

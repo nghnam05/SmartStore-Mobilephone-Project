@@ -184,12 +184,13 @@ const postUpdateProduct = async (req: Request, res: Response) => {
 
 const getOrderPage = async (req: Request, res: Response) => {
   const orders = await getOrderAdmin();
-  const users = await getAllUsers();
+  const users = await getAllUsers(); 
   return res.render("admin/layout/order/dashboard.ejs", {
     orders,
     users,
   });
 };
+
 
 const getOrderDetailPage = async (req: Request, res: Response) => {
   const { id } = req.params;

@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>View Order Details - Mobilephone Shop</title>
+    <title>Xem chi tiết đơn đặt hàng</title>
     <link
       rel="icon"
       type="image/x-icon"
@@ -38,59 +38,59 @@
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Manage Order</h1>
+            <h1 class="mt-4">Chi tiết đơn hàng</h1>
             <hr />
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Order Detail</li>
+              <li class="breadcrumb-item"><a href="/admin">Bảng điều khiển</a></li>
+              <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
             </ol>
-
+      
             <div>
               <table
                 class="table table-hover table-bordered align-middle text-center mt-4"
               >
                 <thead class="table-dark">
                   <tr>
-                    <th scope="col">Product</th>
-                    <th scope="col">Name Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Toltal Price</th>
-                    <th scope="col">Receiver name</th>
-                    <th scope="col">Receiver numberphone</th>
-                    <th scope="col">Receiver address</th>
+                    <th scope="col">Hình ảnh</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Người nhận</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Địa chỉ nhận hàng</th>
                   </tr>
                 </thead>
                 <tbody>
                   <% orderDetails.forEach((item) => { %>
                   <tr class="align-middle">
-                    <!-- Hình ảnh sản phẩm -->
                     <td style="width: 80px">
                       <img
                         src="/images/product/<%= item.product.image %>"
-                        alt="Product Image"
+                        alt="Hình sản phẩm"
                         class="img-fluid rounded"
                         style="max-width: 70px; height: auto"
                       />
                     </td>
-
+      
                     <td><strong><%= item.product.name %></strong></td>
-
-                    <!-- Tổng giá (format VND) -->
+      
                     <td class="text-success fw-bold">
                       <%= new Intl.NumberFormat('vi-VN', { style: 'currency',
                       currency: 'VND' }).format(item.product.price) %>
                     </td>
-                    <td><%=item.product.quantity %></td>
-                    <!-- Trạng thái đơn -->
+      
+                    <td><%= item.product.quantity %></td>
+      
                     <td>
                       <%= new Intl.NumberFormat('vi-VN', { style: 'currency',
                       currency: 'VND' }).format(item.product.price *
                       item.product.quantity) %>
                     </td>
-                    <td><%=item.order.receiverName%></td>
-                    <td><%=item.order.receiverPhone%></td>
-                    <td><%=item.order.receiverAddress%></td>
+      
+                    <td><%= item.order.receiverName %></td>
+                    <td><%= item.order.receiverPhone %></td>
+                    <td><%= item.order.receiverAddress %></td>
                   </tr>
                   <% }) %>
                 </tbody>
@@ -100,6 +100,7 @@
         </main>
         <%- include("../footer.ejs"); -%>
       </div>
+      
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

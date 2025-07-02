@@ -38,35 +38,36 @@
       <div id="layoutSidenav_content">
         <main class="row px-3">
           <div class="container-fluid px-4">
-            <h1 class="mt-4 mb-5 text-dark">Manage Users</h1>
-            <div class="d-flex justify-content-between algin-item-center">
-              <h4 class="mb-4 text-secondary font-semiblold">
-                Add a new user to your system quickly and easily!
+            <h1 class="mt-4 mb-5 text-dark">Quản lý người dùng</h1>
+      
+            <div class="d-flex justify-content-between align-items-center">
+              <h4 class="mb-4 text-secondary fw-semibold">
+                Thêm người dùng mới vào hệ thống của bạn một cách nhanh chóng và dễ dàng!
               </h4>
-              <div class="">
-                <a href="/admin/create-user" class="btn btn-primary text-white"
-                  >Create new User
-                  <i class="bi bi-plus-circle-fill text-white ms-2"></i
-                ></a>
+              <div>
+                <a href="/admin/create-user" class="btn btn-primary text-white">
+                  Tạo người dùng mới
+                  <i class="bi bi-plus-circle-fill text-white ms-2"></i>
+                </a>
               </div>
             </div>
+      
             <hr />
-
+      
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Users</li>
+              <li class="breadcrumb-item"><a href="/admin">Bảng điều khiển</a></li>
+              <li class="breadcrumb-item active">Người dùng</li>
             </ol>
+      
             <div>
-              <table
-                class="table table-hover table-bordered align-middle text-center"
-              >
+              <table class="table table-hover table-bordered align-middle text-center">
                 <thead class="table-dark">
                   <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Full name</th>
+                    <th scope="col">Họ tên</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -78,25 +79,19 @@
                     <td><%= item.address %></td>
                     <td>
                       <div class="d-flex justify-content-center gap-2">
-                        <form
-                          action="/admin/view-user/<%= item.id %>"
-                          method="get"
-                        >
-                          <button
-                            type="submit"
-                            class="btn btn-warning text-white"
-                          >
-                            <i class="bi bi-eye"></i> View
+                        <form action="/admin/view-user/<%= item.id %>" method="get">
+                          <button type="submit" class="btn btn-warning text-white">
+                            <i class="bi bi-eye"></i> Xem
                           </button>
                         </form>
-
+      
                         <form
                           action="/admin/delete-user/<%= item.id %>"
                           method="post"
                           onsubmit="return confirm('Bạn có chắc muốn xóa người dùng này?')"
                         >
                           <button type="submit" class="btn btn-danger">
-                            <i class="bi bi-trash3"></i> Delete
+                            <i class="bi bi-trash3"></i> Xóa
                           </button>
                         </form>
                       </div>
@@ -105,41 +100,36 @@
                   <% }) %>
                 </tbody>
               </table>
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-end mt-4">
-                    <li class="page-item <%= page <= 1 ? 'disabled' : '' %>">
-                      <a
-                        class="page-link"
-                        href="?page=<%= page - 1 %>"
-                        aria-label="Previous"
-                      >
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <% for (let i = 1; i <= totalPages; i++) { %>
-                    <li class="page-item <%= i === page ? 'active' : '' %>">
-                      <a class="page-link" href="?page=<%= i %>"><%= i %></a>
-                    </li>
-                    <% } %>
-                    <!-- Next -->
-                    <li
-                      class="page-item <%= page >= totalPages ? 'disabled' : '' %>"
-                    >
-                      <a
-                        class="page-link"
-                        href="?page=<%= page + 1 %>"
-                        aria-label="Next"
-                      >
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+      
+              <nav aria-label="Điều hướng trang">
+                <ul class="pagination justify-content-end mt-4">
+                  <!-- Trang trước -->
+                  <li class="page-item <%= page <= 1 ? 'disabled' : '' %>">
+                    <a class="page-link" href="?page=<%= page - 1 %>" aria-label="Trang trước">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+      
+                  <% for (let i = 1; i <= totalPages; i++) { %>
+                  <li class="page-item <%= i === page ? 'active' : '' %>">
+                    <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                  </li>
+                  <% } %>
+      
+                  <!-- Trang sau -->
+                  <li class="page-item <%= page >= totalPages ? 'disabled' : '' %>">
+                    <a class="page-link" href="?page=<%= page + 1 %>" aria-label="Trang sau">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </main>
         <%- include("../footer.ejs"); -%>
       </div>
+      
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

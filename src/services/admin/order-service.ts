@@ -2,6 +2,9 @@ import { prisma } from "../../config/client";
 
 const getOrderAdmin = async () => {
   return await prisma.order.findMany({
+    where: {
+      status: { not: "CANCELLED" },
+    },
     include: {
       user: true,
     },
@@ -15,12 +18,11 @@ const getOrderDetailAdmin = async (orderId: number) => {
       product: true,
       order: {
         include: {
-          user: true, 
+          user: true,
         },
       },
     },
   });
 };
-
 
 export { getOrderAdmin, getOrderDetailAdmin };

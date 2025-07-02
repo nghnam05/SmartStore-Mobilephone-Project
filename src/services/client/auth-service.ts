@@ -75,45 +75,110 @@ const getRoleUserByID = async (id: number) => {
   }
 };
 
-const handleLogin = async (username: string, password: string, done: any) => {
+const handleLogin = async (
+  username: string,
+  password: string,
+  done: (err: any, user?: any, info?: any) => void
+) => {
   try {
-    const user = await prisma.user.findUnique({
-      where: { username },
-    });
+    const user = await prisma.user.findUnique({ where: { username } });
 
     if (!user) {
-      console.log("❌ User not found");
-      return done(null, false, { message: "Incorrect email or password." });
+      console.log("⚠️ Đăng nhập thất bại: Không tìm thấy người dùng");
+      return done(null, false, {
+        message: "Tên đăng nhập hoặc mật khẩu không đúng.",
+      });
     }
 
     const isMatch = await comparePassword(password, user.password);
 
     if (!isMatch) {
-      console.log("❌ Password mismatch");
-      return done(null, false, { message: "Incorrect email or password." });
+      console.log("⚠️ Đăng nhập thất bại: Mật khẩu không khớp");
+      return done(null, false, {
+        message: "Tên đăng nhập hoặc mật khẩu không đúng.",
+      });
     }
 
-    console.log("✅ User authenticated:", user.username);
+    // Tùy chọn: kiểm tra trạng thái tài khoản
+    // if (!user.isActive) {
+
+    console.log("✅ Đăng nhập thành công:", user.username);
     return done(null, user);
   } catch (err) {
-    console.error("🚨 Error in handleLogin:", err);
+    console.error("❌ Lỗi trong handleLogin:", err);
     return done(err);
   }
 };
 
-const getShippingPage = (req: Request, res: Response) => {
-  return res.render("client/support/freeShip.ejs");
-};
-const getSecurityPaymentPage = (req: Request, res: Response) => {
-  return res.render("client/support/security.ejs");
+const getShippingPage = async (req: Request, res: Response) => {
+  const user = req.user as { id: number };
+
+  let sumCart = 0;
+
+  if (user) {
+    const cart = await prisma.cart.findFirst({
+      where: { userId: user.id },
+      include: { cartDetails: true },
+    });
+
+    sumCart =
+      cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
+  }
+
+  return res.render("client/support/freeShip.ejs", { sumCart });
 };
 
-const getReturnPage = (req: Request, res: Response) => {
-  return res.render("client/support/return.ejs");
+const getSecurityPaymentPage = async (req: Request, res: Response) => {
+  const user = req.user as { id: number };
+
+  let sumCart = 0;
+
+  if (user) {
+    const cart = await prisma.cart.findFirst({
+      where: { userId: user.id },
+      include: { cartDetails: true },
+    });
+
+    sumCart =
+      cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
+  }
+
+  return res.render("client/support/security.ejs", { sumCart });
 };
 
-const getSupportPage = (req: Request, res: Response) => {
-  return res.render("client/support/supporting.ejs");
+const getReturnPage = async (req: Request, res: Response) => {
+  const user = req.user as { id: number };
+
+  let sumCart = 0;
+
+  if (user) {
+    const cart = await prisma.cart.findFirst({
+      where: { userId: user.id },
+      include: { cartDetails: true },
+    });
+
+    sumCart =
+      cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
+  }
+
+  return res.render("client/support/return.ejs", { sumCart });
+};
+
+const getSupportPage = async (req: Request, res: Response) => {
+  const user = req.user as { id: number };
+
+  let sumCart = 0;
+
+  if (user) {
+    const cart = await prisma.cart.findFirst({
+      where: { userId: user.id },
+      include: { cartDetails: true },
+    });
+
+    sumCart =
+      cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
+  }
+  return res.render("client/support/supporting.ejs", { sumCart });
 };
 
 export {

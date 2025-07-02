@@ -8,7 +8,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
  
-    <title>Dashboard - Mobilephone Shop</title>
+    <title>Bảng điều khiển</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
       <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/736x/61/0c/bd/610cbd83032444da98b38a47a1ee9fb1.jpg">
@@ -52,109 +52,114 @@
     <%- include('../header.ejs'); -%>
     <div id="layoutSidenav">
       <%- include('../sidenav.ejs'); -%>
-      <div id="layoutSidenav_content">
-        <main>
-          <div class="main-content container-fluid p-5">
-            <h1 class="mt-4">Dashboard</h1>
-            <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-            <div class="row">
-              <div class="col-xl-3 col-md-6">
-                <div class="card bg-primary text-white mb-4">
-                  <div class="card-body">User</div>
-                  <div
-                    class="card-footer d-flex align-items-center justify-content-between"
-                  >
-                    <a
-                      class="small text-white stretched-link"
-                      href="/admin/user"
-                      >View Details</a
-                    >
-                    <div class="small text-white">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-md-6">
-                <div class="card bg-warning text-white mb-4">
-                  <div class="card-body">Products</div>
-                  <div
-                    class="card-footer d-flex align-items-center justify-content-between"
-                  >
-                    <a
-                      class="small text-white stretched-link"
-                      href="/admin/product"
-                      >View Details</a
-                    >
-                    <div class="small text-white">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-md-6">
-                <div class="card bg-success text-white mb-4">
-                  <div class="card-body">Order</div>
-                  <div
-                    class="card-footer d-flex align-items-center justify-content-between"
-                  >
-                    <a
-                      class="small text-white stretched-link"
-                      href="/admin/order"
-                      >View Details</a
-                    >
-                    <div class="small text-white">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-md-6">
-                <div class="card bg-danger text-white mb-4">
-                  <div class="card-body">Dashboard</div>
-                  <div
-                    class="card-footer d-flex align-items-center justify-content-between"
-                  >
-                    <a class="small text-white stretched-link" href="/admin"
-                      >View Details</a
-                    >
-                    <div class="small text-white">
-                      <i class="fas fa-angle-right"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-header">
-                    <i class="fas fa-chart-area me-1"></i>
-                    Area Chart Example
-                  </div>
-                  <div class="card-body">
-                    <canvas id="myAreaChart" width="100%" height="40"></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-header">
-                    <i class="fas fa-chart-bar me-1"></i>
-                    Bar Chart Example
-                  </div>
-                  <div class="card-body">
-                    <canvas id="myBarChart" width="100%" height="40"></canvas>
-                  </div>
-                </div>
+
+
+<div id="layoutSidenav_content">
+  <main>
+    <div class="main-content container-fluid p-5">
+      <h1 class="mt-4">Bảng điều khiển</h1>
+      <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Bảng điều khiển</li>
+      </ol>
+
+      <div class="row">
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-primary text-white mb-4">
+            <div class="card-body">Người dùng</div>
+            <div
+              class="card-footer d-flex align-items-center justify-content-between"
+            >
+              <a class="small text-white stretched-link" href="/admin/user"
+                >Xem chi tiết</a
+              >
+              <div class="small text-white">
+                <i class="fas fa-angle-right"></i>
               </div>
             </div>
           </div>
-        </main>
-        <%- include("../footer.ejs"); -%>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-warning text-white mb-4">
+            <div class="card-body">Sản phẩm</div>
+            <div
+              class="card-footer d-flex align-items-center justify-content-between"
+            >
+              <a class="small text-white stretched-link" href="/admin/product"
+                >Xem chi tiết</a
+              >
+              <div class="small text-white">
+                <i class="fas fa-angle-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-success text-white mb-4">
+            <div class="card-body">Đơn hàng</div>
+            <div
+              class="card-footer d-flex align-items-center justify-content-between"
+            >
+              <a class="small text-white stretched-link" href="/admin/order"
+                >Xem chi tiết</a
+              >
+              <div class="small text-white">
+                <i class="fas fa-angle-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+          <div class="card bg-danger text-white mb-4">
+            <div class="card-body">Thống kê</div>
+            <div
+              class="card-footer d-flex align-items-center justify-content-between"
+            >
+              <a class="small text-white stretched-link" href="/admin"
+                >Xem chi tiết</a
+              >
+              <div class="small text-white">
+                <i class="fas fa-angle-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <div class="row mt-3">
+        <div class="col-xl-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <i class="fas fa-chart-area me-1"></i>
+              Biểu đồ khu vực
+            </div>
+            <div class="card-body">
+              <canvas id="myAreaChart" width="100%" height="40"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-6">
+          <div class="card mb-4">
+            <div class="card-header">
+              <i class="fas fa-chart-bar me-1"></i>
+              Biểu đồ cột
+            </div>
+            <div class="card-body">
+              <canvas id="myBarChart" width="100%" height="40"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include("../footer.ejs"); -%>
+</div>
+
+
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"

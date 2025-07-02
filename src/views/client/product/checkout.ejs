@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
-    <title>Payment Confirmation Page</title>
+    <title>Xác thực đơn hàng</title>
     <link
       rel="icon"
       type="image/x-icon"
@@ -59,11 +59,7 @@
     <!-- Template Stylesheet -->
     <link href="/client/css/style.css" rel="stylesheet" />
     <link href="/client/css/product/cart.css" rel="stylesheet" />
-    <link href="/client/css/layout/header.css" rel="stylesheet" />
-    <link href="/client/css/layout/banner.css" rel="stylesheet" />
-    <link href="/client/css/layout/feature.css" rel="stylesheet" />
-    <link href="/client/css/layout/footer.css" rel="stylesheet" />
-
+    <link href="/client/css/layout/layout.css" rel="stylesheet" />
   </head>
   <body>
     <!-- JS -->
@@ -72,15 +68,15 @@
     <div class="container py-3" style="margin-top: 10%">
       <nav aria-label="breadcrumb ">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
           <li class="breadcrumb-item">
-            <a href="/cart">Payment Confirmation</a>
+            <a href="/cart">Xác nhận thanh toán</a>
           </li>
         </ol>
       </nav>
       <hr />
       <div class="container-fluid mt-4">
-        <h2 class="cart-title">Payment Confirmation Page</h2>
+        <h2 class="cart-title">Trang xác nhận thanh toán</h2>
         <div class="container py-3">
           <div class="row mb-5">
             <!-- BẢNG SẢN PHẨM BÊN TRÁI -->
@@ -89,30 +85,23 @@
                 <table class="table text-center">
                   <thead>
                     <tr>
-                      <th scope="col">Products</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Quantity</th>
-                      <th scope="col">Total</th>
+                      <th scope="col">Sản phẩm</th>
+                      <th scope="col">Tên</th>
+                      <th scope="col">Giá</th>
+                      <th scope="col">Số lượng</th>
+                      <th scope="col">Tổng</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <% if (cartDetails && cartDetails.length > 0) { %> <%
-                    cartDetails.forEach((item) => { %>
+                    <% if (cartDetails && cartDetails.length > 0) { %> 
+                    <% cartDetails.forEach((item) => { %>
                     <tr>
                       <th scope="row">
-                        <div
-                          class="d-flex align-items-center justify-content-center"
-                          style="width: 80px; height: 80px; overflow: hidden"
-                        >
+                        <div class="d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; overflow: hidden">
                           <img
                             src="/images/product/<%= item.product.image || 'no-image.jpg' %>"
                             class="img-fluid object-fit-contain"
-                            style="
-                              width: 100%;
-                              height: 100%;
-                              object-fit: contain;
-                            "
+                            style="width: 100%; height: 100%; object-fit: contain;"
                             alt="<%= item.product.name %>"
                           />
                         </div>
@@ -121,7 +110,8 @@
                       <td>
                         <p class="mb-0 mt-4">
                           <%= item.product.price.toLocaleString('vi-VN', {
-                          style: 'currency', currency: 'VND' }) %>
+                            style: 'currency', currency: 'VND'
+                          }) %>
                         </p>
                       </td>
                       <td>
@@ -137,19 +127,16 @@
                       </td>
                       <td>
                         <p class="mb-0 mt-4 item-total-price">
-                          <%= (item.product.price *
-                          item.quantity).toLocaleString('vi-VN', { style:
-                          'currency', currency: 'VND' }) %>
+                          <%= (item.product.price * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %>
                         </p>
                       </td>
                     </tr>
-                    <% }) %> <% } else { %>
-
+                    <% }) %> 
+                    <% } else { %>
                     <tr>
                       <td colspan="6">
                         <div class="alert alert-warning text-center my-4">
-                          🛒 Giỏ hàng của bạn đang trống. Vui lòng thêm sản
-                          phẩm!
+                          🛒 Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm!
                         </div>
                       </td>
                     </tr>
@@ -159,65 +146,42 @@
               </div>
             </div>
           </div>
-          <!-- hang duoi  -->
-
+    
+          <!-- THÔNG TIN THANH TOÁN -->
           <form method="POST" action="/place-order">
             <div class="row">
-              <div
-                class="col-lg-8 <%= !(cartDetails && cartDetails.length > 0) ? 'd-none' : '' %>"
-              >
-                <div
-                  class="bg-white rounded-2 shadow px-4 py-5 border border-light-subtle"
-                >
-                  <h4 class="fw-bold mb-4 text-dark border-bottom pb-3">
-                    📦 Recipient information
-                  </h4>
-
+              <div class="col-lg-8 <%= !(cartDetails && cartDetails.length > 0) ? 'd-none' : '' %>">
+                <div class="bg-white rounded-2 shadow px-4 py-5 border border-light-subtle">
+                  <h4 class="fw-bold mb-4 text-dark border-bottom pb-3">📦 Thông tin người nhận</h4>
+    
                   <div class="row">
-                    <input
-                      type="text"
-                      style="display: none"
-                      value="  <%= totalPrice%>"
-                      name="totalPrice"
-                    />
+                    <input type="text" style="display: none" value="<%= totalPrice%>" name="totalPrice" />
                     <div class="col-md-6 mb-3">
-                      <label
-                        for="recipientName"
-                        class="form-label fw-medium text-dark"
-                        >👤Recipient's name</label
-                      >
+                      <label for="recipientName" class="form-label fw-medium text-dark">👤 Họ tên người nhận</label>
                       <input
                         type="text"
                         class="form-control rounded-3"
                         id="recipientName"
                         name="receiverName"
-                        placeholder="Nguyen Van A"
+                        placeholder="Nguyễn Văn A"
                         required
                       />
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label
-                        for="recipientPhone"
-                        class="form-label fw-medium text-dark"
-                        >📱 Numberphone</label
-                      >
+                      <label for="recipientPhone" class="form-label fw-medium text-dark">📱 Số điện thoại</label>
                       <input
                         type="tel"
                         class="form-control rounded-3"
                         id="recipientPhone"
                         name="receiverPhone"
-                        placeholder="123x45x7x9"
+                        placeholder="0123456789"
                         required
                       />
                     </div>
                   </div>
-
+    
                   <div class="mb-4">
-                    <label
-                      for="recipientAddress"
-                      class="form-label fw-medium text-dark"
-                      >🏠 Address</label
-                    >
+                    <label for="recipientAddress" class="form-label fw-medium text-dark">🏠 Địa chỉ nhận hàng</label>
                     <textarea
                       class="form-control rounded-3"
                       id="recipientAddress"
@@ -226,65 +190,50 @@
                       required
                     ></textarea>
                   </div>
-
+    
                   <a href="/cart" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left-circle me-1"></i> Back to Cart
-                    page
+                    <i class="bi bi-arrow-left-circle me-1"></i> Quay về giỏ hàng
                   </a>
                 </div>
               </div>
-
-              <div
-                class="col-lg-4 <%= !(cartDetails && cartDetails.length > 0) ? 'd-none' : '' %>"
-              >
-                <div
-                  class="bg-white rounded-4 shadow px-4 border border-light-subtle py-5 rounded-2"
-                >
-                  <h4 class="fw-bold mb-4 text-dark border-bottom pb-3">
-                    🧾 Bill of Payment
-                  </h4>
-
+    
+              <!-- TÓM TẮT ĐƠN HÀNG -->
+              <div class="col-lg-4 <%= !(cartDetails && cartDetails.length > 0) ? 'd-none' : '' %>">
+                <div class="bg-white rounded-4 shadow px-4 border border-light-subtle py-5 rounded-2">
+                  <h4 class="fw-bold mb-4 text-dark border-bottom pb-3">🧾 Hóa đơn thanh toán</h4>
+    
                   <div class="d-flex justify-content-between mb-3">
-                    <span class="text-muted">Subtotal:</span>
+                    <span class="text-muted">Tạm tính:</span>
                     <h5 class="mb-0 text-total text-dark fw-bold">
-                      <%= totalPrice.toLocaleString('vi-VN', { style:
-                      'currency', currency: 'VND' }) %>
+                      <%= totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %>
                     </h5>
                   </div>
-
+    
                   <div class="d-flex justify-content-between mb-2">
-                    <span class="text-muted">Shipping:</span>
+                    <span class="text-muted">Phí vận chuyển:</span>
                     <span class="text-dark">0 đ</span>
                   </div>
                   <div class="d-flex justify-content-between mb-2">
-                    <span class="text-muted">Payment method:</span>
-                    <span class="text-dark">Cash on Delivery (COD)</span>
+                    <span class="text-muted">Phương thức thanh toán:</span>
+                    <span class="text-dark">Thanh toán khi nhận hàng (COD)</span>
                   </div>
-
-                  <div
-                    class="py-3 border-top border-bottom d-flex justify-content-between align-items-center mb-4"
-                  >
-                    <h5 class="mb-0 text-dark fw-bold">Total:</h5>
+    
+                  <div class="py-3 border-top border-bottom d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="mb-0 text-dark fw-bold">Tổng thanh toán:</h5>
                     <h5 class="mb-0 text-total fw-bold">
-                      <%= totalPrice.toLocaleString('vi-VN', { style:
-                      'currency', currency: 'VND' }) %>
+                      <%= totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %>
                     </h5>
                   </div>
-
-                  <div
-                    class="text-center d-flex justify-content-center gap-3 mt-4"
-                  >
-                    <button
-                      class="btn btn-success rounded-pill px-4 py-2 fw-semibold d-flex align-items-center gap-2"
-                      type="submit"
-                    >
-                      <i class="bi bi-credit-card-2-front-fill"></i> Pay Now
+    
+                  <div class="text-center d-flex justify-content-center gap-3 mt-4">
+                    <button class="btn btn-success rounded-pill   btn-md fw-semibold d-flex align-items-center gap-2" type="submit">
+                      <i class="bi bi-credit-card-2-front-fill"></i> Thanh toán ngay
                     </button>
                     <a
                       href="/cart"
-                      class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold d-flex align-items-center gap-2"
+                      class="btn btn-outline-secondary rounded-pill btn-md fw-semibold d-flex align-items-center gap-2"
                     >
-                      <i class="bi bi-arrow-left-circle-fill"></i> Back to Cart
+                      <i class="bi bi-arrow-left-circle-fill"></i> Quay lại giỏ hàng
                     </a>
                   </div>
                 </div>
@@ -294,7 +243,7 @@
         </div>
       </div>
     </div>
-
+    
     <!-- back to top  -->
     <a href="#" class="btn border-3 rounded-circle back-to-top"
       ><i class="fa fa-arrow-up"></i

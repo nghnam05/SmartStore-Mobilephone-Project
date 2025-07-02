@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>SmartZone-Mobilephone Store</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.pinimg.com/736x/89/f1/d6/89f1d65fe8b8bf81eb8ddbb417537d17.jpg"
+    />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Glide.js CSS -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icon Font Stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Libraries Stylesheet -->
+    <link href="/client/lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
+    <link
+      href="/client/lib/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/client/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Template Stylesheet -->
+    <link href="/client/css/style.css" rel="stylesheet" />
+    <link href="/client/css/home/home.css" rel="stylesheet" />
+    <link href="/client/css/layout/layout.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- Spinner Start -->
+    <div
+      id="spinner"
+      class="show d-flex justify-content-center align-items-center"
+    >
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+
+    <%- include('../layout/header') %>
+    <!-- end header -->
+
+    <!-- Hero Start -->
+    <%- include('../layout/banner') %>
+    <!-- Hero End -->
+
+    <!-- Featurs Section Start -->
+
+    <%- include('../layout/feature') %>
+
+    <!-- Featurs Section End -->
+
+    <!--  Shop Start-->
+    <div class="container-fluid feature-page bg-light">
+      <div class="container py-5">
+        <div class="tab-class text-center">
+          <div class="row g-4 d-flex algin-item-center">
+            <div class="col-lg-4 text-start">
+              <h3 class="section-title d-flex align-items-end gap-2">
+                <i class="bi bi-shop fs-2"></i>
+                <span>Featured Products</span>
+              </h3>
+            </div>
+
+            <div class="col-lg-8 text-end">
+              <ul class="nav nav-pills d-inline-flex text-center mb-5">
+                <li class="nav-item">
+                  <a
+                    class="d-flex align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm text-white text-decoration-none m-2 all-product"
+                    href="/all-product"
+                  >
+                    <i class="fas fa-box-open"></i>
+                    <span class="fw-semibold small all-btn">All Products</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content">
+            <div id="tab-1" class="tab-pane fade show active">
+              <div class="row g-4">
+                <div class="col-lg-12">
+                  <div class="row g-4">
+                    <% products.forEach((product) => { %>
+                    <div class="col-md-6 col-lg-4 col-xl-3 mb-4">
+                      <div
+                        class="card product-card h-100 shadow-sm border-0 rounded-4 overflow-hidden pt-2 position-relative"
+                      >
+                        <!-- Hình ảnh sản phẩm -->
+                        <div
+                          class="card-image position-relative text-center px-2 py-3"
+                        >
+                          <img
+                            src="/images/product/<%= product.image %>"
+                            class="card-img-top object-fit-contain"
+                            style="height: 180px; object-fit: contain"
+                            alt="Ảnh sản phẩm <%= product.name %>"
+                          />
+                        </div>
+
+                        <!-- Nội dung sản phẩm -->
+                        <div
+                          class="card-body text-start d-flex flex-column gap-2 px-3 pb-3"
+                        >
+                          <!-- Tên sản phẩm -->
+                          <a
+                            class="product-name fw-bold fs-5 text-dark text-decoration-none"
+                            href="/product/<%= product.id %>"
+                            title="Xem chi tiết <%= product.name %>"
+                          >
+                            <%= product.name %>
+                          </a>
+
+                          <!-- Mô tả ngắn -->
+                          <p
+                            class="card-text mb-2 text-dark"
+                            style="height: 40px; overflow: hidden"
+                          >
+                            <%= product.shortDesc || product.detailDesc %>
+                          </p>
+
+                          <!-- Thông tin phụ: RAM, bộ nhớ -->
+                          <div
+                            class="d-flex flex-wrap gap-2 small justify-content-between"
+                          >
+                            <span class="text-dark">
+                              <i class="bi bi-cpu me-1"></i>RAM: <%= product.ram
+                              %>
+                            </span>
+                            <span class="text-dark">
+                              <i class="bi bi-hdd me-1"></i>Bộ nhớ: <%=
+                              product.storage %>
+                            </span>
+                          </div>
+
+                          <!-- Flash Sale -->
+                          <div>
+                            <span
+                              class="badge bg-warning text-dark rounded-pill px-2 py-1 small d-inline-flex align-items-center gap-1"
+                            >
+                              <i class="bi bi-lightning-charge-fill"></i> Giảm
+                              giá 10%
+                            </span>
+                          </div>
+
+                          <!-- Giá sản phẩm -->
+                          <% const discountPrice = Math.floor(product.price *
+                          0.9); %>
+
+                          <!-- Hiển thị giá -->
+                          <div class="mt-2">
+                            <div
+                              class="d-flex justify-content-between align-items-center"
+                            >
+                              <!-- Giá gốc -->
+                              <div>
+                                <span
+                                  class="text-dark small d-block fw-bold"
+                                  style="font-family: 'Roboto', sans-serif"
+                                  >Giá gốc</span
+                                >
+                                <del
+                                  class="text-muted small"
+                                  style="
+                                    font-size: 14px;
+                                    font-family: 'Roboto', sans-serif;
+                                  "
+                                >
+                                  <%= new Intl.NumberFormat('vi-VN', { style:
+                                  'currency', currency: 'VND'
+                                  }).format(product.price) %>
+                                </del>
+                              </div>
+
+                              <!-- Giá khuyến mãi -->
+                              <div>
+                                <span
+                                  class="text-dark small d-block fw-bold"
+                                  style="font-family: 'Roboto', sans-serif"
+                                  >Giá khuyến mãi</span
+                                >
+                                <span
+                                  class="fw-bold"
+                                  style="
+                                    color: #e63946;
+                                    font-size: 16px;
+                                    font-family: 'Roboto', sans-serif;
+                                  "
+                                >
+                                  <%= new Intl.NumberFormat('vi-VN', { style:
+                                  'currency', currency: 'VND'
+                                  }).format(discountPrice) %>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Đánh giá & tình trạng -->
+                          <div
+                            class="mt-2 d-flex justify-content-between align-items-center"
+                          >
+                            <!-- Đánh giá -->
+                            <% if (product.rating) { %>
+                            <div
+                              class="small d-flex align-items-center gap-1"
+                              style="
+                                color: #fbbf24;
+                                font-family: 'Roboto', sans-serif;
+                              "
+                            >
+                              <i class="bi bi-star-fill"></i>
+                              <span class="text-dark">Đánh giá</span> <%=
+                              product.rating %>/5
+                            </div>
+                            <% } %>
+
+                            <!-- Tình trạng -->
+                            <div
+                              class="small fw-semibold"
+                              style="font-family: 'Roboto', sans-serif"
+                            >
+                              <% if (product.quantity > 2) { %>
+                              <span class="text-success">
+                                <i class="bi bi-check-circle me-1"></i>Còn hàng:
+                                <%= product.quantity %>
+                              </span>
+                              <% } else if (product.quantity > 0) { %>
+                              <span class="text-warning">
+                                <i class="bi bi-exclamation-circle me-1"></i>Sắp
+                                hết hàng
+                              </span>
+                              <% } else { %>
+                              <span class="text-danger">
+                                <i class="bi bi-x-circle me-1"></i>Hết hàng
+                              </span>
+                              <% } %>
+                            </div>
+                          </div>
+
+                          <!-- Nút Thêm vào giỏ -->
+                          <% if (product.quantity > 0) { %>
+                          <form
+                            method="post"
+                            class="d-flex justify-content-center mt-3"
+                            action="/add-product-to-card/<%= product.id %>"
+                          >
+                            <button
+                              type="submit"
+                              class="btn rounded-pill px-3 buy-btn text-white"
+                            >
+                              <i class="fa fa-shopping-bag me-2"></i> Thêm vào
+                              giỏ
+                            </button>
+                          </form>
+                          <% } %>
+                        </div>
+                      </div>
+                    </div>
+
+                    <% }) %>
+                  </div>
+                </div>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-end mt-4">
+                    <li class="page-item <%= page <= 1 ? 'disabled' : '' %>">
+                      <a
+                        class="page-link"
+                        href="?page=<%= page - 1 %>"
+                        aria-label="Previous"
+                      >
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <% for (let i = 1; i <= totalPages; i++) { %>
+                    <li class="page-item <%= i === page ? 'active' : '' %>">
+                      <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                    </li>
+                    <% } %>
+                    <!-- Next -->
+                    <li
+                      class="page-item <%= page >= totalPages ? 'disabled' : '' %>"
+                    >
+                      <a
+                        class="page-link"
+                        href="?page=<%= page + 1 %>"
+                        aria-label="Next"
+                      >
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fruits Shop End-->
+
+    <!-- Footer Start -->
+    <%- include('../layout/footer') %>
+
+    <!-- Back to Top -->
+    <a href="#" class="btn border-3 rounded-circle back-to-top"
+      ><i class="fa fa-arrow-up"></i
+    ></a>
+    <!--  -->
+    <script
+      src="//code.tidio.co/jessuvetqgbmlfbbicxo08yqsjeeprfb.js"
+      async
+    ></script>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/client/lib/easing/easing.min.js"></script>
+    <script src="/client/lib/waypoints/waypoints.min.js"></script>
+    <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="/client/js/main.js"></script>
+  </body>
+</html>

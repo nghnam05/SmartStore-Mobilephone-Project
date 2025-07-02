@@ -12,7 +12,6 @@ const configPassportLocal = () => {
         passwordField: "password",
       },
       async function verify(email, password, done) {
-        // console.log(">>>>>> Login info: ", email, password);
         return await handleLogin(email, password, done);
       }
     )

@@ -241,10 +241,23 @@ const getEditProfilePage = async (req: Request, res: Response) => {
 
   const profile = await prisma.user.findUnique({
     where: { id: user.id },
-  });
+  }); 
+  let sumCart: number;
+  if (req.query.sumCart) {
+    sumCart = parseInt(req.query.sumCart as string, 10);
+  } else {
+    const cart = await prisma.cart.findFirst({
+      where: { userId: user.id },
+      include: { cartDetails: true },
+    });
 
-  return res.render("client/user/edit-profile", { user: profile });
+    sumCart =
+      cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
+  }
+
+  return res.render("client/user/edit-profile", { user: profile, sumCart });
 };
+  
 
 // ========== Cập nhật thông tin ==========
 const postUpdateProfile = async (req: Request, res: Response) => {
@@ -252,12 +265,10 @@ const postUpdateProfile = async (req: Request, res: Response) => {
   const { fullname, phone, address } = req.body;
 
   try {
-    // Lấy thông tin người dùng hiện tại (để giữ nguyên avatar cũ nếu không upload)
     const existingUser = await prisma.user.findUnique({
       where: { id: user.id },
     });
 
-    // avatar mới nếu có, ngược lại giữ avatar cũ
     const avatar = req.file?.filename || existingUser?.avatar;
 
     await prisma.user.update({
@@ -279,8 +290,42 @@ const postUpdateProfile = async (req: Request, res: Response) => {
 
 // ========== Đổi mật khẩu ==========
 
-const getChangePasswordPage = (req: Request, res: Response) => {
-  res.render("client/user/changePass"); // đường dẫn đến file .ejs
+const getChangePasswordPage = async (req: Request, res: Response) => {
+  const user = req.user as { id: number };
+  if (!user) return res.redirect("/login");
+  try {
+    const orders = await prisma.order.findMany({
+      where: { userId: user.id },
+      include: {
+        orderDetails: {
+          include: { product: true },
+        },
+      },
+    });
+
+    const cart = await prisma.cart.findFirst({
+      where: { userId: user.id },
+      include: { cartDetails: true },
+    });
+
+    const sumCart =
+      cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
+
+    res.render("client/product/order-history", {
+      orders,
+      user,
+      sumCart,
+    });
+  } catch (error) {
+    console.error("❌ getOrderHistory error:", error);
+    res.render("client/user/changePass", {
+      orders: [],
+      user,
+      sumCart: 0,
+      error: "Không thể tải dữ liệu đơn hàng!",
+    });
+  }
+  // res.render("client/user/changePass"); // đường dẫn đến file .ejs
 };
 
 const postChangePassword = async (

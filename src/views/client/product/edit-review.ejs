@@ -68,44 +68,76 @@
     <%- include('../layout/header') %>
 
 
-    <div class="container py-5 " style="margin-top: 8%;"  >
+    <div class="container py-5" style="margin-top: 8%;">
       <div class="row justify-content-center">
-        <div class="col-md-7 bg-white shadow rounded-4 p-5">
-          <h4 class="text-primary mb-4">
-            <i class="bi bi-pencil-square me-2"></i> Edit Your Review
+        <div
+          class="col-md-7 bg-white p-5 rounded-4"
+          style="box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);"
+        >
+          <h4 class="mb-4" style="color: #0d6efd;">
+            <i class="bi bi-pencil-square me-2"></i> Chỉnh sửa đánh giá của bạn
           </h4>
-          <form method="POST" action="/product/<%= product.id %>/review/<%= review.id %>">
-            <!-- Rating -->
+          <form
+            method="POST"
+            action="/product/<%= product.id %>/review/<%= review.id %>"
+          >
+            <!-- Đánh giá sao -->
             <div class="mb-4">
-              <label class="form-label fw-semibold text-dark">Rating</label>
-              <select name="rating" class="form-select border border-primary-subtle rounded-3" required>
+              <label class="form-label fw-semibold" style="color: #343a40;">
+                Đánh giá (số sao)
+              </label>
+              <select
+                name="rating"
+                class="form-select border rounded-3"
+                style="border-color: #cfe2ff;"
+                required
+              >
                 <% for (let i = 1; i <= 5; i++) { %>
-                  <option value="<%= i %>" <%= i === review.rating ? 'selected' : '' %>>
-                    <%= i %> Star<%= i > 1 ? 's' : '' %>
-                  </option>
+                <option value="<%= i %>" <%= i === review.rating ? 'selected' : ''
+                  %>>
+                  <%= i %> sao
+                </option>
                 <% } %>
               </select>
             </div>
     
-            <!-- Content -->
+            <!-- Nội dung đánh giá -->
             <div class="mb-4">
-              <label class="form-label fw-semibold text-dark">Your Review</label>
-              <textarea name="content" rows="4" class="form-control border border-secondary-subtle rounded-3 shadow-sm" placeholder="Update your experience..." required><%= review.content %></textarea>
+              <label class="form-label fw-semibold" style="color: #343a40;">
+                Nội dung đánh giá
+              </label>
+              <textarea
+                name="content"
+                rows="4"
+                class="form-control border rounded-3"
+                style="border-color: #dee2e6; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);"
+                placeholder="Cập nhật lại trải nghiệm của bạn..."
+                required
+              ><%= review.content %></textarea>
             </div>
     
-            <!-- Buttons -->
+            <!-- Nút hành động -->
             <div class="d-flex justify-content-between align-items-center">
-              <a href="/product/<%= product.id %>" class="btn btn-outline-secondary rounded-pill px-4">
-                <i class="bi bi-arrow-left-circle me-1"></i> Back
+              <a
+                href="/product/<%= product.id %>"
+                class="btn rounded-pill px-4"
+                style="border: 1px solid #ced4da; color: #6c757d;"
+              >
+                <i class="bi bi-arrow-left-circle me-1"></i> Quay lại
               </a>
-              <button type="submit" class="btn btn-success rounded-pill px-4">
-                <i class="bi bi-save me-1"></i> Update Review
+              <button
+                type="submit"
+                class="btn rounded-pill px-4"
+                style="background-color: #198754; color: white;"
+              >
+                <i class="bi bi-save me-1"></i> Cập nhật đánh giá
               </button>
             </div>
           </form>
         </div>
       </div>
     </div>
+    
     
   <!-- back to top  -->
   <a href="#" class="btn border-3 rounded-circle back-to-top"

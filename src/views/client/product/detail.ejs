@@ -68,12 +68,12 @@
     <div class="container py-3" style="margin-top: 10% !important">
       <nav aria-label="breadcrumb " class="mb-5">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
           <li class="breadcrumb-item">
-            <a href="/product">Product details</a>
+            <a href="/product">Chi tiết sản phẩm</a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            <%= product.name%>
+            <%= product.name %>
           </li>
         </ol>
       </nav>
@@ -99,26 +99,28 @@
           <h3 style="color: #0d5ea6"><%= product.name %></h3>
 
           <!-- Giá sản phẩm -->
-          <% const discountPercent = 10; %> <% const discountAmount =
+          <!-- <% const discountPercent = 10; %> <% const discountAmount =
           Math.floor((product.price * discountPercent) / 100); %> <% const
-          finalPrice = product.price - discountAmount; %>
+          finalPrice = product.price - discountAmount; %> -->
 
           <h4 class="mt-3 text-danger">
-            <span class="fs-5 fw-semibold" style="color: #333333">Price:</span>
+            <span class="fs-5 fw-semibold" style="color: #333333"
+              >Giá gốc:</span
+            >
             <del class="fs-6" style="color: #999999">
               <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
-              'VND' }).format(product.price) %>
+              'VND' }).format(product.price *1.1) %>
             </del>
             <span class="ms-3">
               <%= new Intl.NumberFormat('vi-VN', { style: 'currency', currency:
-              'VND' }).format(finalPrice) %>
+              'VND' }).format(product.price) %>
             </span>
           </h4>
 
           <!-- Màu sắc -->
           <div class="my-3">
             <span class="form-label fw-bold me-3" style="color: #333333"
-              >Color:</span
+              >Màu sắc:</span
             >
             <span class="color-circle" style="background: #000"></span>
             <span class="color-circle" style="background: #fff"></span>
@@ -131,7 +133,7 @@
           <!-- Dung lượng -->
           <div class="my-2">
             <label class="form-label fw-bold" style="color: #333333"
-              >Select storage:</label
+              >Chọn dung lượng:</label
             ><br />
             <div class="d-flex gap-2 flex-wrap">
               <button class="storage-option active">
@@ -150,7 +152,7 @@
           <!-- Mô tả chi tiết -->
           <div class="mb-3 description-box">
             <label class="fw-bold" style="color: #333333"
-              >Detail Description:</label
+              >Mô tả chi tiết:</label
             >
             <p class="card-text small text-muted" style="color: #666666">
               <%= product.detailDesc %>
@@ -169,7 +171,7 @@
               class="py-2 rounded-pill px-3 buy-btn text-white"
             >
               <i class="fa fa-shopping-bag me-2"></i>
-              Add to cart
+              Thêm vào giỏ hàng
             </button>
           </form>
           <% } else { %>
@@ -177,17 +179,18 @@
             class="alert alert-danger mt-3 d-inline-flex align-items-center gap-2 rounded-pill px-4 py-2 small"
             role="alert"
           >
-            <i class="bi bi-exclamation-circle"></i> Out of stock
+            <i class="bi bi-exclamation-circle"></i> Hết hàng
           </div>
           <% } %>
         </div>
       </div>
     </div>
+
     <hr />
     <div class="container">
       <div class="row mb-3">
         <div class="col-lg-6">
-          <h4 class="fw-semibold mb-4" style="color: #000">About more :</h4>
+          <h4 class="fw-semibold mb-4" style="color: #000">Thông tin thêm:</h4>
           <p class="text-muted"><%= product.shortDesc %></p>
           <p class="text-muted"><%= product.detailDesc %></p>
         </div>
@@ -197,43 +200,43 @@
         <!-- Cột trái -->
         <div class="col-md-4">
           <div class="d-flex label-box">
-            <div class="label-title">Model</div>
+            <div class="label-title">Mẫu mã</div>
             <div><%= product.name %></div>
           </div>
           <div class="d-flex label-box">
-            <div class="label-title">Weight</div>
+            <div class="label-title">Trọng lượng</div>
             <div>228 g</div>
           </div>
           <div class="d-flex label-box">
-            <div class="label-title">Color</div>
-            <div>Graphite Black</div>
+            <div class="label-title">Màu sắc</div>
+            <div>Đen than chì</div>
           </div>
           <div class="d-flex label-box">
             <div class="label-title">Camera</div>
             <div><%= product.camera %></div>
           </div>
           <div class="d-flex label-box">
-            <div class="label-title">Country of Origin</div>
-            <div>USA</div>
+            <div class="label-title">Xuất xứ</div>
+            <div>Hoa Kỳ</div>
           </div>
         </div>
 
         <!-- Cột giữa -->
         <div class="col-md-4">
           <div class="d-flex label-box">
-            <div class="label-title">Display</div>
+            <div class="label-title">Màn hình</div>
             <div><%= product.screen %></div>
           </div>
           <div class="d-flex label-box">
-            <div class="label-title">Processor</div>
+            <div class="label-title">Bộ xử lý</div>
             <div><%= product.os %></div>
           </div>
           <div class="d-flex label-box">
-            <div class="label-title">Battery</div>
+            <div class="label-title">Pin</div>
             <div><%= product.battery %></div>
           </div>
           <div class="d-flex label-box">
-            <div class="label-title">Storage</div>
+            <div class="label-title">Bộ nhớ</div>
             <div><%= product.storage %></div>
           </div>
           <div class="d-flex label-box">
@@ -242,10 +245,10 @@
           </div>
         </div>
 
-        <!-- Cột category -->
+        <!-- Cột danh mục -->
         <div class="col-md-4">
           <h5 class="mb-3 fw-bold border-bottom pb-2 fs-4 text-dark">
-            Category :
+            Danh mục:
           </h5>
           <ul class="list-group shadow-sm rounded">
             <li class="list-group-item d-flex align-items-center gap-2 fw-bold">
@@ -257,15 +260,15 @@
               %>
             </li>
             <li class="list-group-item d-flex align-items-center gap-2">
-              <i class="bi bi-battery-half text-danger"></i> Battery: <%=
+              <i class="bi bi-battery-half text-danger"></i> Pin: <%=
               product.battery %>
             </li>
             <li class="list-group-item d-flex align-items-center gap-2">
-              <i class="bi bi-display text-primary"></i> Screen: <%=
+              <i class="bi bi-display text-primary"></i> Màn hình: <%=
               product.screen %>
             </li>
             <li class="list-group-item d-flex align-items-center gap-2">
-              <i class="bi bi-star-fill text-warning"></i> Rating: <%=
+              <i class="bi bi-star-fill text-warning"></i> Đánh giá: <%=
               product.rating %>
             </li>
           </ul>
@@ -275,77 +278,88 @@
 
     <!-- rating and comment -->
     <div
-      class="container-fluid px-5 py-4 my-5 bg-light-subtle rounded-4 shadow-sm"
+      class="container-fluid px-5 py-4 rounded-4 shadow-sm"
+      style="background-color: #f8f9fa"
     >
       <div class="row justify-content-center gap-5">
-        <!-- Comment -->
+        <!-- Đánh giá -->
         <div class="col-md-5 bg-white p-4 rounded-4 shadow-sm">
           <% if (user) { %>
-          <h5 class="mb-4 text-primary">
-            <i class="bi bi-chat-left-dots-fill me-1"></i> Leave a Review
+          <h5 class="mb-4" style="color: #0d6efd">
+            <i class="bi bi-chat-left-dots-fill me-1"></i> Để lại đánh giá
           </h5>
           <form action="/product/<%= product.id %>/review" method="POST">
             <div class="mb-3">
-              <label for="rating" class="form-label fw-semibold text-dark"
-                >Rating</label
+              <label
+                for="rating"
+                class="form-label fw-semibold"
+                style="color: #212529"
+                >Đánh giá</label
               >
               <select
                 name="rating"
-                class="form-select border-primary-subtle"
+                class="form-select"
                 required
+                style="border-color: #cfe2ff"
               >
                 <% for (let i = 1; i <= 5; i++) { %>
-                <option value="<%= i %>"><%= i %> Star</option>
+                <option value="<%= i %>"><%= i %> Sao</option>
                 <% } %>
               </select>
             </div>
             <div class="mb-3">
-              <label for="content" class="form-label fw-semibold text-dark"
-                >Your Review</label
+              <label
+                for="content"
+                class="form-label fw-semibold"
+                style="color: #212529"
+                >Nội dung đánh giá</label
               >
               <textarea
                 name="content"
                 rows="3"
-                class="form-control border-secondary-subtle"
-                placeholder="Share your experience..."
+                class="form-control"
+                placeholder="Chia sẻ trải nghiệm của bạn..."
                 required
+                style="border-color: #dee2e6"
               ></textarea>
             </div>
-            <button type="submit" class="btn btn-primary rounded-pill px-4">
-              <i class="bi bi-send-fill me-1"></i> Submit
+            <button
+              type="submit"
+              class="btn rounded-pill px-4"
+              style="background-color: #0d6efd; color: white"
+            >
+              <i class="bi bi-send-fill me-1"></i> Gửi
             </button>
           </form>
           <% } else { %>
           <div
-            class="alert d-flex align-items-center gap-3 bg-light border border-info shadow-sm rounded-4 px-4 py-3 mt-2"
+            class="d-flex align-items-center gap-3 border rounded-4 px-4 py-3 mt-2 shadow-sm"
+            style="background-color: #e9f7ff; border-color: #b6effb"
           >
-            <i class="bi bi-info-circle-fill fs-4 text-info"></i>
+            <i class="bi bi-info-circle-fill fs-4" style="color: #17a2b8"></i>
             <div class="flex-grow-1">
-              <span class="fw-semibold text-dark"
-                >You must be logged in to leave a review.</span
-              >
-              <br />
+              <span class="fw-semibold" style="color: #212529"
+                >Bạn cần đăng nhập để đánh giá.</span
+              ><br />
               <a
                 href="/login"
-                class="fw-bold text-decoration-none text-primary"
+                class="fw-bold text-decoration-none"
+                style="color: #0d6efd"
               >
-                <i class="bi bi-box-arrow-in-right me-1"></i> Login here
+                <i class="bi bi-box-arrow-in-right me-1"></i> Đăng nhập tại đây
               </a>
             </div>
           </div>
-
           <% } %>
         </div>
 
-        <!-- rating start -->
-        <!-- rating start -->
+        <!-- Hiển thị đánh giá -->
         <div class="col-md-6">
-          <h5 class="mb-3 text-success">
-            <i class="bi bi-people-fill me-2"></i> User Reviews
+          <h5 class="mb-3" style="color: #198754">
+            <i class="bi bi-people-fill me-2"></i> Đánh giá từ người dùng
           </h5>
-
           <div
-            class="bg-white rounded-4 shadow-sm p-3"
+            class="bg-white rounded-4 shadow-sm p-3 rounded"
             style="max-height: 400px; overflow-y: auto; scrollbar-width: thin"
           >
             <% product.Review.forEach(review => { %>
@@ -353,17 +367,20 @@
               <div
                 class="d-flex justify-content-between align-items-center mb-2"
               >
-                <strong class="text-dark">
-                  <i class="bi bi-person-circle me-1 text-secondary"></i>
+                <strong style="color: #212529">
+                  <i
+                    class="bi bi-person-circle me-1"
+                    style="color: #6c757d"
+                  ></i>
                   <%= review.user.fullname || review.user.username %>
                 </strong>
-                <small class="text-muted">
+                <small style="color: #6c757d">
                   <i class="bi bi-calendar-event me-1"></i>
                   <%= review.createdAt.toLocaleDateString('vi-VN') %>
                 </small>
               </div>
 
-              <div class="text-warning mb-2">
+              <div class="mb-2" style="color: #ffc107">
                 <% for (let i = 1; i <= 5; i++) { %> <% if (i <= review.rating)
                 { %>
                 <i class="bi bi-star-fill"></i>
@@ -372,13 +389,17 @@
                 <% } %> <% } %>
               </div>
 
-              <p class="text-muted fst-italic mb-1">"<%= review.content %>"</p>
+              <p class="fst-italic mb-1" style="color: #6c757d">
+                "<%= review.content %>"
+              </p>
+
               <% if (user && review.userId === user.id) { %>
               <a
                 href="/product/<%= product.id %>/review/<%= review.id %>/edit"
-                class="btn btn-sm btn-outline-primary me-2"
+                class="btn btn-sm me-2"
+                style="border: 1px solid #0d6efd; color: #0d6efd"
               >
-                <i class="bi bi-pencil-square"></i> Edit
+                <i class="bi bi-pencil-square"></i> Sửa
               </a>
               <form
                 action="/product/<%= product.id %>/review/<%= review.id %>/delete"
@@ -386,10 +407,11 @@
                 class="d-inline"
               >
                 <button
-                  class="btn btn-sm btn-outline-danger"
-                  onclick="return confirm('Are you sure?')"
+                  class="btn btn-sm"
+                  style="border: 1px solid #dc3545; color: #dc3545"
+                  onclick="return confirm('Bạn có chắc muốn xoá đánh giá này?')"
                 >
-                  <i class="bi bi-trash"></i> Delete
+                  <i class="bi bi-trash"></i> Xoá
                 </button>
               </form>
               <% } %>
@@ -400,22 +422,32 @@
       </div>
     </div>
 
-    <div class="row px-5 bg-light py-4">
+    <div class="row px-5 py-4">
       <div class="container position-relative px-5">
         <div class="mb-4">
           <h3 class="section-title d-flex align-items-end gap-2">
-            <i class="bi bi-shop text-primary fs-2"></i>
-            <span>Featured Products</span>
+            <i class="bi bi-shop fs-2" style="color: #0d6efd"></i>
+            <span>Sản phẩm nổi bật</span>
           </h3>
         </div>
 
+        <!-- Nút cuộn trái -->
         <button
-          class="scroll-btn scroll-left position-absolute top-50 start-0 translate-middle-y btn btn-light shadow rounded-circle"
-          style="z-index: 10"
+          class="scroll-btn scroll-left position-absolute top-50 start-0 translate-middle-y rounded-circle"
+          style="
+            z-index: 10;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: none;
+            width: 40px;
+            height: 40px;
+          "
           onclick="scrollProducts('left')"
         >
           <i class="bi bi-chevron-left fs-4"></i>
         </button>
+
+        <!-- Slider sản phẩm -->
         <div
           id="productSlider"
           class="d-flex gap-4 overflow-auto px-4 py-2"
@@ -424,8 +456,11 @@
           <% products.forEach((product) => { %>
           <div style="min-width: 240px; max-width: 240px; flex: 0 0 auto">
             <div
-              class="card product-card h-100 shadow-sm border-0 rounded-4 overflow-hidden position-relative"
-              style="min-height: 320px"
+              class="card product-card h-100 border-0 rounded-4 overflow-hidden position-relative"
+              style="
+                min-height: 320px;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+              "
             >
               <div
                 class="card-image d-flex justify-content-center align-items-center p-2"
@@ -441,37 +476,50 @@
               <div
                 class="card-body text-start d-flex flex-column justify-content-between gap-2 px-3 pb-3"
               >
-                <h6
-                  class="product-name fw-bold mb-1 fs-6"
-                  style="color: #0d5ea6"
+                <a
+                  class="product-name fw-bold fs-6 text-dark text-decoration-none"
+                  href="/product/<%= product.id %>"
+                  title="Xem chi tiết <%= product.name %>"
                 >
                   <%= product.name %>
-                </h6>
+                </a>
                 <p
-                  class="card-text small text-muted mb-2 clamp-2-line"
-                  style="font-size: 0.85rem"
+                  class="card-text small mb-2 clamp-2-line"
+                  style="font-size: 0.85rem; color: #6c757d"
                 >
                   <%= product.detailDesc %>
                 </p>
                 <div class="d-flex justify-content-center">
                   <a
                     href="/product/<%= product.id %>"
-                    class="text-decoration-none text-dark fw-medium small d-inline-flex align-items-center gap-1 hover-underline bg-light py-1 px-2 rounded-pill"
+                    class="text-decoration-none fw-medium small d-inline-flex align-items-center gap-1 rounded-pill"
+                    style="
+                      color: #212529;
+                      background-color: #f8f9fa;
+                      padding: 4px 10px;
+                    "
                   >
-                    View Details
+                    Xem chi tiết
                     <i class="bi bi-box-arrow-up-right"></i>
                   </a>
                 </div>
               </div>
             </div>
           </div>
-
           <% }); %>
         </div>
 
+        <!-- Nút cuộn phải -->
         <button
-          class="scroll-btn scroll-right position-absolute top-50 end-0 translate-middle-y btn btn-light shadow rounded-circle"
-          style="z-index: 10"
+          class="scroll-btn scroll-right position-absolute top-50 end-0 translate-middle-y rounded-circle"
+          style="
+            z-index: 10;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: none;
+            width: 40px;
+            height: 40px;
+          "
           onclick="scrollProducts('right')"
         >
           <i class="bi bi-chevron-right fs-4"></i>
