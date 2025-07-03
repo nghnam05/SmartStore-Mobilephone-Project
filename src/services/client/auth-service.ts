@@ -75,38 +75,22 @@ const getRoleUserByID = async (id: number) => {
   }
 };
 
-const handleLogin = async (
-  username: string,
-  password: string,
-  done: (err: any, user?: any, info?: any) => void
-) => {
+const handleLogin = async (username: string, password: string, done: any) => {
   try {
     const user = await prisma.user.findUnique({ where: { username } });
-
     if (!user) {
-      console.log("⚠️ Đăng nhập thất bại: Không tìm thấy người dùng");
-      return done(null, false, {
-        message: "Tên đăng nhập hoặc mật khẩu không đúng.",
-      });
+      return done(null, false, { message: "Tài khoản không tồn tại." });
     }
 
-    const isMatch = await comparePassword(password, user.password);
-
+    const isMatch = await comparePassword(password, user.password); 
     if (!isMatch) {
-      console.log("⚠️ Đăng nhập thất bại: Mật khẩu không khớp");
-      return done(null, false, {
-        message: "Tên đăng nhập hoặc mật khẩu không đúng.",
-      });
+      return done(null, false, { message: "Mật khẩu không đúng." });
     }
 
-    // Tùy chọn: kiểm tra trạng thái tài khoản
-    // if (!user.isActive) {
-
-    console.log("✅ Đăng nhập thành công:", user.username);
     return done(null, user);
-  } catch (err) {
-    console.error("❌ Lỗi trong handleLogin:", err);
-    return done(err);
+  } catch (error) {
+    console.error(error);
+    return done(error);
   }
 };
 

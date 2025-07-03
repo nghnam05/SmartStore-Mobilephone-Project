@@ -1,16 +1,11 @@
-import { session } from "passport";
+import passport, { session } from "passport";
 import { NextFunction, Request, Response } from "express";
 import { TRegister, UserSchemas } from "../../schemas/login.schemas";
 import { registerNewUSer } from "../../services/client/auth-service";
 
-// login page
 const getLoginPage = async (req: Request, res: Response) => {
-  const user = req.user;
   const session = req.session as any;
-
   const messages = session?.messages ?? [];
-
-  // Xoá messages khỏi session sau khi lấy ra
   if (session) {
     delete session.messages;
   }
@@ -19,6 +14,22 @@ const getLoginPage = async (req: Request, res: Response) => {
     messages,
   });
 };
+const postLogin = (req: Request, res: Response, next: NextFunction) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) return next(err);
+
+    if (!user) {
+      (req.session as any).messages = [info?.message || "Đăng nhập thất bại."];
+      return res.redirect("/login");
+    }
+
+    req.logIn(user, (err) => {
+      if (err) return next(err);
+      return res.redirect("/"); // Đăng nhập thành công → về trang home
+    });
+  })(req, res, next);
+};
+
 
 // register page
 const getRegisterPage = async (req: Request, res: Response) => {
@@ -86,4 +97,5 @@ export {
   postRegister,
   getSuccessRedirect,
   postLogout,
+  postLogin,
 };

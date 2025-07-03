@@ -4,7 +4,7 @@ import {
   getProductInCart,
 } from "../../services/client/product-service";
 import { prisma } from "../../config/client";
-import { Request, RequestHandler, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { addProductToCart } from "../../services/admin/product-service";
 
 const postReview = async (req: Request, res: Response) => {

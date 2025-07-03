@@ -3,17 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chỉnh sửa thông tin cá nhân | Mobile Store</title>
+    <title>Chỉnh sửa thông tin cá nhân</title>
 
     <meta
       name="description"
-      content="Trang chỉnh sửa thông tin cá nhân người dùng: họ tên, số điện thoại, địa chỉ, avatar."
+      content="Đại Việt chuyên cung cấp điện thoại chính hãng, giá tốt, bảo hành uy tín. Giao hàng toàn quốc."
     />
     <meta
       name="keywords"
-      content="Mobile Store, chỉnh sửa thông tin, thông tin cá nhân, avatar, profile"
+      content="điện thoại, smartphone, mua điện thoại, điện thoại giá rẻ, điện thoại chính hãng"
     />
-    <meta name="author" content="Mobile Store Team" />
 
     <link
       rel="icon"
@@ -66,7 +65,6 @@
   <body>
     <%- include('../layout/header') %>
 
-
     <main class="container py-5" style="max-width: 700px; margin-top: 6%">
       <section
         class="card border-0 rounded-4 shadow"
@@ -78,7 +76,7 @@
         >
           Chỉnh sửa thông tin cá nhân
         </h1>
-    
+
         <form
           action="/update-profile"
           method="POST"
@@ -102,7 +100,7 @@
               style="border: 1px solid #ccc"
             />
           </div>
-    
+
           <div class="mb-3">
             <label
               for="phone"
@@ -120,7 +118,7 @@
               style="border: 1px solid #ccc"
             />
           </div>
-    
+
           <div class="mb-3">
             <label
               for="address"
@@ -138,7 +136,7 @@
               style="border: 1px solid #ccc"
             />
           </div>
-    
+
           <div class="mb-4">
             <label
               for="avatar"
@@ -166,7 +164,7 @@
               style="border: 1px solid #ccc"
             />
           </div>
-    
+
           <div class="d-flex justify-content-between align-items-center">
             <a
               href="/"
@@ -186,7 +184,7 @@
         </form>
       </section>
     </main>
-    
+
     <a href="#" class="btn border-3 rounded-circle back-to-top">
       <i class="fa fa-arrow-up"></i>
     </a>

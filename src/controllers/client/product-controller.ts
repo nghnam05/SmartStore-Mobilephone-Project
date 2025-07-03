@@ -315,7 +315,7 @@ const getChangePasswordPage = async (req: Request, res: Response) => {
     const sumCart =
       cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
 
-    res.render("client/product/order-history", {
+    res.render("client/user/changePass", {
       orders,
       user,
       sumCart,

@@ -7,7 +7,15 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>Dashboard Products - Mobilephone Shop</title>
+    <title>Quản lí sản phẩm</title>
+    <meta
+      name="description"
+      content="Đại Việt chuyên cung cấp điện thoại chính hãng, giá tốt, bảo hành uy tín. Giao hàng toàn quốc."
+    />
+    <meta
+      name="keywords"
+      content="điện thoại, smartphone, mua điện thoại, điện thoại giá rẻ, điện thoại chính hãng"
+    />
     <link
       rel="icon"
       type="image/x-icon"
@@ -39,23 +47,30 @@
         <main class="bg-light">
           <div class="container-fluid px-4">
             <h1 class="mt-4 mb-4 text-dark">Quản lý sản phẩm</h1>
-      
+
             <div class="d-flex justify-content-end align-items-center mb-4">
-              <a href="/admin/create-product" class="btn btn-primary text-white">
+              <a
+                href="/admin/create-product"
+                class="btn btn-primary text-white"
+              >
                 Thêm sản phẩm mới <i class="bi bi-plus"></i>
               </a>
             </div>
-      
+
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Bảng điều khiển</a></li>
+              <li class="breadcrumb-item">
+                <a href="/admin">Bảng điều khiển</a>
+              </li>
               <li class="breadcrumb-item active">Sản phẩm</li>
             </ol>
-      
+
             <hr />
             <h2 class="mb-4">Bảng sản phẩm</h2>
-      
+
             <div class="table-responsive">
-              <table class="table table-hover table-bordered align-middle text-center w-100">
+              <table
+                class="table table-hover table-bordered align-middle text-center w-100"
+              >
                 <thead class="table-dark">
                   <tr>
                     <th scope="col">STT</th>
@@ -70,52 +85,74 @@
                 </thead>
                 <tbody>
                   <% products.forEach((product, index) => { %>
-                    <tr>
-                      <th scope="row"><%= index + 1 %></th>
-                      <td><%= product.name %></td>
-                      <td><%= product.price %></td>
-                      <td><%= product.factory %></td>
-                      <td><%= product.target %></td>
-                      <td><%= product.quantity %></td>
-                      <td><%= product.status %></td>
-                      <td>
-                        <div class="d-flex justify-content-center gap-2 flex-wrap">
-                          <form action="/admin/view-product/<%= product.id %>" method="get">
-                            <button type="submit" class="btn btn-warning btn-sm text-white">
-                              <i class="bi bi-eye"></i> Xem
-                            </button>
-                          </form>
-                          <form action="/admin/delete-product/<%= product.id %>" method="post" onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
-                            <button type="submit" class="btn btn-danger btn-sm">
-                              <i class="bi bi-trash3"></i> Xóa
-                            </button>
-                          </form>
-                        </div>
-                      </td>
-                    </tr>
+                  <tr>
+                    <th scope="row"><%= index + 1 %></th>
+                    <td><%= product.name %></td>
+                    <td><%= product.price %></td>
+                    <td><%= product.factory %></td>
+                    <td><%= product.target %></td>
+                    <td><%= product.quantity %></td>
+                    <td><%= product.status %></td>
+                    <td>
+                      <div
+                        class="d-flex justify-content-center gap-2 flex-wrap"
+                      >
+                        <form
+                          action="/admin/view-product/<%= product.id %>"
+                          method="get"
+                        >
+                          <button
+                            type="submit"
+                            class="btn btn-warning btn-sm text-white"
+                          >
+                            <i class="bi bi-eye"></i> Xem
+                          </button>
+                        </form>
+                        <form
+                          action="/admin/delete-product/<%= product.id %>"
+                          method="post"
+                          onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này?')"
+                        >
+                          <button type="submit" class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash3"></i> Xóa
+                          </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
                   <% }) %>
                 </tbody>
               </table>
             </div>
-      
+
             <nav aria-label="Điều hướng phân trang">
               <ul class="pagination justify-content-end mt-4">
                 <!-- Previous -->
                 <li class="page-item <%= page <= 1 ? 'disabled' : '' %>">
-                  <a class="page-link" href="?page=<%= page - 1 %>" aria-label="Trang trước">
+                  <a
+                    class="page-link"
+                    href="?page=<%= page - 1 %>"
+                    aria-label="Trang trước"
+                  >
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
-      
+
                 <% for (let i = 1; i <= totalPages; i++) { %>
                 <li class="page-item <%= i === page ? 'active' : '' %>">
                   <a class="page-link" href="?page=<%= i %>"><%= i %></a>
                 </li>
                 <% } %>
-      
+
                 <!-- Next -->
-                <li class="page-item <%= page >= totalPages ? 'disabled' : '' %>">
-                  <a class="page-link" href="?page=<%= page + 1 %>" aria-label="Trang sau">
+                <li
+                  class="page-item <%= page >= totalPages ? 'disabled' : '' %>"
+                >
+                  <a
+                    class="page-link"
+                    href="?page=<%= page + 1 %>"
+                    aria-label="Trang sau"
+                  >
                     <span aria-hidden="true">&raquo;</span>
                   </a>
                 </li>
@@ -125,7 +162,6 @@
         </main>
         <%- include("../footer.ejs"); -%>
       </div>
-      
     </div>
 
     <script

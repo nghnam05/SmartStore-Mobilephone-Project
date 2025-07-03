@@ -17,6 +17,7 @@ import {
   getLoginPage,
   getRegisterPage,
   getSuccessRedirect,
+  postLogin,
   postLogout,
   postRegister,
 } from "../controllers/client/auth-controller";
@@ -77,8 +78,8 @@ import {
   handleDelete,
   handleUpdate,
   handleViewUser,
+  createMoMoPayment,
 } from "../controllers/admin/admin-user-controller";
-
 
 const router = express.Router();
 
@@ -89,14 +90,7 @@ const webRoutes = (app: Express) => {
 
   // ==== Auth ====
   router.get("/login", isLogin, getLoginPage);
-  router.post(
-    "/login",
-    passport.authenticate("local", {
-      successRedirect: "/success-redirect",
-      failureRedirect: "/login",
-      failureMessage: true,
-    })
-  );
+  router.post("/login", postLogin);
   router.get("/register", isLogin, getRegisterPage);
   router.post("/register", isLogin, postRegister);
   router.get("/logout", postLogout);
@@ -203,6 +197,7 @@ const webRoutes = (app: Express) => {
   // ==== Admin - Orders ====
   router.get("/admin/order", checkAuth, isAdmin, getOrderPage);
   router.get("/admin/order/:id", checkAuth, isAdmin, getOrderDetailPage);
+
 
   // ==== Apply Routes ====
   app.use("/", router);

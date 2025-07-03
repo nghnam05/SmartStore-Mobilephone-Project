@@ -1,3 +1,9 @@
+import crypto from "crypto";
+import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 import {
   getAllRoles,
   handleCreateNewUser,
@@ -6,6 +12,53 @@ import {
 } from "../../services/admin/user-service";
 import { prisma } from "../../config/client";
 import { query, Request, Response } from "express";
+
+async function createMoMoPayment(amount: number) {
+  const partnerCode = process.env.PARTNER_CODE!;
+  const accessKey = process.env.ACCESS_KEY!;
+  const secretKey = process.env.SECRET_KEY!;
+  const redirectUrl = process.env.REDIRECT_URL!;
+  const ipnUrl = process.env.IPN_URL!;
+
+  const orderInfo = "pay with MoMo";
+  const requestType = "payWithMethod";
+  const orderId = partnerCode + Date.now();
+  const requestId = orderId;
+  const extraData = "";
+  const autoCapture = true;
+  const lang = "vi";
+  const storeId = "MomoTestStore";
+  const partnerName = "Test";
+
+  const rawSignature = `accessKey=${accessKey}&amount=${amount}&extraData=${extraData}&ipnUrl=${ipnUrl}&orderId=${orderId}&orderInfo=${orderInfo}&partnerCode=${partnerCode}&redirectUrl=${redirectUrl}&requestId=${requestId}&requestType=${requestType}`;
+  const signature = crypto
+    .createHmac("sha256", secretKey)
+    .update(rawSignature)
+    .digest("hex");
+
+  const requestBody = {
+    partnerCode,
+    partnerName,
+    storeId,
+    requestId,
+    amount: String(amount),
+    orderId,
+    orderInfo,
+    redirectUrl,
+    ipnUrl,
+    lang,
+    requestType,
+    autoCapture,
+    extraData,
+    signature,
+  };
+
+  const response = await axios.post(
+    "https://test-payment.momo.vn/v2/gateway/api/create",
+    requestBody
+  );
+  return response.data;
+}
 
 const getHomePage = async (req: Request, res: Response) => {
   const user = req.user as { id: number } | undefined;
@@ -132,4 +185,5 @@ export {
   handleDelete,
   handleViewUser,
   handleUpdate,
+  createMoMoPayment,
 };
