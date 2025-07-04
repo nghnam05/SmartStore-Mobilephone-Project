@@ -79,6 +79,7 @@ import {
   handleUpdate,
   handleViewUser,
 } from "../controllers/admin/admin-user-controller";
+import { adminOrderController } from "../controllers/admin/admin-order-product";
 
 const router = express.Router();
 
@@ -127,7 +128,6 @@ const webRoutes = (app: Express) => {
   router.get("/checkout", checkAuth, getCheckOutPage);
   router.post("/place-order", checkAuth, postPlaceOrder);
   router.post("/thanks", checkAuth, getThankyouPage);
-
   router.get("/history", checkAuth, getOrderHistory);
   router.post("/order/cancel/:id", checkAuth, postCancelOrder);
 
@@ -202,6 +202,7 @@ const webRoutes = (app: Express) => {
   // ==== Admin - Orders ====
   router.get("/admin/order", checkAuth, isAdmin, getOrderPage);
   router.get("/admin/order/:id", checkAuth, isAdmin, getOrderDetailPage);
+  router.post("/admin/order/approve/:id", adminOrderController);
 
   // ==== Apply Routes ====
   app.use("/", router);

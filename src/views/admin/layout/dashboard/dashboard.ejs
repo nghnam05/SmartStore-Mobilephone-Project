@@ -147,8 +147,32 @@
                 </div>
               </div>
             </div>
+            <div class="row mt-4 mb-5">
+              <div class="">
+                <h2 class="mb-4">Bảng thống kê doanh thu :</h2>
+                <table class="table table-bordered bg-white text-center">
+                  <thead>
+                    <tr>
+                      <th scope="col">Tổng đơn hàng đã bán</th>
+                      <th scope="col">Tổng số tiền thu được</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><%= totalOrders %></td>
+                      <td>
+                        <%= totalRevenue.toLocaleString('vi-VN', { style:
+                        'currency', currency: 'VND' }) %>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
             <div class="row mt-3">
+              <h2 class="mb-4">Biểu đồ doanh thu:</h2>
+
               <div class="col-xl-6">
                 <div class="card mb-4">
                   <div class="card-header">

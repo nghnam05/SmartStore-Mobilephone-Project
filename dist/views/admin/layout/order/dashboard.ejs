@@ -74,7 +74,7 @@
             <hr />
             <ol class="breadcrumb mb-4">
               <li class="breadcrumb-item">
-                <a href="/admin">Bảng điều khiển</a>
+                <a href="/admin/order">Bảng điều khiển</a>
               </li>
               <li class="breadcrumb-item active">Đơn hàng</li>
             </ol>
@@ -90,7 +90,7 @@
                     <th scope="col">Tổng tiền</th>
                     <th scope="col">Trạng thái</th>
                     <th scope="col">Phương thức thanh toán</th>
-                    <th scope="col">Trạng thái thanh toán</th>
+                    <th scope="col">Trạng thái giao hàng</th>
                     <th scope="col">Hành động</th>
                   </tr>
                 </thead>
@@ -99,10 +99,33 @@
                   <tr>
                     <th scope="row"><%= item.id %></th>
                     <td><%= item.user.fullname %></td>
-                    <td><%= item.totalPrice.toLocaleString("vi-VN") %> ₫</td>
-                    <td><%= item.status %></td>
+                    <td><%= item.totalPrice.toLocaleString("vi-VN") %></td>
+                    <td>
+                      <% if (item.status === 'approved') { %>
+                      <span class="text-dark">Đặt hàng thành công</span>
+                      <% } else if (item.status === 'pending') { %>
+                      <span class="text-warning">Đang chờ xử lý</span>
+                      <% } else if (item.status === 'CANCELLED') { %>
+                      <span class="text-danger">Đã hủy</span>
+                      <% } else { %>
+                      <span><%= item.status %></span>
+                      <!-- Nếu có status khác thì hiện thẳng -->
+                      <% } %>
+                    </td>
+
                     <td><%= item.paymentMethod %></td>
-                    <td><%= item.paymentStatus %></td>
+                    <td>
+                      <% if (item.status === 'approved') { %>
+                      <span class="text-success">giao hàng thành công</span>
+                      <% } else if (item.status === 'pending') { %>
+                      <span class="text-warning">Đang chờ xác nhận</span>
+                      <% } else if (item.status === 'CANCELLED') { %>
+                      <span class="text-danger">Đã hủy</span>
+                      <% } else { %>
+                      <span><%= item.status %></span>
+
+                      <% } %>
+                    </td>
                     <td>
                       <div class="d-flex justify-content-center gap-2">
                         <form action="/admin/order/<%= item.id %>" method="get">
@@ -111,6 +134,18 @@
                             class="btn btn-warning text-white"
                           >
                             <i class="bi bi-eye"></i> Xem
+                          </button>
+                        </form>
+                        <!-- Nút Duyệt đơn hàng -->
+                        <form
+                          action="/admin/order/approve/<%= item.id %>"
+                          method="post"
+                        >
+                          <button
+                            type="submit"
+                            class="btn btn-success text-white"
+                          >
+                            <i class="bi bi-check-circle"></i> Duyệt
                           </button>
                         </form>
                       </div>

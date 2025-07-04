@@ -129,9 +129,12 @@ const getOrderHistory = (req, res) => __awaiter(void 0, void 0, void 0, function
     try {
         const orders = yield client_1.prisma.order.findMany({
             where: { userId: user.id },
+            orderBy: { id: "desc" },
             include: {
                 orderDetails: {
-                    include: { product: true },
+                    include: {
+                        product: true,
+                    },
                 },
             },
         });

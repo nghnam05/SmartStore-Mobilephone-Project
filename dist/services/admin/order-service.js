@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOrderDetailAdmin = exports.getOrderAdmin = void 0;
+exports.approveOrder = exports.getOrderDetailAdmin = exports.getOrderAdmin = void 0;
 const client_1 = require("../../config/client");
 const getOrderAdmin = () => __awaiter(void 0, void 0, void 0, function* () {
     return yield client_1.prisma.order.findMany({
@@ -36,4 +36,19 @@ const getOrderDetailAdmin = (orderId) => __awaiter(void 0, void 0, void 0, funct
     });
 });
 exports.getOrderDetailAdmin = getOrderDetailAdmin;
+const approveOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const orderId = parseInt(req.params.id);
+    try {
+        yield client_1.prisma.order.update({
+            where: { id: orderId },
+            data: { status: "approved" },
+        });
+        res.redirect("/admin/layout/order/dashboard");
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).send("Lỗi khi duyệt đơn hàng");
+    }
+});
+exports.approveOrder = approveOrder;
 //# sourceMappingURL=order-service.js.map

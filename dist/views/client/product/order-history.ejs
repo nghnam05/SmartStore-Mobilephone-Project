@@ -87,6 +87,7 @@
                         <th>Số lượng</th>
                         <th>Tổng</th>
                         <th>Thao tác</th>
+                        <th>Trạng thái</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -116,14 +117,47 @@
                               </p>
                             </td>
                             <td>
-                              <% if (order.status !== 'CANCELLED') { %>
-                                <form action="/order/cancel/<%= order.id %>" method="POST" onsubmit="return confirm('Bạn có chắc muốn hủy đơn hàng này không?');">
-                                  <button class="btn btn-danger btn-sm mt-4">Hủy đơn</button>
-                                </form>
+                              <% if (order.status === 'CANCELLED') { %>
+                                <!-- Đã hủy -->
+                                <button class="btn btn-secondary btn-sm mt-4" disabled>
+                                  <i class="bi bi-x-circle"></i> Đã hủy đơn
+                                </button>
+                            
+                              <% } else if (order.status === 'approved') { %>
+                                <!-- Đặt hàng thành công, không cho hủy -->
+                                <button class="btn btn-danger btn-sm mt-4" disabled>
+                                  <i class="bi bi-ban"></i> Không thể hủy
+                                </button>
+                            
                               <% } else { %>
-                                <button class="btn  btn-sm mt-4">Đã hủy đơn</button>
+                                <!-- Chưa xử lý, cho phép hủy -->
+                                <form action="/order/cancel/<%= order.id %>" method="POST" onsubmit="return confirm('Bạn có chắc muốn hủy đơn hàng này không?');">
+                                  <button class="btn btn-danger btn-sm mt-4">
+                                    <i class="bi bi-x-circle"></i> Hủy đơn
+                                  </button>
+                                </form>
                               <% } %>
                             </td>
+                            
+                            <td>
+                              <% if (order.status === 'pending') { %>
+                                <span class="btn btn btn-sm mt-4">
+                                  <i class="bi bi-hourglass-split"></i> Đang chờ xử lý
+                                </span>
+                              <% } else if (order.status === 'approved') { %>
+                                <span class="btn  btn-sm mt-4">
+                                  <i class="bi bi-check-circle"></i> Đặt hàng thành công
+                                </span>
+                              <% } else if (order.status === 'CANCELLED') { %>
+                                <span class="btn  btn-sm mt-4">
+                                  <i class="bi bi-x-circle"></i> Đơn hàng đã hủy
+                                </span>
+                              <% } else { %>
+                                <span class="btn btn-sm mt-4"><%= order.status %></span>
+                              <% } %>
+                            </td>
+                            
+                            
                           </tr>
                         <% }) %>
                       <% } else { %>

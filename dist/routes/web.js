@@ -19,6 +19,7 @@ const auth_service_1 = require("../services/client/auth-service");
 const admin_product_controller_1 = require("../controllers/admin/admin-product-controller");
 const review_controller_1 = require("../controllers/client/review-controller");
 const admin_user_controller_1 = require("../controllers/admin/admin-user-controller");
+const admin_order_product_1 = require("../controllers/admin/admin-order-product");
 const router = express_1.default.Router();
 const webRoutes = (app) => {
     // ==== Home & Redirect ====
@@ -80,6 +81,7 @@ const webRoutes = (app) => {
     // ==== Admin - Orders ====
     router.get("/admin/order", auth_1.checkAuth, auth_1.isAdmin, admin_product_controller_1.getOrderPage);
     router.get("/admin/order/:id", auth_1.checkAuth, auth_1.isAdmin, admin_product_controller_1.getOrderDetailPage);
+    router.post("/admin/order/approve/:id", admin_order_product_1.adminOrderController);
     // ==== Apply Routes ====
     app.use("/", router);
 };
