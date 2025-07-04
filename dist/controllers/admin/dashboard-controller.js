@@ -12,13 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAdminUserPage = exports.getDashboard = void 0;
 const client_1 = require("../../config/client");
 const getDashboard = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    return res.render("admin/layout/dashboard/dashboard.ejs");
+    const user = req.user;
+    return res.render("admin/layout/dashboard/dashboard.ejs", {
+        user,
+    });
 });
 exports.getDashboard = getDashboard;
 const getAdminUserPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const page = parseInt(req.query.page) || 1;
     const limit = 5;
     const offset = (page - 1) * limit;
+    const user = req.user;
     const [users, total] = yield Promise.all([
         client_1.prisma.user.findMany({
             skip: offset,
@@ -30,6 +34,7 @@ const getAdminUserPage = (req, res) => __awaiter(void 0, void 0, void 0, functio
     const totalPages = Math.ceil(total / limit);
     return res.render("admin/layout/user/dashboard.ejs", {
         users,
+        user,
         page,
         limit,
         totalPages,

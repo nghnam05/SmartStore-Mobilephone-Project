@@ -171,13 +171,7 @@ const postPlaceOrder = async (req: Request, res: Response): Promise<void> => {
   const user = req.user as { id: number };
   if (!user) return res.redirect("/login");
 
-  const {
-    receiverName,
-    receiverPhone,
-    receiverAddress,
-    totalPrice,
-    paymentMethod,
-  } = req.body;
+  const { receiverName, receiverPhone, receiverAddress, totalPrice } = req.body;
 
   await handlePlaceOrder(
     user.id,
@@ -187,7 +181,7 @@ const postPlaceOrder = async (req: Request, res: Response): Promise<void> => {
     +totalPrice
   );
 
-  res.render("client/product/thanks.ejs");
+  res.render("client/product/thanks.ejs", { user });
 };
 
 // ========== Xoá sản phẩm khỏi giỏ ==========
@@ -219,6 +213,7 @@ const postCancelOrder = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
+    // Cộng lại số lượng sản phẩm
     await Promise.all(
       order.orderDetails.map((item) =>
         prisma.product.update({
@@ -228,9 +223,14 @@ const postCancelOrder = async (req: Request, res: Response): Promise<void> => {
       )
     );
 
-    await prisma.order.update({
+    // Xóa orderDetails trước (vì có quan hệ foreign key)
+    await prisma.orderDetail.deleteMany({
+      where: { orderId },
+    });
+
+    // Xóa order
+    await prisma.order.delete({
       where: { id: orderId },
-      data: { status: "CANCELLED" },
     });
 
     res.redirect("/history");

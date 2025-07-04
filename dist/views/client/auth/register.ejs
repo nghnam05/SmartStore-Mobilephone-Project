@@ -9,8 +9,14 @@
       href="https://i.pinimg.com/736x/82/39/3f/82393f7f6c132e1dfb5402e4a9232bfa.jpg"
     />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="keywords" />
-    <meta content="" name="description" />
+    <meta
+      name="description"
+      content="Đại Việt chuyên cung cấp điện thoại chính hãng, giá tốt, bảo hành uy tín. Giao hàng toàn quốc."
+    />
+    <meta
+      name="keywords"
+      content="điện thoại, smartphone, mua điện thoại, điện thoại giá rẻ, điện thoại chính hãng"
+    />
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -51,172 +57,173 @@
   </head>
 
   <body>
+    <div class="container px-2">
+      <div class="row signup-container mx-auto p-3" style="max-width: 880px">
+        <!-- Hình ảnh bên trái -->
+        <div
+          class="col-md-6 d-flex align-items-center justify-content-center signup-img rounded bg-light"
+        >
+          <img
+            src="/client/img/register-image/register.png"
+            class="img-fluid rounded"
+            alt="Hình ảnh đăng ký"
+            loading="lazy"
+          />
+        </div>
 
+        <!-- Form bên phải -->
+        <div class="col-md-6 p-4">
+          <div class="text-start mb-2">
+            <h2 class="fw-bold mb-4">
+              <span style="font-size: 42px; color: #4a56e2">S</span
+              ><span style="color: #000">mart</span>
+              <span style="font-size: 42px; color: #f44336">S</span
+              ><span style="color: #000">tore</span>
+              <i class="bi bi-shop-window"></i>
+            </h2>
+          </div>
 
-<div class="container px-2">
-  <div class="row signup-container mx-auto p-3" style="max-width: 880px">
-    <!-- Hình ảnh bên trái -->
-    <div
-      class="col-md-6 d-flex align-items-center justify-content-center signup-img rounded bg-light"
-    >
-      <img
-        src="/client/img/register-image/register.png"
-        class="img-fluid rounded"
-        alt="Hình ảnh đăng ký"
-      />
-    </div>
+          <h3 class="fw-bold mb-1">Đăng ký</h3>
+          <p class="text-muted small mb-2">
+            Hãy điền thông tin để tạo tài khoản cá nhân của bạn.
+          </p>
 
-    <!-- Form bên phải -->
-    <div class="col-md-6 p-4">
-      <div class="text-start mb-2">
-        <h2 class="fw-bold mb-4">
-          <span style="font-size: 42px; color: #4a56e2">S</span
-          ><span style="color: #000">mart</span>
-          <span style="font-size: 42px; color: #f44336">S</span
-          ><span style="color: #000">tore</span>
-          <i class="bi bi-shop-window"></i>
-        </h2>
-      </div>
-
-      <h3 class="fw-bold mb-1">Đăng ký</h3>
-      <p class="text-muted small mb-2">
-        Hãy điền thông tin để tạo tài khoản cá nhân của bạn.
-      </p>
-
-      <% if (errors && errors.length > 0) { %>
-        <% errors.forEach(function(error) { %>
+          <% if (errors && errors.length > 0) { %> <%
+          errors.forEach(function(error) { %>
           <div class="alert alert-danger mb-3"><%= error %></div>
-        <% }); %>
-      <% } %>
+          <% }); %> <% } %>
 
-      <form action="/register" method="POST">
-        <!-- Họ và tên -->
-        <div class="form-floating form-floating-sm mb-2">
-          <input
-            type="text"
-            class="form-control"
-            id="fullname"
-            placeholder="Họ và tên"
-            value="<%=oldData.fullname %>"
-            name="fullname"
-            required
-          />
-          <label for="fullname">Họ và tên</label>
+          <form action="/register" method="POST">
+            <!-- Họ và tên -->
+            <div class="form-floating form-floating-sm mb-2">
+              <input
+                type="text"
+                class="form-control"
+                id="fullname"
+                placeholder="Họ và tên"
+                value="<%=oldData.fullname %>"
+                name="fullname"
+                required
+              />
+              <label for="fullname">Họ và tên</label>
+            </div>
+
+            <!-- Email -->
+            <div class="form-floating form-floating-sm mb-2">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Email"
+                name="email"
+                value="<%=oldData.email %>"
+                required
+              />
+              <label for="email">Địa chỉ Email</label>
+            </div>
+
+            <!-- Mật khẩu -->
+            <div class="form-floating form-floating-sm mb-2">
+              <div class="form-floating">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  placeholder="Mật khẩu"
+                  name="password"
+                  value="<%=oldData.password %>"
+                  required
+                />
+                <label for="password">Mật khẩu</label>
+                <span
+                  class="position-absolute top-50 end-0 translate-middle-y me-3"
+                  style="cursor: pointer"
+                  id="togglePassword"
+                >
+                  <i class="bi bi-eye-slash" id="eyeIcon1"></i>
+                </span>
+              </div>
+            </div>
+
+            <!-- Xác nhận mật khẩu -->
+            <div class="form-floating form-floating-sm mb-2">
+              <div class="form-floating">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="confirmPassword"
+                  placeholder="Xác nhận mật khẩu"
+                  name="confirmPassword"
+                  value="<%=oldData.confirmPassword %>"
+                  required
+                />
+                <label for="confirmPassword">Xác nhận mật khẩu</label>
+                <span
+                  class="position-absolute top-50 end-0 translate-middle-y me-3"
+                  style="cursor: pointer"
+                  id="toggleConfirmPassword"
+                >
+                  <i class="bi bi-eye-slash" id="eyeIcon2"></i>
+                </span>
+              </div>
+            </div>
+
+            <!-- Nút tạo tài khoản -->
+            <div class="d-flex justify-content-center mt-2">
+              <button
+                type="submit"
+                class="btn btn-submit btn-custom-small w-50 mb-2"
+              >
+                Tạo tài khoản
+              </button>
+            </div>
+
+            <!-- Chuyển hướng đăng nhập -->
+            <p class="text-center small">
+              Đã có tài khoản?
+              <a
+                href="/login"
+                class="text-decoration-none fw-bold"
+                style="color: dodgerblue"
+                >Đăng nhập</a
+              >
+            </p>
+
+            <!-- Đăng ký với mạng xã hội -->
+            <div class="text-center my-2">
+              <small class="text-muted">Hoặc đăng ký bằng</small>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button type="button" class="social-btn w-100">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/145/145802.png"
+                  alt="Facebook"
+                  loading="lazy"
+                />
+                Facebook
+              </button>
+              <button type="button" class="social-btn w-100">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
+                  alt="Google"
+                  loading="lazy"
+                />
+                Google
+              </button>
+              <button type="button" class="social-btn w-100">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/179/179309.png"
+                  alt="Apple"
+                  loading="lazy"
+                />
+                Apple
+              </button>
+            </div>
+          </form>
         </div>
-
-        <!-- Email -->
-        <div class="form-floating form-floating-sm mb-2">
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            placeholder="Email"
-            name="email"
-            value="<%=oldData.email %>"
-            required
-          />
-          <label for="email">Địa chỉ Email</label>
-        </div>
-
-        <!-- Mật khẩu -->
-        <div class="form-floating form-floating-sm mb-2">
-          <div class="form-floating">
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              placeholder="Mật khẩu"
-              name="password"
-              value="<%=oldData.password %>"
-              required
-            />
-            <label for="password">Mật khẩu</label>
-            <span
-              class="position-absolute top-50 end-0 translate-middle-y me-3"
-              style="cursor: pointer"
-              id="togglePassword"
-            >
-              <i class="bi bi-eye-slash" id="eyeIcon1"></i>
-            </span>
-          </div>
-        </div>
-
-        <!-- Xác nhận mật khẩu -->
-        <div class="form-floating form-floating-sm mb-2">
-          <div class="form-floating">
-            <input
-              type="password"
-              class="form-control"
-              id="confirmPassword"
-              placeholder="Xác nhận mật khẩu"
-              name="confirmPassword"
-              value="<%=oldData.confirmPassword %>"
-              required
-            />
-            <label for="confirmPassword">Xác nhận mật khẩu</label>
-            <span
-              class="position-absolute top-50 end-0 translate-middle-y me-3"
-              style="cursor: pointer"
-              id="toggleConfirmPassword"
-            >
-              <i class="bi bi-eye-slash" id="eyeIcon2"></i>
-            </span>
-          </div>
-        </div>
-
-        <!-- Nút tạo tài khoản -->
-        <div class="d-flex justify-content-center mt-2">
-          <button
-            type="submit"
-            class="btn btn-submit btn-custom-small w-50 mb-2"
-          >
-            Tạo tài khoản
-          </button>
-        </div>
-
-        <!-- Chuyển hướng đăng nhập -->
-        <p class="text-center small">
-          Đã có tài khoản?
-          <a
-            href="/login"
-            class="text-decoration-none fw-bold"
-            style="color: dodgerblue"
-            >Đăng nhập</a
-          >
-        </p>
-
-        <!-- Đăng ký với mạng xã hội -->
-        <div class="text-center my-2">
-          <small class="text-muted">Hoặc đăng ký bằng</small>
-        </div>
-
-        <div class="d-flex gap-2">
-          <button type="button" class="social-btn w-100">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/145/145802.png"
-              alt="Facebook"
-            />
-            Facebook
-          </button>
-          <button type="button" class="social-btn w-100">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
-              alt="Google"
-            />
-            Google
-          </button>
-          <button type="button" class="social-btn w-100">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/179/179309.png"
-              alt="Apple"
-            />
-            Apple
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
-</div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

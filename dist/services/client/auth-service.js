@@ -76,26 +76,23 @@ const handleLogin = (username, password, done) => __awaiter(void 0, void 0, void
     try {
         const user = yield client_1.prisma.user.findUnique({ where: { username } });
         if (!user) {
-            console.log("⚠️ Đăng nhập thất bại: Không tìm thấy người dùng");
+            // console.log("⚠️ Đăng nhập thất bại: Không tìm thấy người dùng");
             return done(null, false, {
                 message: "Tên đăng nhập hoặc mật khẩu không đúng.",
             });
         }
         const isMatch = yield (0, user_service_1.comparePassword)(password, user.password);
         if (!isMatch) {
-            console.log("⚠️ Đăng nhập thất bại: Mật khẩu không khớp");
+            // console.log("⚠️ Đăng nhập thất bại: Mật khẩu không khớp");
             return done(null, false, {
                 message: "Tên đăng nhập hoặc mật khẩu không đúng.",
             });
         }
-        // Tùy chọn: kiểm tra trạng thái tài khoản
-        // if (!user.isActive) {
-        console.log("✅ Đăng nhập thành công:", user.username);
         return done(null, user);
     }
-    catch (err) {
-        console.error("❌ Lỗi trong handleLogin:", err);
-        return done(err);
+    catch (error) {
+        console.error(error);
+        return done(error);
     }
 });
 exports.handleLogin = handleLogin;
@@ -110,7 +107,7 @@ const getShippingPage = (req, res) => __awaiter(void 0, void 0, void 0, function
         sumCart =
             (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
     }
-    return res.render("client/support/freeShip.ejs", { sumCart });
+    return res.render("client/support/freeShip.ejs", { sumCart, user });
 });
 exports.getShippingPage = getShippingPage;
 const getSecurityPaymentPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -124,7 +121,7 @@ const getSecurityPaymentPage = (req, res) => __awaiter(void 0, void 0, void 0, f
         sumCart =
             (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
     }
-    return res.render("client/support/security.ejs", { sumCart });
+    return res.render("client/support/security.ejs", { sumCart, user });
 });
 exports.getSecurityPaymentPage = getSecurityPaymentPage;
 const getReturnPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -138,7 +135,7 @@ const getReturnPage = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         sumCart =
             (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
     }
-    return res.render("client/support/return.ejs", { sumCart });
+    return res.render("client/support/return.ejs", { sumCart, user });
 });
 exports.getReturnPage = getReturnPage;
 const getSupportPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -152,7 +149,7 @@ const getSupportPage = (req, res) => __awaiter(void 0, void 0, void 0, function*
         sumCart =
             (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
     }
-    return res.render("client/support/supporting.ejs", { sumCart });
+    return res.render("client/support/supporting.ejs", { sumCart, user });
 });
 exports.getSupportPage = getSupportPage;
 //# sourceMappingURL=auth-service.js.map

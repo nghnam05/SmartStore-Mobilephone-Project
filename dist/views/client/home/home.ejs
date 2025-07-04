@@ -2,15 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>SmartZone-Mobilephone Store</title>
+    <title>Đại Việt Mobile</title>
+    <meta name="description" content="Đại Việt Mobile chuyên cung cấp điện thoại chính hãng, giá tốt, bảo hành uy tín. Giao hàng toàn quốc.">
+    <meta name="keywords" content="điện thoại, smartphone, mua điện thoại, điện thoại giá rẻ, điện thoại chính hãng">
     <link
       rel="icon"
       type="image/x-icon"
       href="https://i.pinimg.com/736x/89/f1/d6/89f1d65fe8b8bf81eb8ddbb417537d17.jpg"
     />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="keywords" />
-    <meta content="" name="description" />
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -314,7 +314,91 @@
         </div>
       </div>
     </div>
-    <!-- Fruits Shop End-->
+
+<!-- 🔔 POPUP thông báo -->
+
+
+<!-- Overlay che toàn bộ + chứa popup -->
+<div id="popup-overlay" style="
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+">
+
+  <!-- Popup nội dung bên trong overlay -->
+  <div id="discount-popup" style="
+    border-radius: 24px;
+    text-align: center;
+    width: 800px;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+  ">
+
+    <!-- Nút đóng -->
+    <button id="popup-close" style="
+      position: absolute;
+      top: 15px;
+      right: 10%;
+      background: none;
+      border: none;
+      font-size: 40px;
+      font-weight: medium;
+      color: red;
+      cursor: pointer;
+      transition: color 0.3s;
+      z-index: 100;
+    " onmouseover="this.style.color='#000'" onmouseout="this.style.color='#888'">&times;</button>
+    <!-- Hình ảnh -->
+    <div
+    id="carouselId"
+    class="carousel slide position-relative"
+    data-bs-ride="carousel"
+    aria-label="Trình chiếu hình ảnh sản phẩm nổi bật"
+  >
+    <div class="carousel-inner" role="listbox">
+      <div class="carousel-item active rounded">
+      <a href="product/61">
+        <img
+        src="/client/img/banner/banner7.jpg"
+        class="img-fluid w-100 h-100 bg-secondary rounded object-fit-cover"
+        alt="Điện thoại cao cấp màu trắng bóng"
+        loading="lazy"
+      />
+      </a>
+      </div>
+      <div class="carousel-item rounded">
+        <a href="/product/63">
+          <img
+          src="/client/img/banner/banner8.jpg"
+          class="img-fluid w-100 h-100 bg-secondary rounded object-fit-cover"
+          alt="Điện thoại cao cấp màu trắng bóng"
+          loading="lazy"
+        />
+        </a>
+      </div>
+      <div class="carousel-item rounded">
+        <a href="">
+          <img
+          src="/client/img/banner/banner9.jpg"
+          class="img-fluid w-100 h-100 bg-secondary rounded object-fit-cover"
+          alt="Điện thoại cao cấp màu trắng bóng"
+          loading="lazy"
+        />
+        </a>
+      </div>
+    
+    </div>
+  </div>
+  </div>
+</div>
 
     <!-- Footer Start -->
     <%- include('../layout/footer') %>
@@ -328,7 +412,17 @@
       src="//code.tidio.co/jessuvetqgbmlfbbicxo08yqsjeeprfb.js"
       async
     ></script>
-
+    <script>
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          document.getElementById("discount-popup").style.display = "block";
+        }, 1000);
+      });
+    
+      document.getElementById("popup-close").addEventListener("click", () => {
+        document.getElementById("popup-overlay").style.display = "none";
+      });
+    </script>
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

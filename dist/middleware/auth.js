@@ -26,12 +26,17 @@ const blockAdminHome = (req, res, next) => {
 };
 exports.blockAdminHome = blockAdminHome;
 const isAdmin = (req, res, next) => {
-    var _a;
+    var _a, _b;
     const user = req.user;
-    if (req.isAuthenticated() && ((_a = user === null || user === void 0 ? void 0 : user.role) === null || _a === void 0 ? void 0 : _a.name) === "ADMIN") {
-        return next();
+    // console.log("Auth:", req.isAuthenticated());
+    // console.log("User info:", user);
+    if (!req.isAuthenticated()) {
+        return res.redirect("/login");
     }
-    return res.status(403).render("admin/status/404");
+    if (((_b = (_a = user === null || user === void 0 ? void 0 : user.role) === null || _a === void 0 ? void 0 : _a.name) === null || _b === void 0 ? void 0 : _b.toUpperCase()) !== "ADMIN") {
+        return res.status(403).render("admin/status/404");
+    }
+    return next();
 };
 exports.isAdmin = isAdmin;
 /**

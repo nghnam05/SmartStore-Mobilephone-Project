@@ -15,7 +15,10 @@ const client_1 = require("../../config/client");
 const order_service_1 = require("../../services/admin/order-service");
 const user_service_1 = require("../../services/admin/user-service");
 const getAdminProductPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    return res.render("admin/layout/product/create-product.ejs");
+    const user = req.user;
+    return res.render("admin/layout/product/create-product.ejs", {
+        user,
+    });
 });
 exports.getAdminProductPage = getAdminProductPage;
 const postAdminProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -42,6 +45,7 @@ const getProductPage = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const page = parseInt(req.query.page) || 1;
     const limit = 5;
     const offset = (page - 1) * limit;
+    const user = req.user;
     const [products, total] = yield Promise.all([
         client_1.prisma.product.findMany({
             skip: offset,
@@ -56,12 +60,14 @@ const getProductPage = (req, res) => __awaiter(void 0, void 0, void 0, function*
         page,
         limit,
         totalPages,
+        user,
     });
 });
 exports.getProductPage = getProductPage;
 const getViewProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const product = yield (0, product_service_1.getProductByID)(+id);
+    const user = req.user;
     const factoryOptions = [
         { name: "Apple", value: "APPLE" },
         { name: "Samsung", value: "SAMSUNG" },
@@ -93,12 +99,14 @@ const getViewProduct = (req, res) => __awaiter(void 0, void 0, void 0, function*
         screenOptions,
         batteryOptions,
         cameraOptions,
+        user,
     });
 });
 exports.getViewProduct = getViewProduct;
 const postUpdateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { id } = req.params;
+    const user = req.user;
     const { name, price, detailDesc, shortDesc, quantity, factory, target, ram, storage, os, status, screen, battery, camera, rating, } = req.body;
     const oldProduct = yield (0, product_service_1.getProductByID)(+id);
     const image = ((_a = req.file) === null || _a === void 0 ? void 0 : _a.filename) || (oldProduct === null || oldProduct === void 0 ? void 0 : oldProduct.image) || "";
@@ -109,17 +117,21 @@ exports.postUpdateProduct = postUpdateProduct;
 const getOrderPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const orders = yield (0, order_service_1.getOrderAdmin)();
     const users = yield (0, user_service_1.getAllUsers)();
+    const user = req.user;
     return res.render("admin/layout/order/dashboard.ejs", {
         orders,
         users,
+        user,
     });
 });
 exports.getOrderPage = getOrderPage;
 const getOrderDetailPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
+    const user = req.user;
     const orderDetails = yield (0, order_service_1.getOrderDetailAdmin)(+id);
     return res.render("admin/layout/order/view-order.ejs", {
         orderDetails,
+        user,
     });
 });
 exports.getOrderDetailPage = getOrderDetailPage;

@@ -19,7 +19,6 @@ const auth_service_1 = require("../services/client/auth-service");
 const admin_product_controller_1 = require("../controllers/admin/admin-product-controller");
 const review_controller_1 = require("../controllers/client/review-controller");
 const admin_user_controller_1 = require("../controllers/admin/admin-user-controller");
-const payment_controller_1 = require("../controllers/payment-controller");
 const router = express_1.default.Router();
 const webRoutes = (app) => {
     // ==== Home & Redirect ====
@@ -57,8 +56,6 @@ const webRoutes = (app) => {
     router.get("/product/:productId/review/:reviewId/edit", auth_1.checkAuth, review_controller_1.showEditReview);
     router.post("/product/:productId/review/:reviewId", auth_1.checkAuth, review_controller_1.updateReview);
     router.post("/product/:productId/review/:reviewId/delete", auth_1.checkAuth, review_controller_1.deleteReview);
-    // momo
-    router.post("/momo", payment_controller_1.createMomoPaymentController);
     // ==== Info Pages ====
     router.get("/shipping", auth_service_1.getShippingPage);
     router.get("/security-payment", auth_service_1.getSecurityPaymentPage);

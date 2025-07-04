@@ -8,17 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postLogout = exports.getSuccessRedirect = exports.postRegister = exports.getRegisterPage = exports.getLoginPage = void 0;
+exports.postLogin = exports.postLogout = exports.getSuccessRedirect = exports.postRegister = exports.getRegisterPage = exports.getLoginPage = void 0;
+const passport_1 = __importDefault(require("passport"));
 const login_schemas_1 = require("../../schemas/login.schemas");
 const auth_service_1 = require("../../services/client/auth-service");
-// login page
 const getLoginPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const user = req.user;
     const session = req.session;
     const messages = (_a = session === null || session === void 0 ? void 0 : session.messages) !== null && _a !== void 0 ? _a : [];
-    // Xoá messages khỏi session sau khi lấy ra
     if (session) {
         delete session.messages;
     }
@@ -27,6 +28,22 @@ const getLoginPage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     });
 });
 exports.getLoginPage = getLoginPage;
+const postLogin = (req, res, next) => {
+    passport_1.default.authenticate("local", (err, user, info) => {
+        if (err)
+            return next(err);
+        if (!user) {
+            req.session.messages = [(info === null || info === void 0 ? void 0 : info.message) || "Đăng nhập thất bại."];
+            return res.redirect("/login");
+        }
+        req.logIn(user, (err) => {
+            if (err)
+                return next(err);
+            return res.redirect("/");
+        });
+    })(req, res, next);
+};
+exports.postLogin = postLogin;
 // register page
 const getRegisterPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.render("client/auth/register.ejs", {

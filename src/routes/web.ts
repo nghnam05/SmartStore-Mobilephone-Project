@@ -78,7 +78,6 @@ import {
   handleDelete,
   handleUpdate,
   handleViewUser,
-  createMoMoPayment,
 } from "../controllers/admin/admin-user-controller";
 
 const router = express.Router();
@@ -90,7 +89,14 @@ const webRoutes = (app: Express) => {
 
   // ==== Auth ====
   router.get("/login", isLogin, getLoginPage);
-  router.post("/login", postLogin);
+  router.post(
+    "/login",
+    passport.authenticate("local", {
+      successRedirect: "/success-redirect",
+      failureRedirect: "/login",
+      failureMessage: true,
+    })
+  );
   router.get("/register", isLogin, getRegisterPage);
   router.post("/register", isLogin, postRegister);
   router.get("/logout", postLogout);
@@ -121,6 +127,7 @@ const webRoutes = (app: Express) => {
   router.get("/checkout", checkAuth, getCheckOutPage);
   router.post("/place-order", checkAuth, postPlaceOrder);
   router.post("/thanks", checkAuth, getThankyouPage);
+
   router.get("/history", checkAuth, getOrderHistory);
   router.post("/order/cancel/:id", checkAuth, postCancelOrder);
 
@@ -138,8 +145,6 @@ const webRoutes = (app: Express) => {
     deleteReview
   );
 
-
-  // momo
   // ==== Info Pages ====
   router.get("/shipping", getShippingPage);
   router.get("/security-payment", getSecurityPaymentPage);
@@ -197,7 +202,6 @@ const webRoutes = (app: Express) => {
   // ==== Admin - Orders ====
   router.get("/admin/order", checkAuth, isAdmin, getOrderPage);
   router.get("/admin/order/:id", checkAuth, isAdmin, getOrderDetailPage);
-
 
   // ==== Apply Routes ====
   app.use("/", router);

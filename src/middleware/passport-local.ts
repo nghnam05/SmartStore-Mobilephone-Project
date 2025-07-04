@@ -25,7 +25,7 @@ const configPassportLocal = () => {
       const user = await prisma.user.findUnique({ where: { id } });
 
       if (!user) {
-        console.warn("⚠️ User không tồn tại trong database - sẽ huỷ session.");
+        // console.warn("⚠️ User không tồn tại trong database - sẽ huỷ session.");
         return done(null, false);
       }
 

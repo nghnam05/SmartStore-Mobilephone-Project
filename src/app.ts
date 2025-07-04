@@ -2,6 +2,7 @@ import express from "express";
 import methodOverride from "method-override";
 
 import "dotenv/config";
+import dotenv from "dotenv";
 const app = express();
 const PORT = process.env.PORT || 8080;
 import webRoutes from "./routes/web";
@@ -59,6 +60,8 @@ app.use((req, res, next) => {
 // seeding data
 getConnect();
 innitData();
+
+dotenv.config();
 
 app.use(methodOverride("_method"));
 

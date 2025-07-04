@@ -164,7 +164,7 @@ const postPlaceOrder = (req, res) => __awaiter(void 0, void 0, void 0, function*
         return res.redirect("/login");
     const { receiverName, receiverPhone, receiverAddress, totalPrice } = req.body;
     yield (0, product_service_1.handlePlaceOrder)(user.id, receiverName, receiverPhone, receiverAddress, +totalPrice);
-    res.render("client/product/thanks.ejs");
+    res.render("client/product/thanks.ejs", { user });
 });
 exports.postPlaceOrder = postPlaceOrder;
 // ========== Xoá sản phẩm khỏi giỏ ==========
@@ -191,13 +191,18 @@ const postCancelOrder = (req, res) => __awaiter(void 0, void 0, void 0, function
             res.status(403).send("Không thể huỷ đơn.");
             return;
         }
+        // Cộng lại số lượng sản phẩm
         yield Promise.all(order.orderDetails.map((item) => client_1.prisma.product.update({
             where: { id: item.productId },
             data: { quantity: item.product.quantity + item.quantity },
         })));
-        yield client_1.prisma.order.update({
+        // Xóa orderDetails trước (vì có quan hệ foreign key)
+        yield client_1.prisma.orderDetail.deleteMany({
+            where: { orderId },
+        });
+        // Xóa order
+        yield client_1.prisma.order.delete({
             where: { id: orderId },
-            data: { status: "CANCELLED" },
         });
         res.redirect("/history");
     }
@@ -274,7 +279,7 @@ const getChangePasswordPage = (req, res) => __awaiter(void 0, void 0, void 0, fu
             include: { cartDetails: true },
         });
         const sumCart = (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
-        res.render("client/product/order-history", {
+        res.render("client/user/changePass", {
             orders,
             user,
             sumCart,

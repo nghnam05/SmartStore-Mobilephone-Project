@@ -34,7 +34,7 @@ const configPassportLocal = () => {
         try {
             const user = yield client_1.prisma.user.findUnique({ where: { id } });
             if (!user) {
-                console.warn("⚠️ User không tồn tại trong database - sẽ huỷ session.");
+                // console.warn("⚠️ User không tồn tại trong database - sẽ huỷ session.");
                 return done(null, false);
             }
             const userWithRole = yield (0, auth_service_1.getRoleUserByID)(id);

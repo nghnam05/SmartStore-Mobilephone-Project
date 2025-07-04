@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const method_override_1 = __importDefault(require("method-override"));
 require("dotenv/config");
+const dotenv_1 = __importDefault(require("dotenv"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 8080;
 const web_1 = __importDefault(require("./routes/web"));
@@ -44,6 +45,8 @@ app.use(passport_1.default.session());
 // config passport
 app.use(passport_1.default.initialize());
 (0, passport_local_1.configPassportLocal)();
+// config routes
+(0, web_1.default)(app);
 // config global
 app.use((req, res, next) => {
     res.locals.user = req.user || null;
@@ -52,8 +55,7 @@ app.use((req, res, next) => {
 // seeding data
 (0, database_1.default)();
 (0, seed_1.default)();
-// config routes
-(0, web_1.default)(app);
+dotenv_1.default.config();
 app.use((0, method_override_1.default)("_method"));
 app.use((req, res) => {
     const path = req.originalUrl;

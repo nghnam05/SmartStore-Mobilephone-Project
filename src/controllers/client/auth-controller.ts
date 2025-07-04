@@ -1,6 +1,6 @@
 import passport, { session } from "passport";
 import { NextFunction, Request, Response } from "express";
-import { TRegister, UserSchemas } from "../../schemas/login.schemas";
+import { UserSchemas } from "../../schemas/login.schemas";
 import { registerNewUSer } from "../../services/client/auth-service";
 
 const getLoginPage = async (req: Request, res: Response) => {
@@ -25,7 +25,7 @@ const postLogin = (req: Request, res: Response, next: NextFunction) => {
 
     req.logIn(user, (err) => {
       if (err) return next(err);
-      return res.redirect("/"); // Đăng nhập thành công → về trang home
+      return res.redirect("/");
     });
   })(req, res, next);
 };

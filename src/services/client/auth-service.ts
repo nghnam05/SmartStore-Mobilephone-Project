@@ -79,12 +79,17 @@ const handleLogin = async (username: string, password: string, done: any) => {
   try {
     const user = await prisma.user.findUnique({ where: { username } });
     if (!user) {
-      return done(null, false, { message: "Tài khoản không tồn tại." });
+      // console.log("⚠️ Đăng nhập thất bại: Không tìm thấy người dùng");
+      return done(null, false, {
+        message: "Tên đăng nhập hoặc mật khẩu không đúng.",
+      });
     }
-
-    const isMatch = await comparePassword(password, user.password); 
+    const isMatch = await comparePassword(password, user.password);
     if (!isMatch) {
-      return done(null, false, { message: "Mật khẩu không đúng." });
+      // console.log("⚠️ Đăng nhập thất bại: Mật khẩu không khớp");
+      return done(null, false, {
+        message: "Tên đăng nhập hoặc mật khẩu không đúng.",
+      });
     }
 
     return done(null, user);
@@ -96,7 +101,6 @@ const handleLogin = async (username: string, password: string, done: any) => {
 
 const getShippingPage = async (req: Request, res: Response) => {
   const user = req.user as { id: number };
-
   let sumCart = 0;
 
   if (user) {
@@ -109,7 +113,7 @@ const getShippingPage = async (req: Request, res: Response) => {
       cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
   }
 
-  return res.render("client/support/freeShip.ejs", { sumCart });
+  return res.render("client/support/freeShip.ejs", { sumCart, user });
 };
 
 const getSecurityPaymentPage = async (req: Request, res: Response) => {
@@ -127,7 +131,7 @@ const getSecurityPaymentPage = async (req: Request, res: Response) => {
       cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
   }
 
-  return res.render("client/support/security.ejs", { sumCart });
+  return res.render("client/support/security.ejs", { sumCart, user });
 };
 
 const getReturnPage = async (req: Request, res: Response) => {
@@ -145,7 +149,7 @@ const getReturnPage = async (req: Request, res: Response) => {
       cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
   }
 
-  return res.render("client/support/return.ejs", { sumCart });
+  return res.render("client/support/return.ejs", { sumCart, user });
 };
 
 const getSupportPage = async (req: Request, res: Response) => {
@@ -162,7 +166,7 @@ const getSupportPage = async (req: Request, res: Response) => {
     sumCart =
       cart?.cartDetails.reduce((total, item) => total + item.quantity, 0) || 0;
   }
-  return res.render("client/support/supporting.ejs", { sumCart });
+  return res.render("client/support/supporting.ejs", { sumCart, user });
 };
 
 export {

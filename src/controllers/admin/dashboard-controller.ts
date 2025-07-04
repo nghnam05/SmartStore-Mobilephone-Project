@@ -1,21 +1,19 @@
 import { Request, Response } from "express";
-import { getProductList } from "../../services/admin/product-service";
-import { getAllUsers } from "../../services/admin/user-service";
-import {
-  getOrderAdmin,
-  getOrderDetailAdmin,
-} from "../../services/admin/order-service";
-import { getOrderHistory } from "../../services/client/product-service";
+
 import { prisma } from "../../config/client";
 
 const getDashboard = async (req: Request, res: Response) => {
-  return res.render("admin/layout/dashboard/dashboard.ejs");
+  const user = req.user as any;
+  return res.render("admin/layout/dashboard/dashboard.ejs", {
+    user,
+  });
 };
 
 const getAdminUserPage = async (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string) || 1;
   const limit = 5;
   const offset = (page - 1) * limit;
+  const user = req.user as any;
 
   const [users, total] = await Promise.all([
     prisma.user.findMany({
@@ -30,6 +28,7 @@ const getAdminUserPage = async (req: Request, res: Response) => {
 
   return res.render("admin/layout/user/dashboard.ejs", {
     users,
+    user,
     page,
     limit,
     totalPages,

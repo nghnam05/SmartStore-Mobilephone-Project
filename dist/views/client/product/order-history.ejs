@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="keywords" />
-    <meta content="" name="description" />
-    <title>Cart Details</title>
+<meta name="description" content="Đại Việt chuyên cung cấp điện thoại chính hãng, giá tốt, bảo hành uy tín. Giao hàng toàn quốc.">
+  <meta name="keywords" content="điện thoại, smartphone, mua điện thoại, điện thoại giá rẻ, điện thoại chính hãng">
+    <title>Chi tiết giỏ hàng</title>
     <link
       rel="icon"
       type="image/x-icon"
@@ -72,7 +72,7 @@
 
     <% if (orders.length > 0) { %>
       <% orders.forEach((order) => { %>
-        <div class="container-fluid" style="margin-top: 12%;">
+        <div class="container" style="margin-top: 12%;">
           <h2 class="cart-title ps-5">Lịch sử đơn hàng</h2>
           <div class="container py-3">
             <div class="row d-flex justify-content-between">
@@ -147,9 +147,15 @@
         </div>
       <% }) %>
     <% } else { %>
-      <div class="alert alert-warning text-center mt-5">
-        Bạn chưa có đơn hàng nào.
+      <div class="container d-flex justify-content-center align-items-center" style="min-height: 40vh; margin-top: 8%;">
+        <div class="alert alert-light text-center w-100 py-5">
+          <h4 class="mb-3">❌ Bạn chưa có đơn hàng nào.</h4>
+          <a href="/" class="btn btn-outline-warning">
+            <i class="bi bi-arrow-left-circle me-1"></i> Tiếp tục mua sắm
+          </a>
+        </div>
       </div>
+      
     <% } %>
     </div>
 

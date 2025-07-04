@@ -24,11 +24,17 @@ const blockAdminHome = (req: Request, res: Response, next: NextFunction) => {
 };
 const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   const user = req.user as any;
+  // console.log("Auth:", req.isAuthenticated());
+  // console.log("User info:", user);
 
-  if (req.isAuthenticated() && user?.role?.name === "ADMIN") {
-    return next(); 
+  if (!req.isAuthenticated()) {
+    return res.redirect("/login");
   }
-  return res.status(403).render("admin/status/404");
+  if (user?.role?.name?.toUpperCase() !== "ADMIN") {
+    return res.status(403).render("admin/status/404");
+  }
+
+  return next();
 };
 
 /**
@@ -38,7 +44,6 @@ const checkAuth = (req: Request, res: Response, next: NextFunction) => {
   if (req.isAuthenticated() && req.user) {
     return next();
   }
-
   req.logout(() => {
     req.session.destroy(() => {
       res.redirect("/login");

@@ -83,7 +83,7 @@ const handleDeleteProduct = (id) => __awaiter(void 0, void 0, void 0, function* 
     yield client_1.prisma.cartDetail.deleteMany({ where: { productId: id } });
     yield client_1.prisma.orderDetail.deleteMany({ where: { productId: id } });
     yield client_1.prisma.product.delete({ where: { id } });
-    console.log(`✅ Deleted product ID ${id}`);
+    // console.log(`✅ Deleted product ID ${id}`);
 });
 exports.handleDeleteProduct = handleDeleteProduct;
 //  Add Product to Cart

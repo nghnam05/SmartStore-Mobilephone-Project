@@ -8,8 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleUpdate = exports.handleViewUser = exports.handleDelete = exports.handleCreateUser = exports.createUser = exports.getHomePage = void 0;
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const user_service_1 = require("../../services/admin/user-service");
 const client_1 = require("../../config/client");
 const getHomePage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -59,13 +64,16 @@ const getHomePage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getHomePage = getHomePage;
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const roles = yield (0, user_service_1.getAllRoles)();
+    const user = req.user;
     return res.render("admin/layout/user/create-user.ejs", {
         roles,
+        user,
     });
 });
 exports.createUser = createUser;
 const handleCreateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fullname, username, phone, role, address } = req.body;
+    const user = req.user;
     // console.log("req.body toàn bộ:", req.body);
     const file = req.file;
     const avatar = (file === null || file === void 0 ? void 0 : file.filename) || null;
@@ -119,6 +127,7 @@ const handleUpdate = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const { id, fullname, username, phone, role, address } = req.body;
     const file = req.file;
     const avatar = (_a = file === null || file === void 0 ? void 0 : file.filename) !== null && _a !== void 0 ? _a : null;
+    const user = req.user;
     yield (0, user_service_1.UpdateUserById)(id, fullname, username, address, phone, role, avatar);
     // console.log(req.body);
     return res.redirect("/admin/user");

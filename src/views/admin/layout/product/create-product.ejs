@@ -5,9 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tạo sản phẩm</title>
-    <meta name="description" content="Đại Việt chuyên cung cấp điện thoại chính hãng, giá tốt, bảo hành uy tín. Giao hàng toàn quốc.">
-  <meta name="keywords" content="điện thoại, smartphone, mua điện thoại, điện thoại giá rẻ, điện thoại chính hãng">
-    
+    <meta
+      name="description"
+      content="Đại Việt chuyên cung cấp điện thoại chính hãng, giá tốt, bảo hành uy tín. Giao hàng toàn quốc."
+    />
+    <meta
+      name="keywords"
+      content="điện thoại, smartphone, mua điện thoại, điện thoại giá rẻ, điện thoại chính hãng"
+    />
+
     <link
       rel="icon"
       type="image/x-icon"
@@ -38,14 +44,16 @@
           <div class="container-fluid px-4">
             <h1 class="mt-4 text-dark">Quản lý sản phẩm</h1>
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Bảng điều khiển</a></li>
+              <li class="breadcrumb-item">
+                <a href="/admin">Bảng điều khiển</a>
+              </li>
               <li class="breadcrumb-item">
                 <a href="/admin/product">Sản phẩm</a>
               </li>
               <li class="breadcrumb-item active">Thêm sản phẩm</li>
             </ol>
             <hr />
-      
+
             <!-- FORM -->
             <div class="row justify-content-center mt-4 mb-5">
               <div class="col-md-10 col-lg-8">
@@ -54,40 +62,83 @@
                     <h3 class="text-center fw-bold mb-4 text-dark">
                       <i class="bi bi-cloud-plus me-2"></i>Thêm sản phẩm mới
                     </h3>
-                    <form action="/admin/create-product" method="post" enctype="multipart/form-data">
+                    <form
+                      action="/admin/create-product"
+                      method="post"
+                      enctype="multipart/form-data"
+                    >
                       <!-- Tên sản phẩm -->
                       <div class="form-floating mb-4">
-                        <input type="text" class="form-control rounded-3" id="name" name="name" placeholder="Tên sản phẩm" required />
-                        <label for="name"><i class="bi bi-type me-2"></i> Tên sản phẩm</label>
+                        <input
+                          type="text"
+                          class="form-control rounded-3"
+                          id="name"
+                          name="name"
+                          placeholder="Tên sản phẩm"
+                          required
+                        />
+                        <label for="name"
+                          ><i class="bi bi-type me-2"></i> Tên sản phẩm</label
+                        >
                       </div>
-      
+
                       <!-- Giá & Số lượng -->
                       <div class="row g-4 mb-4">
                         <div class="col-md-6">
                           <div class="form-floating">
-                            <input type="text" class="form-control rounded-3" name="price" placeholder="Giá" required />
-                            <label><i class="bi bi-cash-stack me-2"></i> Giá</label>
+                            <input
+                              type="text"
+                              class="form-control rounded-3"
+                              name="price"
+                              placeholder="Giá"
+                              required
+                            />
+                            <label
+                              ><i class="bi bi-cash-stack me-2"></i> Giá</label
+                            >
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-floating">
-                            <input type="number" class="form-control rounded-3" name="quantity" placeholder="Số lượng" required />
-                            <label><i class="bi bi-123 me-2"></i> Số lượng</label>
+                            <input
+                              type="number"
+                              class="form-control rounded-3"
+                              name="quantity"
+                              placeholder="Số lượng"
+                              required
+                            />
+                            <label
+                              ><i class="bi bi-123 me-2"></i> Số lượng</label
+                            >
                           </div>
                         </div>
                       </div>
-      
+
                       <!-- Mô tả ngắn -->
                       <div class="form-floating mb-4">
-                        <input type="text" class="form-control rounded-3" id="shortDesc" name="shortDesc" placeholder="Mô tả ngắn" required />
-                        <label for="shortDesc"><i class="bi bi-info-circle-fill me-2"></i> Mô tả ngắn</label>
+                        <input
+                          type="text"
+                          class="form-control rounded-3"
+                          id="shortDesc"
+                          name="shortDesc"
+                          placeholder="Mô tả ngắn"
+                          required
+                        />
+                        <label for="shortDesc"
+                          ><i class="bi bi-info-circle-fill me-2"></i> Mô tả
+                          ngắn</label
+                        >
                       </div>
-      
+
                       <!-- RAM & Bộ nhớ -->
                       <div class="row g-4 mb-4">
                         <div class="col-md-6">
                           <label class="form-label fw-semibold">RAM</label>
-                          <select name="ram" class="form-select rounded-3" required>
+                          <select
+                            name="ram"
+                            class="form-select rounded-3"
+                            required
+                          >
                             <option value="4GB">4GB</option>
                             <option value="6GB">6GB</option>
                             <option value="8GB">8GB</option>
@@ -95,8 +146,14 @@
                           </select>
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label fw-semibold">Bộ nhớ trong</label>
-                          <select name="storage" class="form-select rounded-3" required>
+                          <label class="form-label fw-semibold"
+                            >Bộ nhớ trong</label
+                          >
+                          <select
+                            name="storage"
+                            class="form-select rounded-3"
+                            required
+                          >
                             <option value="64GB">64GB</option>
                             <option value="128GB">128GB</option>
                             <option value="256GB">256GB</option>
@@ -104,31 +161,49 @@
                           </select>
                         </div>
                       </div>
-      
+
                       <!-- Hệ điều hành & Trạng thái -->
                       <div class="row g-4 mb-4">
                         <div class="col-md-6">
-                          <label class="form-label fw-semibold">Hệ điều hành</label>
-                          <select name="os" class="form-select rounded-3" required>
+                          <label class="form-label fw-semibold"
+                            >Hệ điều hành</label
+                          >
+                          <select
+                            name="os"
+                            class="form-select rounded-3"
+                            required
+                          >
                             <option value="Android">Android</option>
                             <option value="iOS">iOS</option>
                           </select>
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label fw-semibold">Trạng thái</label>
-                          <select name="status" class="form-select rounded-3" required>
+                          <label class="form-label fw-semibold"
+                            >Trạng thái</label
+                          >
+                          <select
+                            name="status"
+                            class="form-select rounded-3"
+                            required
+                          >
                             <option value="In stock">Còn hàng</option>
                             <option value="Out of stock">Hết hàng</option>
                             <option value="New arrival">Hàng mới về</option>
                           </select>
                         </div>
                       </div>
-      
+
                       <!-- Hãng & Mục tiêu -->
                       <div class="row g-4 mb-4">
                         <div class="col-md-6">
-                          <label class="form-label fw-semibold">Hãng sản xuất</label>
-                          <select name="factory" class="form-select rounded-3" required>
+                          <label class="form-label fw-semibold"
+                            >Hãng sản xuất</label
+                          >
+                          <select
+                            name="factory"
+                            class="form-select rounded-3"
+                            required
+                          >
                             <option value="APPLE">Apple</option>
                             <option value="SAMSUNG">Samsung</option>
                             <option value="OPPO">Oppo</option>
@@ -138,69 +213,137 @@
                           </select>
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label fw-semibold">Dòng sản phẩm</label>
-                          <select name="target" class="form-select rounded-3" required>
+                          <label class="form-label fw-semibold"
+                            >Dòng sản phẩm</label
+                          >
+                          <select
+                            name="target"
+                            class="form-select rounded-3"
+                            required
+                          >
                             <option value="Gaming">Điện thoại chơi game</option>
                             <option value="Thin & Light">Mỏng nhẹ</option>
                             <option value="HOT">Xu hướng</option>
                           </select>
                         </div>
                       </div>
-      
+
                       <!-- Màn hình, Pin, Camera -->
                       <div class="row g-4 mb-4">
                         <div class="col-md-4">
                           <div class="form-floating">
-                            <input type="text" name="screen" class="form-control rounded-3" placeholder="Loại màn hình" />
-                            <label><i class="bi bi-phone me-2"></i> Màn hình</label>
+                            <input
+                              type="text"
+                              name="screen"
+                              class="form-control rounded-3"
+                              placeholder="Loại màn hình"
+                            />
+                            <label
+                              ><i class="bi bi-phone me-2"></i> Màn hình</label
+                            >
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="form-floating">
-                            <input type="text" name="battery" class="form-control rounded-3" placeholder="Dung lượng pin" />
-                            <label><i class="bi bi-battery-full me-2"></i> Pin</label>
+                            <input
+                              type="text"
+                              name="battery"
+                              class="form-control rounded-3"
+                              placeholder="Dung lượng pin"
+                            />
+                            <label
+                              ><i class="bi bi-battery-full me-2"></i>
+                              Pin</label
+                            >
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="form-floating">
-                            <input type="text" name="camera" class="form-control rounded-3" placeholder="Thông số camera" />
-                            <label><i class="bi bi-camera me-2"></i> Camera</label>
+                            <input
+                              type="text"
+                              name="camera"
+                              class="form-control rounded-3"
+                              placeholder="Thông số camera"
+                            />
+                            <label
+                              ><i class="bi bi-camera me-2"></i> Camera</label
+                            >
                           </div>
                         </div>
                       </div>
-      
+
                       <!-- Đánh giá -->
                       <div class="form-floating mb-4">
-                        <input type="number" step="0.1" min="0" max="5" name="rating" class="form-control rounded-3" placeholder="Đánh giá (0-5)" />
-                        <label><i class="bi bi-star-fill me-2"></i> Đánh giá</label>
+                        <input
+                          type="number"
+                          step="0.1"
+                          min="0"
+                          max="5"
+                          name="rating"
+                          class="form-control rounded-3"
+                          placeholder="Đánh giá (0-5)"
+                        />
+                        <label
+                          ><i class="bi bi-star-fill me-2"></i> Đánh giá</label
+                        >
                       </div>
-      
+
                       <!-- Ảnh sản phẩm -->
                       <div class="mb-4">
-                        <label for="avatar" class="form-label fw-semibold">Tải ảnh sản phẩm</label>
-                        <input type="file" class="form-control rounded-3" name="image" accept="image/*" onchange="previewAvatar(event)" />
+                        <label for="avatar" class="form-label fw-semibold"
+                          >Tải ảnh sản phẩm</label
+                        >
+                        <input
+                          type="file"
+                          class="form-control rounded-3"
+                          name="image"
+                          accept="image/*"
+                          onchange="previewAvatar(event)"
+                        />
                       </div>
-      
+
                       <!-- Xem trước ảnh -->
                       <div class="mb-4 text-start">
-                        <img id="avatarPreview" src="#" alt="Xem trước ảnh" class="img-thumbnail d-none" />
+                        <img
+                          id="avatarPreview"
+                          src="#"
+                          alt="Xem trước ảnh"
+                          class="img-thumbnail d-none"
+                          loading="lazy"
+                        />
                       </div>
-      
+
                       <!-- Mô tả chi tiết -->
                       <div class="form-floating mb-4">
-                        <textarea class="form-control rounded-3" id="detailDesc" name="detailDesc" style="height: 100px" required></textarea>
-                        <label for="detailDesc"><i class="bi bi-card-text me-2"></i> Mô tả chi tiết</label>
+                        <textarea
+                          class="form-control rounded-3"
+                          id="detailDesc"
+                          name="detailDesc"
+                          style="height: 100px"
+                          required
+                        ></textarea>
+                        <label for="detailDesc"
+                          ><i class="bi bi-card-text me-2"></i> Mô tả chi
+                          tiết</label
+                        >
                       </div>
-      
+
                       <!-- Nút -->
                       <div class="d-flex justify-content-center gap-4">
-                        <a href="/admin/product" class="btn btn-success text-white"><i class="bi bi-arrow-return-left"></i> Về trang quản lý</a>
-                        <button type="submit" class="btn btn-warning rounded-3 fw-semibold shadow-sm">
+                        <a
+                          href="/admin/product"
+                          class="btn btn-success text-white"
+                          ><i class="bi bi-arrow-return-left"></i> Về trang quản
+                          lý</a
+                        >
+                        <button
+                          type="submit"
+                          class="btn btn-warning rounded-3 fw-semibold shadow-sm"
+                        >
                           <i class="bi bi-check-circle me-2"></i> Thêm sản phẩm
                         </button>
                       </div>
                     </form>
-      
                   </div>
                 </div>
               </div>
@@ -209,7 +352,6 @@
         </main>
         <%- include("../footer.ejs"); -%>
       </div>
-      
     </div>
 
     <!-- Scripts -->

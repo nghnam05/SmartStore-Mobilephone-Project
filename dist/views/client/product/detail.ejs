@@ -2,11 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>Chi tiết sản phẩm</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="" name="keywords" />
-    <meta content="" name="description" />
-    <title>Products Deatils Viewers</title>
+    <meta
+      name="description"
+      content="Đại Việt chuyên cung cấp điện thoại chính hãng, giá tốt, bảo hành uy tín. Giao hàng toàn quốc."
+    />
+    <meta
+      name="keywords"
+      content="điện thoại, smartphone, mua điện thoại, điện thoại giá rẻ, điện thoại chính hãng"
+    />
     <link
       rel="icon"
       type="image/x-icon"
@@ -87,6 +93,7 @@
               src="/images/product/<%= product.image %>"
               alt="<%= product.name %>"
               style="max-width: 70%; height: auto"
+              loading="lazy"
             />
           </div>
         </div>
@@ -118,20 +125,9 @@
           </h4>
 
           <!-- Màu sắc -->
-          <div class="my-3">
-            <span class="form-label fw-bold me-3" style="color: #333333"
-              >Màu sắc:</span
-            >
-            <span class="color-circle" style="background: #000"></span>
-            <span class="color-circle" style="background: #fff"></span>
-            <span class="color-circle" style="background: #56dfcf"></span>
-            <span class="color-circle" style="background: #fff287"></span>
-            <span class="color-circle" style="background: #c68efd"></span>
-            <span class="color-circle" style="background: #cb0404"></span>
-          </div>
 
           <!-- Dung lượng -->
-          <div class="my-2">
+          <div class="my-4">
             <label class="form-label fw-bold" style="color: #333333"
               >Chọn dung lượng:</label
             ><br />
@@ -188,11 +184,74 @@
 
     <hr />
     <div class="container">
-      <div class="row mb-3">
+      <div class="row mb-3 mt-2 justify-content-between">
         <div class="col-lg-6">
           <h4 class="fw-semibold mb-4" style="color: #000">Thông tin thêm:</h4>
           <p class="text-muted"><%= product.shortDesc %></p>
           <p class="text-muted"><%= product.detailDesc %></p>
+        </div>
+        <div class="col-lg-5">
+          <div class="p-3 bg-light rounded shadow-sm">
+            <h5 class="mb-3 text-success d-flex align-items-center">
+              <i class="bi bi-gift-fill me-2"></i> ƯU ĐÃI THÊM
+            </h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <strong>1.</strong> Nhận báo giá tốt nhất cho khách hàng doanh
+                nghiệp B2B khi mua số lượng lớn.
+                <a href="https://hoanghamobile.com/" class="text-primary ms-1"
+                  >(Xem chi tiết)</a
+                >
+              </li>
+              <li class="mb-2">
+                <strong>2.</strong> Mở thẻ TPBank EVO - Giảm đến 500.000đ
+                <a href="https://hoanghamobile.com/" class="text-primary ms-1"
+                  >(Xem chi tiết)</a
+                >
+              </li>
+              <li class="mb-2">
+                <strong>3.</strong> Mở thẻ VPBank - Giảm đến 500.000đ
+                <a href="https://hoanghamobile.com/" class="text-primary ms-1"
+                  >(Xem chi tiết)</a
+                >
+              </li>
+              <li class="mb-2">
+                <strong>4.</strong> Hoàn tiền 4% tới đa 200.000đ khi thanh toán
+                bằng thẻ VISA
+                <a href="https://hoanghamobile.com/" class="text-primary ms-1"
+                  >(Xem chi tiết)</a
+                >
+              </li>
+              <li class="mb-2">
+                <strong>5.</strong> Giảm 15% tới đa 500.000đ khi thanh toán qua
+                thẻ tín dụng của NCB
+                <a href="https://hoanghamobile.com/" class="text-primary ms-1"
+                  >(Xem chi tiết)</a
+                >
+              </li>
+              <li class="mb-2">
+                <strong>6.</strong> Giảm 1% tới đa 300.000đ khi thanh toán qua
+                ZaloPay
+                <a href="https://hoanghamobile.com/" class="text-primary ms-1"
+                  >(Xem chi tiết)</a
+                >
+              </li>
+              <li class="mb-2">
+                <strong>7.</strong> Giảm tới 500.000đ khi thanh toán qua
+                Kredivo, Homepaylater, Muadee
+                <a href="https://hoanghamobile.com/" class="text-primary ms-1"
+                  >(Xem chi tiết)</a
+                >
+              </li>
+              <li class="mb-2">
+                <strong>8.</strong> Mở thẻ tín dụng VIB nhận voucher giảm, hoàn
+                tiền lên tới 2 triệu đồng
+                <a href="https://hoanghamobile.com/" class="text-primary ms-1"
+                  >(Xem chi tiết)</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -471,6 +530,7 @@
                   class="object-fit-cover"
                   alt="product-image"
                   style="max-height: 100%; max-width: 90%"
+                  loading="lazy"
                 />
               </div>
               <div

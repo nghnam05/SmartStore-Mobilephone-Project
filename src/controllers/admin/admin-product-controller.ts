@@ -13,7 +13,11 @@ import {
 import { getAllUsers } from "../../services/admin/user-service";
 
 const getAdminProductPage = async (req: Request, res: Response) => {
-  return res.render("admin/layout/product/create-product.ejs");
+  const user = req.user as any;
+
+  return res.render("admin/layout/product/create-product.ejs", {
+    user,
+  });
 };
 
 const postAdminProduct = async (req: Request, res: Response) => {
@@ -74,6 +78,7 @@ const getProductPage = async (req: Request, res: Response) => {
   const page = parseInt(req.query.page as string) || 1;
   const limit = 5;
   const offset = (page - 1) * limit;
+  const user = req.user as any;
 
   const [products, total] = await Promise.all([
     prisma.product.findMany({
@@ -91,13 +96,14 @@ const getProductPage = async (req: Request, res: Response) => {
     page,
     limit,
     totalPages,
+    user,
   });
 };
 
 const getViewProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
   const product = await getProductByID(+id);
-
+  const user = req.user as any;
   const factoryOptions = [
     { name: "Apple", value: "APPLE" },
     { name: "Samsung", value: "SAMSUNG" },
@@ -132,11 +138,13 @@ const getViewProduct = async (req: Request, res: Response) => {
     screenOptions,
     batteryOptions,
     cameraOptions,
+    user,
   });
 };
 
 const postUpdateProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
+  const user = req.user as any;
 
   const {
     name,
@@ -184,19 +192,23 @@ const postUpdateProduct = async (req: Request, res: Response) => {
 
 const getOrderPage = async (req: Request, res: Response) => {
   const orders = await getOrderAdmin();
-  const users = await getAllUsers(); 
+  const users = await getAllUsers();
+  const user = req.user as any;
   return res.render("admin/layout/order/dashboard.ejs", {
     orders,
     users,
+    user,
   });
 };
 
-
 const getOrderDetailPage = async (req: Request, res: Response) => {
   const { id } = req.params;
+  const user = req.user as any;
+
   const orderDetails = await getOrderDetailAdmin(+id);
   return res.render("admin/layout/order/view-order.ejs", {
     orderDetails,
+    user,
   });
 };
 

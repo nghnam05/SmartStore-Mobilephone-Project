@@ -120,7 +120,7 @@ const handleDeleteProduct = async (id: number) => {
 
   await prisma.product.delete({ where: { id } });
 
-  console.log(`✅ Deleted product ID ${id}`);
+  // console.log(`✅ Deleted product ID ${id}`);
 };
 
 
