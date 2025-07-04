@@ -11,7 +11,7 @@ import {
   UpdateUserById,
 } from "../../services/admin/user-service";
 import { prisma } from "../../config/client";
-import { query, Request, Response } from "express";
+import { Request, Response } from "express";
 
 const getHomePage = async (req: Request, res: Response) => {
   const user = req.user as { id: number } | undefined;
