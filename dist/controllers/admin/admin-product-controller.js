@@ -129,6 +129,7 @@ const getOrderDetailPage = (req, res) => __awaiter(void 0, void 0, void 0, funct
     const { id } = req.params;
     const user = req.user;
     const orderDetails = yield (0, order_service_1.getOrderDetailAdmin)(+id);
+    console.log(orderDetails);
     return res.render("admin/layout/order/view-order.ejs", {
         orderDetails,
         user,

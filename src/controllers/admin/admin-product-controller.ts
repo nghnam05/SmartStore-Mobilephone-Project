@@ -206,6 +206,7 @@ const getOrderDetailPage = async (req: Request, res: Response) => {
   const user = req.user as any;
 
   const orderDetails = await getOrderDetailAdmin(+id);
+  console.log(orderDetails);
   return res.render("admin/layout/order/view-order.ejs", {
     orderDetails,
     user,
