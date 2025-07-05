@@ -153,13 +153,15 @@
                 <table class="table table-bordered bg-white text-center">
                   <thead>
                     <tr>
-                      <th scope="col">Tổng đơn hàng đã bán</th>
-                      <th scope="col">Tổng số tiền thu được</th>
+                      <th scope="col">Tổng đơn hàng</th>
+                      <th scope="col">Tổng số sản phẩm đã bán</th>
+                      <th scope="col">Tổng doanh thu</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td><%= totalOrders %></td>
+                      <td><%= totalOrders %> %></td>
+                      <td><%= totalQuantity %></td>
                       <td>
                         <%= totalRevenue.toLocaleString('vi-VN', { style:
                         'currency', currency: 'VND' }) %>

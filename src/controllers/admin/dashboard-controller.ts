@@ -4,24 +4,40 @@ import { prisma } from "../../config/client";
 
 const getDashboard = async (req: Request, res: Response) => {
   const user = req.user as any;
-
   try {
     // Đếm tổng đơn hàng đã bán (status approved)
     const totalOrders = await prisma.order.count({
       where: { status: "approved" },
     });
 
-    // Tính tổng tiền từ tất cả đơn đã duyệt
+    // Tính tổng doanh thu
     const totalRevenueResult = await prisma.order.aggregate({
       where: { status: "approved" },
-      _sum: { totalPrice: true }, // Giả sử có trường totalPrice trong order
+      _sum: { totalPrice: true },
     });
-
     const totalRevenue = totalRevenueResult._sum.totalPrice || 0;
 
+    // Lấy tất cả orderId đã approved
+    const approvedOrders = await prisma.order.findMany({
+      where: { status: "approved" },
+      select: { id: true },
+    });
+    const approvedOrderIds = approvedOrders.map((order) => order.id);
+
+    // Tính tổng quantity từ orderDetail
+    const totalQuantityResult = await prisma.orderDetail.aggregate({
+      where: {
+        orderId: { in: approvedOrderIds },
+      },
+      _sum: { quantity: true },
+    });
+    const totalQuantity = totalQuantityResult._sum.quantity || 0;
+
+    // Render view
     return res.render("admin/layout/dashboard/dashboard.ejs", {
       totalOrders,
       totalRevenue,
+      totalQuantity,
       user,
     });
   } catch (error) {

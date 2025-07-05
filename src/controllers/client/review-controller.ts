@@ -97,6 +97,7 @@ const showEditReview: RequestHandler = async (req, res) => {
 
   res.render("client/product/edit-review", {
     review,
+    user,
     product: review.product,
     sumCart,
   });

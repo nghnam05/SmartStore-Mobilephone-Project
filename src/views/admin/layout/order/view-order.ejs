@@ -95,7 +95,8 @@
 
                     <td>
                       <%= new Intl.NumberFormat('vi-VN', { style: 'currency',
-                      currency: 'VND' }).format(item.product.price) %>
+                      currency: 'VND' }).format(item.product.price *
+                      item.quantity) %>
                     </td>
 
                     <td><%= item.order.receiverName %></td>

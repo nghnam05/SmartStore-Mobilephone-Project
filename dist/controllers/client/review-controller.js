@@ -95,6 +95,7 @@ const showEditReview = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const sumCart = (cart === null || cart === void 0 ? void 0 : cart.cartDetails.reduce((total, item) => total + item.quantity, 0)) || 0;
     res.render("client/product/edit-review", {
         review,
+        user,
         product: review.product,
         sumCart,
     });
